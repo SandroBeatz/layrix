@@ -4,6 +4,7 @@
 import { defineConfig } from '#q-app/wrappers';
 import { fileURLToPath } from 'node:url';
 
+// @ts-ignore
 export default defineConfig((ctx) => {
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
@@ -99,6 +100,7 @@ export default defineConfig((ctx) => {
     devServer: {
       // https: true,
       open: true, // opens browser window automatically
+      port: '8080',
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#framework

@@ -13,6 +13,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Layer boundaries are law
 - AI must understand the structure
 
+**Current State:** This is an early-stage project with default Quasar structure (`src/components/`, `src/layouts/`, `src/pages/`, etc.). New code MUST follow FSD structure. Legacy files may exist but should not be used as templates.
+
+## Development Commands
+
+```bash
+# Development
+quasar dev              # Start dev server (alias: npm run dev)
+
+# Code Quality
+npm run lint            # Run ESLint on all TS/JS/Vue files
+npm run format          # Format all files with Prettier
+npm test               # Run tests (currently placeholder)
+
+# Build
+quasar build           # Production build (alias: npm run build)
+
+# Note: This project uses Quasar CLI. All quasar commands work (dev, build, inspect, etc.)
+```
+
+**Package Manager:** Uses npm/yarn. Project has both npm and bun lock files.
+
 ## Architecture Structure
 
 This project follows strict Feature-Sliced Design (FSD) with 6 layers:
@@ -128,6 +149,17 @@ Every slice (feature, entity, widget) follows this structure:
 
 ## TypeScript Conventions
 
+**This project uses VERY STRICT TypeScript settings:**
+- `strict: true` with additional strictness flags enabled
+- `exactOptionalPropertyTypes: true` - Optional properties cannot be set to `undefined` explicitly
+- `noUncheckedIndexedAccess: true` - Array/object access returns `T | undefined`
+- `noImplicitOverride: true` - Must use `override` keyword
+
+**Type Imports:**
+- REQUIRED: Use `import type` for type-only imports (enforced by ESLint)
+- Example: `import type { User } from '@/entities/user'`
+
+**Component Props:**
 - All props must be typed via interface
 - Avoid `any` - use `unknown` if type is truly unknown
 - Component props: `interface [Component]Props`
@@ -137,6 +169,7 @@ Every slice (feature, entity, widget) follows this structure:
 
 ## Path Aliases
 
+**FSD Layer Aliases (to be created):**
 ```typescript
 @/*           → ./src/*
 @app/*        → ./src/app/*
@@ -146,6 +179,19 @@ Every slice (feature, entity, widget) follows this structure:
 @entities/*   → ./src/entities/*
 @shared/*     → ./src/shared/*
 ```
+
+**Current Aliases (default Quasar):**
+```typescript
+src/*         → ./src/*
+components/*  → ./src/components/*
+layouts/*     → ./src/layouts/*
+pages/*       → ./src/pages/*
+assets/*      → ./src/assets/*
+boot/*        → ./src/boot/*
+stores/*      → ./src/stores/*
+```
+
+Note: When migrating to FSD, update path aliases in `.quasar/tsconfig.json` and `quasar.config.ts`.
 
 ## Common Patterns
 
@@ -285,10 +331,41 @@ Before committing changes:
 - [ ] Types are defined (no `any`)
 - [ ] Component uses shared/ui components
 
+## Code Quality
+
+**ESLint Configuration:**
+- Uses flat config (ESLint 9+)
+- Vue 3 essential rules + TypeScript recommended
+- Quasar-specific rules enabled
+- **Enforced:** `consistent-type-imports` - must use `import type` for types
+- Auto-fix on save enabled in VSCode
+
+**Prettier:**
+- Runs on save in VSCode
+- Format command: `npm run format`
+- Skip formatting in ESLint (avoids conflicts)
+
+**Type Checking:**
+- `vue-tsc` runs in dev mode via Vite plugin
+- ESLint also type-checks in dev mode
+- Both run automatically during development
+
+## Quasar Configuration
+
+**Boot Files:** `i18n`, `axios` (in `src/boot/`)
+
+**Router Mode:** Hash mode (can be changed to history in `quasar.config.ts`)
+
+**Auto-import:** Quasar components are auto-imported by default. However, per architecture rules, only `shared/ui/quasar/` should import Quasar components directly.
+
+**Dev Server:** Opens browser automatically on `quasar dev`
+
 ## Special Notes
 
-- This is an early-stage project - file structure may not exist yet
-- When creating new code, strictly follow the FSD layer structure
+- This is an early-stage project - FSD structure doesn't exist yet, only default Quasar structure
+- When creating new code, strictly follow the FSD layer structure (create directories as needed)
+- **Do NOT use existing `src/components/`, `src/layouts/` as templates** - they follow old Quasar structure
 - All architectural decisions are documented in `spec/` directory
-- Reference `spec/layrix-architecture-spec-en.md` for detailed rules
+- Reference `spec/layrix-architecture-spec-en.md` for detailed architectural rules
 - Reference `spec/layrix-dashboard-product-spec-en.md` for product context
+- `private-spec/` contains private documentation (gitignored)
