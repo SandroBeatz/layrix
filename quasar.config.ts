@@ -3,6 +3,7 @@
 
 import { defineConfig } from '#q-app/wrappers';
 import { fileURLToPath } from 'node:url';
+import { resolve } from 'path';
 
 // @ts-ignore
 export default defineConfig((ctx) => {
@@ -13,7 +14,7 @@ export default defineConfig((ctx) => {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
-    boot: ['i18n', 'axios'],
+    boot: ['~/src/app/providers/i18n', '~/src/app/providers/axios'],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
     css: ['app.scss'],
@@ -34,6 +35,27 @@ export default defineConfig((ctx) => {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#build
     build: {
+      extendViteConf(config) {
+        config.resolve = config.resolve || {};
+        config.resolve.alias = {
+          ...(config.resolve.alias || {}),
+          '@app': resolve(__dirname, 'src/app'),
+          '@entities': resolve(__dirname, 'src/entities'),
+          '@features': resolve(__dirname, 'src/features'),
+          '@pages': resolve(__dirname, 'src/pages'),
+          '@shared': resolve(__dirname, 'src/shared'),
+          '@widgets': resolve(__dirname, 'src/widgets'),
+        };
+      },
+      alias: {
+        '@app': fileURLToPath(new URL('./src/app', import.meta.url)),
+        '@entities': fileURLToPath(new URL('./src/entities', import.meta.url)),
+        '@features': fileURLToPath(new URL('./src/features', import.meta.url)),
+        '@pages': fileURLToPath(new URL('./src/pages', import.meta.url)),
+        '@shared': fileURLToPath(new URL('./src/shared', import.meta.url)),
+        '@widgets': fileURLToPath(new URL('./src/widgets', import.meta.url)),
+      },
+
       target: {
         browser: ['es2022', 'firefox115', 'chrome115', 'safari14'],
         node: 'node20',
@@ -232,6 +254,11 @@ export default defineConfig((ctx) => {
        * @example [ 'my-script.ts', 'sub-folder/my-other-script.js' ]
        */
       extraScripts: [],
+    },
+    sourceFiles: {
+      rootComponent: 'src/app/App.vue',
+      router: 'src/app/providers/router',
+      store: 'src/app/providers/store',
     },
   };
 });

@@ -1,17 +1,18 @@
 import type { RouteRecordRaw } from 'vue-router';
+import AdminLayout from '@app/layouts/AdminLayout.vue';
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('src/app/layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
+    component: AdminLayout,
+    children: [{ path: '', component: () => import('@pages/dashboard/DashboardPage.vue') }],
   },
 
   // Always leave this as last one,
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
-    component: () => import('pages/ErrorNotFound.vue'),
+    component: () => import('@pages/ErrorNotFound.vue'),
   },
 ];
 
