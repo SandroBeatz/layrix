@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+// import { ref } from 'vue';
 import { HeaderWidget } from '@widgets/header';
+import { SidebarWidget } from '@widgets/sidebar';
 
 // const linksList = [
 //   {
@@ -10,7 +11,7 @@ import { HeaderWidget } from '@widgets/header';
 //   },
 // ];
 
-const leftDrawerOpen = ref(false);
+// const leftDrawerOpen = ref(false);
 
 // function toggleLeftDrawer() {
 //   leftDrawerOpen.value = !leftDrawerOpen.value;
@@ -20,13 +21,7 @@ const leftDrawerOpen = ref(false);
 <template>
   <q-layout view="lHh Lpr lFf">
     <HeaderWidget/>
-
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label header> Essential Links </q-item-label>
-
-      </q-list>
-    </q-drawer>
+    <SidebarWidget/>
 
     <q-page-container>
       <router-view />

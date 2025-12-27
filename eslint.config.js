@@ -70,6 +70,14 @@ export default defineConfigWithVueTs(
     },
   },
 
+  // Disable multi-word-component-names for shared/ui design system components
+  {
+    files: ['src/shared/ui/**/*.vue'],
+    rules: {
+      'vue/multi-word-component-names': 'off',
+    },
+  },
+
   {
     files: ['src-pwa/custom-service-worker.ts'],
     languageOptions: {

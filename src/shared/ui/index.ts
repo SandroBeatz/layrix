@@ -10,7 +10,7 @@
 // export * from './quasar'
 
 // Export primitive components
-// export * from './primitives'
+export * from './primitives/Button';
 
 // Export composables
 // export * from './composables'
