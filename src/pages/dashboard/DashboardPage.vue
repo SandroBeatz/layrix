@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { Button } from '@shared';
+import { Button, PageContainer } from '@shared';
 import { ref } from 'vue';
-import { tabHome } from 'quasar-extras-svg-icons/tabler-icons-v2';
+import { tabHome, tabPlus } from 'quasar-extras-svg-icons/tabler-icons-v2';
 
 const isLoading = ref(true);
 </script>
 
 <template>
-  <q-page class="row items-center justify-evenly">
-    Dashboard Page
+  <PageContainer title="Dashboard" subtitle="Welcome to your dashboard">
+    <template #header-right>
+      <Button variant="primary" :icon="tabPlus">Create New</Button>
+    </template>
 
     <q-card>
       <q-card-section>
@@ -53,5 +55,5 @@ const isLoading = ref(true);
         <Button full-width>Full Width Button</Button>
       </q-card-section>
     </q-card>
-  </q-page>
+  </PageContainer>
 </template>

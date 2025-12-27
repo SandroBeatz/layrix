@@ -12,5 +12,8 @@
 // Export primitive components
 export * from './primitives/Button';
 
+// Export layout components
+export * from './layout/PageContainer';
+
 // Export composables
 // export * from './composables'
