@@ -1,17 +1,24 @@
 <script setup lang="ts">
 import SidebarMenuItem from './SidebarMenuItem.vue';
-import { tabHome } from 'quasar-extras-svg-icons/tabler-icons-v2';
+import SidebarMenuLogoItem from './SidebarMenuLogoItem.vue';
 </script>
 
 <template>
-  <q-list>
-    <q-item-label header>
-      <q-icon :name="tabHome" />
-      Essential Links
-    </q-item-label>
+  <q-list class="sidebar-menu">
+    <SidebarMenuLogoItem/>
 
     <SidebarMenuItem />
   </q-list>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+.sidebar-menu {}
+
+.sidebar-header {
+  color: var(--color-muted-foreground);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+</style>

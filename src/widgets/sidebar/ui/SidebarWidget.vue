@@ -6,9 +6,14 @@ const leftDrawerOpen = ref(false);
 </script>
 
 <template>
-  <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-    <SidebarMenu/>
+  <q-drawer v-model="leftDrawerOpen" mini show-if-above bordered class="sidebar">
+    <SidebarMenu />
   </q-drawer>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+:global(.sidebar) {
+  background-color: var(--color-card);
+  color: var(--color-card-foreground);
+}
+</style>

@@ -9,3 +9,5 @@
  * export { DeleteUserButton } from './user/delete'
  * export { FilterOrdersPanel } from './order/filter'
  */
+
+export { ThemeToggle } from './theme/toggle'
