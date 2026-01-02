@@ -12,7 +12,7 @@ const isLoading = ref(true);
       <Button variant="primary" :icon="tabPlus">Create New</Button>
     </template>
 
-    <q-card class="dimmed">
+    <q-card bordered flat>
       <q-card-section>
         <h6 class="q-ma-none q-pb-md">Fill Buttons</h6>
         <div class="row q-gutter-md">
@@ -51,15 +51,15 @@ const isLoading = ref(true);
 
         <h6 class="q-ma-none q-pb-md q-pt-lg">Icon-Only Buttons (Rounded)</h6>
         <div class="row q-gutter-md items-center">
-          <Button icon-only :icon="tabHome" />
-          <Button icon-only :icon="tabHome" variant="secondary" />
-          <Button icon-only :icon="tabHome" variant="tertiary" appearance="outline" />
+          <Button icon-only :icon="tabHome" size="sm" />
+          <Button icon-only :icon="tabHome" variant="secondary" size="md" />
+          <Button icon-only :icon="tabHome" variant="tertiary" size="lg" />
         </div>
 
         <h6 class="q-ma-none q-pb-md q-pt-lg">Icon-Only Buttons (Circle)</h6>
         <div class="row q-gutter-md items-center">
-          <Button icon-only :icon="tabHome" shape="round" />
           <Button icon-only :icon="tabHome" shape="round" size="sm" />
+          <Button icon-only :icon="tabHome" shape="round" size="md" />
           <Button icon-only :icon="tabHome" shape="round" size="lg" />
         </div>
 

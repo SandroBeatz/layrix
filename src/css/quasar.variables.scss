@@ -1,35 +1,201 @@
 @import "layrix.variables";
 
-// Quasar SCSS (& Sass) Variables
-// --------------------------------------------------
-// To customize the look and feel of this app, you can override
-// the Sass/SCSS variables found in Quasar's source Sass/SCSS files.
-
-// Check documentation for full list of Quasar variables
-
-// Your own variables (that are declared here) and Quasar's own
-// ones will be available out of the box in your .vue/.scss/.sass files
-
-// It's highly recommended to change the default colors
-// to match your app's branding.
-// Tip: Use the "Theme Builder" on Quasar's documentation website.
-
-// Quasar SCSS Variables
-// IMPORTANT: These are compile-time defaults for Quasar components
-// Runtime colors are managed dynamically via setCssVar() in theme.ts boot file
-// SCSS variables cannot use CSS var() - they must be static hex values
-
-//$primary: #4719d2;      // Light theme primary (compile-time default)
-//$secondary: #26a69a;    // Light theme secondary
-//$accent: #9c27b0;       // Accent color
+// ===========================================
+// QUASAR SASS/SCSS VARIABLE OVERRIDES
+// ===========================================
+// These variables customize Quasar components at compile-time
+// IMPORTANT: Most variables use literal values only, no CSS var() allowed
+//           Exception: $separator-color can use var() for runtime theming
 //
-//$positive: #21ba45;     // Success/positive color
-//$negative: #c10015;     // Error/negative color
-//$info: #31ccec;         // Info color
-//$warning: #f2c037;      // Warning color
-//
-//$dark: #1d1d1d;         // Dark color
-//$dark-page: #121212;    // Dark page background
+// Documentation: https://quasar.dev/style/sass-scss-variables
+// Theme Builder: https://quasar.dev/style/theme-builder
+// ===========================================
 
-$separator-color         : var(--color-border);
-$separator-dark-color    : var(--color-border);
+// ===========================================
+// LAYOUT & SPACING
+// ===========================================
+// Flex grid gutters (spacing between grid columns)
+// NOTE: $space-* variables are internal Quasar maps and cannot be overridden here
+$flex-gutter-xs: 4px;        // XS screen gutter
+$flex-gutter-sm: 8px;        // Small screen gutter
+$flex-gutter-md: 16px;       // Medium screen gutter
+$flex-gutter-lg: 24px;       // Large screen gutter
+$flex-gutter-xl: 48px;       // XL screen gutter
+
+// ===========================================
+// RESPONSIVE BREAKPOINTS
+// ===========================================
+// Control when layout shifts for different screen sizes
+// Critical for sidebar collapse, mobile menus, responsive tables
+// WARNING: Changing these may break responsive behavior
+
+$breakpoint-xs: 599px;       // Extra small max-width
+$breakpoint-sm: 1023px;      // Small max-width (tablets)
+$breakpoint-md: 1439px;      // Medium max-width
+$breakpoint-lg: 1919px;      // Large max-width
+
+// ===========================================
+// BORDERS & SHADOWS
+// ===========================================
+
+// Border Radius
+$generic-border-radius: 16px;         // Standard radius for cards, buttons, inputs
+$button-border-radius: 8px;          // Button-specific radius
+$button-rounded-border-radius: 56px; // Fully rounded buttons
+
+// Separator Colors (borders)
+// SPECIAL: These can use CSS variables for runtime theming
+$separator-color: var(--color-border);       // Light mode borders
+$separator-dark-color: var(--color-border);  // Dark mode borders
+
+// Shadows (Material Design elevation)
+
+$elevation-umbra      : rgba(var(--color-foreground-rgb), .2);
+$elevation-penumbra   : rgba(var(--color-foreground-rgb), .14);
+$elevation-ambient    : rgba(var(--color-foreground-rgb), .12);
+
+$elevation-dark-umbra      : rgba(var(--color-foreground-rgb), .2);
+$elevation-dark-penumbra   : rgba(var(--color-foreground-rgb), .14);
+$elevation-dark-ambient    : rgba(var(--color-foreground-rgb), .12);
+
+// Level 1-2: Subtle elevation (cards, light shadows)
+$shadow-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+$shadow-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+// Level 3-5: Medium elevation (raised buttons, floating elements)
+$shadow-3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+$shadow-4: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+$shadow-5: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+
+// Level 6-8: Heavy elevation (modals, drawers, dialogs)
+$shadow-6: 0 24px 48px rgba(0,0,0,0.35), 0 20px 14px rgba(0,0,0,0.22);
+$shadow-8: 0 32px 64px rgba(0,0,0,0.40), 0 24px 16px rgba(0,0,0,0.22);
+
+// Shadow transitions (for hover effects)
+$shadow-transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Button shadows
+$button-shadow: none;           // Normal state
+$button-shadow-active: none;    // Pressed state
+
+// ===========================================
+// Z-INDEX LAYERS
+// ===========================================
+// Control stacking order of UI elements
+// Critical for sidebar, modals, tooltips, notifications
+// WARNING: Modify carefully to avoid stacking conflicts
+
+$z-fab: 990;              // Floating action buttons
+$z-side: 1000;            // Sidebar/drawer in normal position
+$z-marginals: 2000;       // Top/bottom navigation, toolbars
+$z-fixed-drawer: 3000;    // Fixed sidebar/drawer (AdminLayout)
+$z-fullscreen: 6000;      // Fullscreen dialogs, overlays
+$z-menu: 6000;            // Dropdown menus
+$z-top: 7000;             // Top-most content
+$z-tooltip: 9000;         // Tooltips, popovers
+$z-notify: 9500;          // Notifications, toasts
+$z-max: 9998;             // Absolute maximum
+
+// ===========================================
+// BUTTON COMPONENT
+// ===========================================
+
+$button-padding: 7px 18px;           // Normal button padding
+$button-dense-padding: .285em;       // Dense/compact button padding
+$button-font-size: 14px;             // Button text size
+$button-line-height: 1.6em;        // Button text line height
+$button-font-weight: 500;            // Button text weight (medium)
+
+// ===========================================
+// INPUT / FORM COMPONENTS
+// ===========================================
+
+$input-font-size: 14px;              // Input field text size
+$input-text-color: rgba(0,0,0,.87); // Input text color (light theme)
+$input-label-color: rgba(0,0,0,.6); // Label text color
+
+// Field (QField wrapper for inputs)
+$field-label-font-size: 16px;        // Floating label size
+$field-label-top: 18px;              // Floating label top position
+$field-bottom-font-size: 12px;       // Helper/error text size
+$field-dense-label-font-size: 14px;  // Compact mode label size
+
+// ===========================================
+// TABLE COMPONENT
+// ===========================================
+
+$table-transition: background-color .3s, color .3s;
+
+// Typography
+$table-th-font-size: 12px;           // Header text size
+$table-th-font-weight: 500;          // Header text weight
+$table-tbody-td-font-size: 13px;     // Body cell text size
+
+// Colors & Styling
+$table-border-color: $separator-color;              // Table border color
+$table-hover-background: rgba(0,0,0,.03);           // Row hover background
+$table-selected-background: rgba(0,0,0,.06);        // Selected row background
+
+// Elevation
+$table-box-shadow: $shadow-2;        // Table elevation
+
+// ===========================================
+// CARD & DIALOG COMPONENTS
+// ===========================================
+// Cards inherit from generic variables:
+// - Border radius: $generic-border-radius
+// - Shadow: $shadow-2 (default)
+
+// Dialog-specific
+$dialog-title-font-size: 1.25rem;    // Dialog heading size (20px)
+$dialog-title-line-height: 1.6;      // Dialog title line height
+$dialog-progress-font-size: 4rem;    // Progress indicator size
+
+// ===========================================
+// TOOLBAR COMPONENT
+// ===========================================
+// Used for header/navigation in AdminLayout
+
+$toolbar-min-height: 50px;           // Minimum toolbar height
+$toolbar-padding: 0 12px;            // Toolbar horizontal padding
+$toolbar-title-padding: 0 12px;      // Title padding
+$toolbar-title-font-size: 21px;      // Toolbar title size
+$toolbar-title-font-weight: normal;  // Toolbar title weight
+
+// ===========================================
+// TYPOGRAPHY
+// ===========================================
+// Heading and body text sizing
+// Simplified version - uncomment and customize as needed
+
+// $h1: (size: 2.5rem, weight: 400);
+// $h2: (size: 2rem, weight: 400);
+// $h3: (size: 1.5rem, weight: 500);
+// $h4: (size: 1.25rem, weight: 500);
+// $h5: (size: 1.125rem, weight: 500);
+// $h6: (size: 1rem, weight: 500);
+// $body1: (size: 1rem, weight: 400);
+// $body2: (size: .875rem, weight: 400);
+
+// ===========================================
+// CUSTOMIZATION EXAMPLES
+// ===========================================
+// Uncomment and modify these for Layrix-specific styling:
+//
+// // Modern rounded style
+// // $generic-border-radius: 8px;
+// // $button-border-radius: 8px;
+//
+// // More spacious layout
+// // $space-md: 20px;
+// // $space-lg: 32px;
+//
+// // Softer shadows
+// // $shadow-1: 0 1px 2px rgba(0,0,0,0.08), 0 1px 1px rgba(0,0,0,0.16);
+// // $shadow-2: 0 2px 4px rgba(0,0,0,0.10), 0 2px 3px rgba(0,0,0,0.18);
+//
+// // Larger buttons
+// // $button-padding: 6px 20px;
+//
+// // Taller toolbar
+// // $toolbar-min-height: 64px;

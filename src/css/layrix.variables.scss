@@ -43,8 +43,13 @@
 :root {
   // Brand colors
   --color-primary: #985ffe;
+  --color-primary-rgb: 152, 95, 254;
+
   --color-secondary: #ff49cd;
+  --color-secondary-rgb: 255, 73, 205;
+
   --color-accent: #9c27b0;
+  --color-accent-rgb: 156, 39, 176;
 
   // Status colors
   --color-positive: #33d484;
@@ -54,6 +59,7 @@
 
   // Background colors
   --color-dark: #141821; // Remove this if not needed
+
   --color-background: #f8f9fd;
   --color-surface: #fbfbfb;
 
@@ -66,14 +72,20 @@
 
   // Tailwind-style semantic colors
   --color-foreground: #011a43;
+  --color-foreground-rgb: 1, 26, 67;
+
   --color-card: #ffffff;
   --color-card-foreground: #011a43;
+  --color-card-foreground-rgb: 1, 26, 67;
+
   --color-sidebar: #ffffff;
   --color-sidebar-foreground: #011a43;
+
   --color-input: #ffffff;
 
   --color-muted: #fbfbfb;
   --color-muted-foreground: #171b24;
+  --color-muted-foreground-rgb: 23, 27, 36;
 }
 
 /**

@@ -92,7 +92,7 @@ const handleCopyText = () => {
 <style scoped lang="scss">
 .color-swatch {
   position: relative;
-  aspect-ratio: 1/1;
+  aspect-ratio: 4/3;
   min-height: v-bind(height);
   border-radius: 8px;
   overflow: hidden;

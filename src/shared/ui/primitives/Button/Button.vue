@@ -69,6 +69,11 @@ const qSize = computed(() => {
   return props.size;
 });
 
+// Add custom size class for precise control
+const sizeClass = computed(() => {
+  return `button-size-${props.size}`;
+});
+
 // Add ghost class for custom styling
 const ghostClass = computed(() => {
   if (props.appearance !== 'ghost') return '';
@@ -90,6 +95,7 @@ const ghostClass = computed(() => {
     :disable="disabled"
     :label="label"
     :class="[
+      sizeClass,
       {
         'full-width': fullWidth,
         'button-icon-only': iconOnly && shape !== 'round',
@@ -112,31 +118,33 @@ const ghostClass = computed(() => {
  */
 
 .button-icon-only {
-  // Ensure icon-only buttons have consistent sizing
   min-width: auto;
 }
 
 .shape-rounded {
-  border-radius: 8px;
+  border-radius: $button-border-radius;
 }
 
 // Ghost appearance - subtle background with colored text
 .button-ghost {
   &.button-ghost--primary {
-    background-color: rgba(25, 118, 210, 0.12) !important; // primary with 12% opacity
-    color: var(--q-primary) !important;
+    background-color: rgba(var(--color-primary-rgb), 0.12) !important; // primary with 12% opacity
+    color: var(--color-primary) !important;
 
     &:hover {
-      background-color: rgba(25, 118, 210, 0.18) !important; // darker on hover
+      background-color: rgba(var(--color-primary-rgb), 0.18) !important; // darker on hover
     }
   }
 
   &.button-ghost--secondary {
-    background-color: rgba(38, 166, 154, 0.12) !important; // secondary with 12% opacity
-    color: var(--q-secondary) !important;
+    background-color: rgba(
+      var(--color-secondary-rgb),
+      0.12
+    ) !important; // secondary with 12% opacity
+    color: var(--color-secondary) !important;
 
     &:hover {
-      background-color: rgba(38, 166, 154, 0.18) !important;
+      background-color: rgba(var(--color-secondary-rgb), 0.18) !important;
     }
   }
 
@@ -147,6 +155,47 @@ const ghostClass = computed(() => {
     &:hover {
       background-color: rgba(156, 39, 176, 0.18) !important;
     }
+  }
+}
+
+// Custom button size variants
+// Override Quasar defaults with Layrix design system sizes
+.button-size-sm {
+  //padding: 5px 14px !important;
+  //min-height: 32px;
+  //font-size: 13px;
+  //line-height: 1.5;
+
+  &.button-icon-only {
+    width: 32px;
+    height: 32px;
+    padding: 0 !important;
+  }
+}
+
+.button-size-md {
+  //padding: 7px 18px !important;
+  //min-height: 36px;
+  //font-size: 14px;
+  //line-height: 1.6;
+
+  &.button-icon-only {
+    width: 36px;
+    height: 36px;
+    padding: 0 !important;
+  }
+}
+
+.button-size-lg {
+  //padding: 9px 24px !important;
+  //min-height: 44px;
+  //font-size: 15px;
+  //line-height: 1.6;
+
+  &.button-icon-only {
+    width: 44px;
+    height: 44px;
+    padding: 0 !important;
   }
 }
 </style>
