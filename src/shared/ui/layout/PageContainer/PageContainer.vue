@@ -120,7 +120,7 @@ const containerStyle = computed(() => {
   margin: 0.25rem 0 0;
   font-size: 0.875rem;
   line-height: 1.4;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--color-text-secondary);
 }
 
 .page-container__content {

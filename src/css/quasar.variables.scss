@@ -1,3 +1,5 @@
+@import "layrix.variables";
+
 // Quasar SCSS (& Sass) Variables
 // --------------------------------------------------
 // To customize the look and feel of this app, you can override
@@ -28,3 +30,6 @@
 //
 //$dark: #1d1d1d;         // Dark color
 //$dark-page: #121212;    // Dark page background
+
+$separator-color         : var(--color-border);
+$separator-dark-color    : var(--color-border);

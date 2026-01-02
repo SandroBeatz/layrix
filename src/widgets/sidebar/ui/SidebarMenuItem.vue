@@ -1,14 +1,20 @@
 <script setup lang="ts">
-import { tabHome } from 'quasar-extras-svg-icons/tabler-icons-v2';
+defineProps<{
+  item: {
+    title: string;
+    icon: string;
+    route: string;
+  };
+}>();
 </script>
 
 <template>
-  <q-item clickable v-ripple class="sidebar-item">
+  <q-item clickable v-ripple :to="item.route" class="sidebar-item">
     <q-item-section avatar class="sidebar-item__avatar">
-      <q-icon :name="tabHome" />
+      <q-icon :name="item.icon" />
     </q-item-section>
 
-    <q-item-section>Dashboard</q-item-section>
+    <q-item-section>{{ item.title }}</q-item-section>
   </q-item>
 </template>
 

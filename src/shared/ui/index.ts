@@ -11,6 +11,7 @@
 
 // Export primitive components
 export * from './primitives/Button';
+export * from './primitives/ColorSwatch';
 
 // Export layout components
 export * from './layout/PageContainer';

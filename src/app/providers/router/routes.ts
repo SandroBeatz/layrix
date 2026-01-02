@@ -5,7 +5,10 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: AdminLayout,
-    children: [{ path: '', component: () => import('@pages/dashboard/DashboardPage.vue') }],
+    children: [
+      { path: '', name: 'dashboard', component: () => import('@pages/dashboard/DashboardPage.vue') },
+      { path: '/theme', name: 'theme', component: () => import('@pages/ui-ux/ThemePage.vue') },
+    ],
   },
 
   // Always leave this as last one,

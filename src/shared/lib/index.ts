@@ -9,3 +9,4 @@
 // export * from './storage'
 
 export { useTheme } from './theme'
+export * from './clipboard'

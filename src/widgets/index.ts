@@ -7,3 +7,5 @@
  * export { Sidebar } from './sidebar'
  * export { AnalyticsOverview } from './analytics-overview'
  */
+
+export { ThemePalette } from './theme-palette'

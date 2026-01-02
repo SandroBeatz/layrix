@@ -23,7 +23,7 @@ import { SidebarWidget } from '@widgets/sidebar';
     <HeaderWidget/>
     <SidebarWidget/>
 
-    <q-page-container>
+    <q-page-container class="bg-background">
       <router-view />
     </q-page-container>
   </q-layout>
