@@ -1,15 +1,68 @@
-import { ref, watch, onMounted } from 'vue'
-import { useQuasar } from 'quasar'
-import type { ThemeMode } from '@shared/config'
-import { themes, DEFAULT_THEME_MODE, THEME_STORAGE_KEY } from '@shared/config'
+import { ref, onMounted } from 'vue'
+import { useQuasar, setCssVar } from 'quasar'
 
 /**
- * Composable for theme management
- * Handles theme switching, persistence, and Quasar Dark mode integration
+ * Theme mode type
+ */
+export type ThemeMode = 'light' | 'dark'
+
+/**
+ * Storage key for theme persistence
+ */
+const THEME_STORAGE_KEY = 'layrix-theme'
+const DEFAULT_THEME: ThemeMode = 'light'
+
+/**
+ * List of color variables to sync with Quasar
+ * These must match the CSS variable names in app.scss
+ */
+const COLOR_VARS = [
+  'primary',
+  'secondary',
+  'accent',
+  'positive',
+  'negative',
+  'info',
+  'warning',
+  'dark'
+] as const
+
+/**
+ * Simplified theme composable
+ * Uses CSS variables from app.scss as single source of truth
  */
 export function useTheme() {
   const $q = useQuasar()
-  const currentTheme = ref<ThemeMode>(DEFAULT_THEME_MODE)
+  const currentTheme = ref<ThemeMode>(DEFAULT_THEME)
+
+  /**
+   * Get CSS variable value from :root
+   */
+  function getCssVariable(name: string): string {
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue(`--color-${name}`)
+      .trim()
+  }
+
+  /**
+   * Apply theme by setting data-theme attribute and syncing Quasar colors
+   */
+  function applyTheme(mode: ThemeMode): void {
+    // Set data-theme attribute to trigger CSS [data-theme='dark'] selector
+    document.documentElement.setAttribute('data-theme', mode)
+
+    // CRITICAL: Sync Quasar brand colors from CSS variables
+    // This makes Quasar components (QBtn, QCard, etc.) use our CSS colors
+    COLOR_VARS.forEach(colorName => {
+      const cssValue = getCssVariable(colorName)
+      if (cssValue) {
+        setCssVar(colorName, cssValue)
+      }
+    })
+
+    // Sync with Quasar Dark mode
+    $q.dark.set(mode === 'dark')
+  }
 
   /**
    * Load theme from localStorage
@@ -23,7 +76,7 @@ export function useTheme() {
     } catch (error) {
       console.warn('Failed to load theme from localStorage:', error)
     }
-    return DEFAULT_THEME_MODE
+    return DEFAULT_THEME
   }
 
   /**
@@ -35,27 +88,6 @@ export function useTheme() {
     } catch (error) {
       console.warn('Failed to save theme to localStorage:', error)
     }
-  }
-
-  /**
-   * Apply theme to the document
-   * Updates CSS variables and Quasar Dark mode
-   */
-  function applyTheme(mode: ThemeMode): void {
-    const theme = themes[mode]
-    const root = document.documentElement
-
-    // Set data-theme attribute for CSS variable switching
-    root.setAttribute('data-theme', mode)
-
-    // Apply CSS variables
-    Object.entries(theme.colors).forEach(([key, value]) => {
-      const cssVarName = `--color-${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`
-      root.style.setProperty(cssVarName, value)
-    })
-
-    // Sync with Quasar Dark mode
-    $q.dark.set(mode === 'dark')
   }
 
   /**
@@ -81,11 +113,6 @@ export function useTheme() {
   onMounted(() => {
     const savedTheme = loadTheme()
     setTheme(savedTheme)
-  })
-
-  // Watch for theme changes (if modified externally)
-  watch(currentTheme, (newMode) => {
-    applyTheme(newMode)
   })
 
   return {

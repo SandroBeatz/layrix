@@ -12,14 +12,19 @@
 // to match your app's branding.
 // Tip: Use the "Theme Builder" on Quasar's documentation website.
 
-$primary: var(--color-primary);
-$secondary: var(--color-secondary);
-$accent: #9c27b0;
+// Quasar SCSS Variables
+// IMPORTANT: These are compile-time defaults for Quasar components
+// Runtime colors are managed dynamically via setCssVar() in theme.ts boot file
+// SCSS variables cannot use CSS var() - they must be static hex values
 
-//$dark: #1d1d1d;
-//$dark-page: #121212;
-
-$positive: var(--color-positive);
-$negative: var(--color-negative);
-$info: var(--color-info);
-$warning: var(--color-warning);
+//$primary: #4719d2;      // Light theme primary (compile-time default)
+//$secondary: #26a69a;    // Light theme secondary
+//$accent: #9c27b0;       // Accent color
+//
+//$positive: #21ba45;     // Success/positive color
+//$negative: #c10015;     // Error/negative color
+//$info: #31ccec;         // Info color
+//$warning: #f2c037;      // Warning color
+//
+//$dark: #1d1d1d;         // Dark color
+//$dark-page: #121212;    // Dark page background

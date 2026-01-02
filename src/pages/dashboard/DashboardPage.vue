@@ -14,45 +14,70 @@ const isLoading = ref(true);
 
     <q-card>
       <q-card-section>
-        <!-- Variants + Fill (default) -->
-        <Button>Primary Fill</Button>
-        <Button variant="secondary">Secondary Fill</Button>
-        <Button variant="tertiary">Tertiary Fill</Button>
+        <h6 class="q-ma-none q-pb-md">Fill Buttons</h6>
+        <div class="row q-gutter-md">
+          <Button>Primary Fill</Button>
+          <Button variant="secondary">Secondary Fill</Button>
+          <Button variant="tertiary">Tertiary Fill</Button>
+        </div>
 
-        <!-- Outline appearance -->
-        <Button appearance="outline">Primary Outline</Button>
-        <Button variant="secondary" appearance="outline">Secondary Outline</Button>
-        <Button variant="tertiary" appearance="outline">Tertiary Outline</Button>
+        <h6 class="q-ma-none q-pb-md q-pt-lg">Outline Buttons</h6>
+        <div class="row q-gutter-md">
+          <Button appearance="outline">Primary Outline</Button>
+          <Button variant="secondary" appearance="outline">Secondary Outline</Button>
+          <Button variant="tertiary" appearance="outline">Tertiary Outline</Button>
+        </div>
 
-        <!-- Ghost appearance -->
-        <Button appearance="ghost" :icon="tabHome" label="Primary Ghost" />
-        <Button variant="secondary" appearance="ghost">Secondary Ghost</Button>
-        <Button variant="tertiary" appearance="ghost">Tertiary Ghost</Button>
+        <h6 class="q-ma-none q-pb-md q-pt-lg">Ghost Buttons</h6>
+        <div class="row q-gutter-md">
+          <Button appearance="ghost" :icon="tabHome" label="Primary Ghost" />
+          <Button variant="secondary" appearance="ghost">Secondary Ghost</Button>
+          <Button variant="tertiary" appearance="ghost">Tertiary Ghost</Button>
+        </div>
 
-        <!-- Sizes -->
-        <Button size="sm">Small</Button>
-        <Button size="md">Medium (default)</Button>
-        <Button size="lg">Large</Button>
+        <h6 class="q-ma-none q-pb-md q-pt-lg">Flat Buttons with Icons</h6>
+        <div class="row q-gutter-md">
+          <Button appearance="flat" :icon="tabHome">Primary Flat</Button>
+          <Button variant="secondary" appearance="flat" :icon="tabHome">Secondary Flat</Button>
+          <Button variant="tertiary" appearance="flat" :icon="tabPlus">Tertiary Flat</Button>
+        </div>
 
-        <!-- Icon-only buttons (rounded) -->
-        <Button icon-only :icon="tabHome" />
-        <Button icon-only :icon="tabHome" variant="secondary" />
-        <Button icon-only :icon="tabHome" variant="tertiary" appearance="outline" />
+        <h6 class="q-ma-none q-pb-md q-pt-lg">Button Sizes</h6>
+        <div class="row q-gutter-md">
+          <Button size="sm">Small</Button>
+          <Button size="md">Medium (default)</Button>
+          <Button size="lg">Large</Button>
+        </div>
 
-        <!-- Icon-only buttons (round - fully circular) -->
-        <Button icon-only :icon="tabHome" shape="round" />
-        <Button icon-only :icon="tabHome" shape="round" size="sm" />
-        <Button icon-only :icon="tabHome" shape="round" size="lg" />
+        <h6 class="q-ma-none q-pb-md q-pt-lg">Icon-Only Buttons (Rounded)</h6>
+        <div class="row q-gutter-md">
+          <Button icon-only :icon="tabHome" />
+          <Button icon-only :icon="tabHome" variant="secondary" />
+          <Button icon-only :icon="tabHome" variant="tertiary" appearance="outline" />
+        </div>
 
-        <!-- Loading state -->
-        <Button :loading="isLoading">Submit</Button>
-        <Button icon-only :icon="tabHome" :loading="isLoading" />
+        <h6 class="q-ma-none q-pb-md q-pt-lg">Icon-Only Buttons (Circle)</h6>
+        <div class="row q-gutter-md">
+          <Button icon-only :icon="tabHome" shape="round" />
+          <Button icon-only :icon="tabHome" shape="round" size="sm" />
+          <Button icon-only :icon="tabHome" shape="round" size="lg" />
+        </div>
 
-        <!-- Disabled -->
-        <Button disabled>Disabled Button</Button>
+        <h6 class="q-ma-none q-pb-md q-pt-lg">Loading State</h6>
+        <div class="row q-gutter-md">
+          <Button :loading="isLoading">Submit</Button>
+          <Button icon-only :icon="tabHome" :loading="isLoading" />
+        </div>
 
-        <!-- Full width -->
-        <Button full-width>Full Width Button</Button>
+        <h6 class="q-ma-none q-pb-md q-pt-lg">Disabled State</h6>
+        <div class="row q-gutter-md">
+          <Button disabled>Disabled Button</Button>
+        </div>
+
+        <h6 class="q-ma-none q-pb-md q-pt-lg">Full Width</h6>
+        <div class="row q-gutter-md">
+          <Button full-width>Full Width Button</Button>
+        </div>
       </q-card-section>
     </q-card>
   </PageContainer>
