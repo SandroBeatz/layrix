@@ -53,9 +53,13 @@
 
   // Status colors
   --color-positive: #33d484;
+  --color-positive-rgb: 51, 212, 132;
   --color-negative: #ff6757;
+  --color-negative-rgb: 255, 103, 87;
   --color-info: #04c9ff;
+  --color-info-rgb: 4, 201, 255;
   --color-warning: #fdb022;
+  --color-warning-rgb: 253, 176, 34;
 
   // Background colors
   --color-dark: #141821; // Remove this if not needed
@@ -95,14 +99,23 @@
 [data-theme='dark'] {
   // Brand colors
   --color-primary: #985ffe;
+  --color-primary-rgb: 152, 95, 254;
+
   --color-secondary: #ff49cd;
+  --color-secondary-rgb: 255, 73, 205;
+
   --color-accent: #9c27b0;
+  --color-accent-rgb: 156, 39, 176;
 
   // Status colors
   --color-positive: #33d484;
+  --color-positive-rgb: 51, 212, 132;
   --color-negative: #ff6757;
+  --color-negative-rgb: 255, 103, 87;
   --color-info: #04c9ff;
+  --color-info-rgb: 4, 201, 255;
   --color-warning: #fdb022;
+  --color-warning-rgb: 253, 176, 34;
 
   // Background colors
   --color-dark: #141821; // Remove this if not needed
@@ -118,6 +131,8 @@
 
   // Tailwind-style semantic colors
   --color-foreground: #d1d1d3;
+  --color-foreground-rgb: 209, 209, 211;
+
   --color-card: #161623;
   --color-card-foreground: #d1d1d3;
   --color-input: #262634;

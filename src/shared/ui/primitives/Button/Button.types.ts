@@ -7,9 +7,20 @@
  * Button color variant
  * - primary: Main action color
  * - secondary: Secondary action color
- * - tertiary: Tertiary/accent action color
+ * - positive: Success/positive action
+ * - negative: Danger/delete action
+ * - warning: Warning action
+ * - info: Info action
+ * - regular: Regular text color (foreground)
  */
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary';
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'positive'
+  | 'negative'
+  | 'warning'
+  | 'info'
+  | 'regular';
 
 /**
  * Button visual appearance

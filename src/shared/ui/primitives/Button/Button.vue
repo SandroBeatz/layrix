@@ -41,7 +41,11 @@ const qColor = computed(() => {
   const colorMap: Record<typeof props.variant, string> = {
     primary: 'primary',
     secondary: 'secondary',
-    tertiary: 'accent',
+    positive: 'positive',
+    negative: 'negative',
+    warning: 'warning',
+    info: 'info',
+    regular: 'foreground',
   };
   return colorMap[props.variant];
 });
@@ -67,6 +71,12 @@ const qShape = computed(() => {
 // Map size to Quasar size
 const qSize = computed(() => {
   return props.size;
+});
+
+// Determine text color for specific cases
+const qTextColor = computed(() => {
+  if (props.variant === 'regular' && props.appearance === 'fill') return 'background';
+  return '';
 });
 
 // Add custom size class for precise control
@@ -104,6 +114,7 @@ const ghostClass = computed(() => {
       ghostClass,
     ]"
     :icon="icon"
+    :text-color="qTextColor"
     no-caps
   >
     <!-- Default slot for button content (text, custom content) -->
@@ -128,19 +139,16 @@ const ghostClass = computed(() => {
 // Ghost appearance - subtle background with colored text
 .button-ghost {
   &.button-ghost--primary {
-    background-color: rgba(var(--color-primary-rgb), 0.12) !important; // primary with 12% opacity
+    background-color: rgba(var(--color-primary-rgb), 0.12) !important;
     color: var(--color-primary) !important;
 
     &:hover {
-      background-color: rgba(var(--color-primary-rgb), 0.18) !important; // darker on hover
+      background-color: rgba(var(--color-primary-rgb), 0.18) !important;
     }
   }
 
   &.button-ghost--secondary {
-    background-color: rgba(
-      var(--color-secondary-rgb),
-      0.12
-    ) !important; // secondary with 12% opacity
+    background-color: rgba(var(--color-secondary-rgb), 0.12) !important;
     color: var(--color-secondary) !important;
 
     &:hover {
@@ -148,12 +156,48 @@ const ghostClass = computed(() => {
     }
   }
 
-  &.button-ghost--tertiary {
-    background-color: rgba(156, 39, 176, 0.12) !important; // accent with 12% opacity
-    color: var(--q-accent) !important;
+  &.button-ghost--positive {
+    background-color: rgba(var(--color-positive-rgb), 0.12) !important;
+    color: var(--color-positive) !important;
 
     &:hover {
-      background-color: rgba(156, 39, 176, 0.18) !important;
+      background-color: rgba(var(--color-positive-rgb), 0.18) !important;
+    }
+  }
+
+  &.button-ghost--negative {
+    background-color: rgba(var(--color-negative-rgb), 0.12) !important;
+    color: var(--color-negative) !important;
+
+    &:hover {
+      background-color: rgba(var(--color-negative-rgb), 0.18) !important;
+    }
+  }
+
+  &.button-ghost--warning {
+    background-color: rgba(var(--color-warning-rgb), 0.12) !important;
+    color: var(--color-warning) !important;
+
+    &:hover {
+      background-color: rgba(var(--color-warning-rgb), 0.18) !important;
+    }
+  }
+
+  &.button-ghost--info {
+    background-color: rgba(var(--color-info-rgb), 0.12) !important;
+    color: var(--color-info) !important;
+
+    &:hover {
+      background-color: rgba(var(--color-info-rgb), 0.18) !important;
+    }
+  }
+
+  &.button-ghost--regular {
+    background-color: rgba(var(--color-foreground-rgb), 0.08) !important;
+    color: var(--color-foreground) !important;
+
+    &:hover {
+      background-color: rgba(var(--color-foreground-rgb), 0.12) !important;
     }
   }
 }
