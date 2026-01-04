@@ -6,7 +6,7 @@ const leftDrawerOpen = ref(false);
 </script>
 
 <template>
-  <q-drawer v-model="leftDrawerOpen" mini show-if-above bordered class="sidebar">
+  <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="sidebar">
     <SidebarMenu />
   </q-drawer>
 </template>

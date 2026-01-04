@@ -1,20 +1,46 @@
 <script setup lang="ts">
-defineProps<{
-  item: {
-    title: string;
-    icon: string;
-    route: string;
-  };
-}>();
+import type { SidebarMenuItem as SidebarMenuItemType } from '../model/types';
+
+const props = withDefaults(
+  defineProps<{
+    item: SidebarMenuItemType;
+    isSubmenu?: boolean;
+  }>(),
+  {
+    isSubmenu: false,
+  }
+);
+
+const handleClick = () => {
+  if (props.item.action) {
+    props.item.action();
+  }
+};
 </script>
 
 <template>
-  <q-item clickable v-ripple :to="item.route" class="sidebar-item">
-    <q-item-section avatar class="sidebar-item__avatar">
+  <q-item
+    v-if="!item.submenu"
+    clickable
+    v-ripple
+    :to="item.to"
+    :href="item.external ? item.externalLink : undefined"
+    :target="item.external ? '_blank' : undefined"
+    :disable="item.disable"
+    :class="['sidebar-item', { 'sidebar-item--submenu': isSubmenu }]"
+    @click="handleClick"
+  >
+    <q-item-section v-if="item.icon && !isSubmenu" avatar class="sidebar-item__avatar">
       <q-icon :name="item.icon" />
     </q-item-section>
 
-    <q-item-section>{{ item.title }}</q-item-section>
+    <q-item-section>
+      {{ item.label }}
+    </q-item-section>
+
+    <q-item-section v-if="item.caption" side>
+      <q-item-label caption>{{ item.caption }}</q-item-label>
+    </q-item-section>
   </q-item>
 </template>
 
@@ -22,6 +48,10 @@ defineProps<{
 .sidebar-item {
   &__avatar {
     min-width: 40px;
+  }
+
+  &--submenu {
+    padding-left: 56px; // Отступ для submenu items
   }
 }
 </style>
