@@ -10,4 +10,5 @@
  * export { FilterOrdersPanel } from './order/filter'
  */
 
-export { ThemeToggle } from './theme/toggle'
+export { ThemeToggle } from './theme/toggle';
+export { ToggleMiniButton } from './sidebar';

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useTheme } from '@shared/lib'
-import { Button } from '@shared/ui'
+import { computed } from 'vue';
+import { useTheme } from '@shared/lib';
+import { Button } from '@shared/ui';
+import { tabMoon, tabSun } from 'quasar-extras-svg-icons/tabler-icons-v2';
 
 /**
  * Theme Toggle Button
@@ -11,42 +12,32 @@ import { Button } from '@shared/ui'
  * <ThemeToggle />
  */
 
-const { currentTheme, toggleTheme } = useTheme()
+const { currentTheme, toggleTheme } = useTheme();
 
 // Compute icon based on current theme
 const icon = computed(() => {
-  return currentTheme.value === 'light' ? 'light_mode' : 'dark_mode'
-})
+  return currentTheme.value === 'light' ? tabSun : tabMoon;
+});
 
 // Tooltip text
 const tooltip = computed(() => {
-  return currentTheme.value === 'light'
-    ? 'Switch to dark mode'
-    : 'Switch to light mode'
-})
+  return currentTheme.value === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+});
 
 function handleToggle() {
-  toggleTheme()
+  toggleTheme();
 }
 </script>
 
 <template>
   <Button
-    :icon="icon"
     icon-only
-    shape="round"
+    variant="regular"
+    appearance="flat"
+    :icon="icon"
     :title="tooltip"
     @click="handleToggle"
-    class="theme-toggle"
   />
 </template>
 
-<style scoped lang="scss">
-.theme-toggle {
-  transition: transform 0.2s ease;
-
-  &:active {
-    transform: rotate(180deg);
-  }
-}
-</style>
+<style scoped lang="scss"></style>

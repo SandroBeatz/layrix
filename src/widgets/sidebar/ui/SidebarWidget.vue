@@ -1,12 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
+import { useSidebarStore } from '@entities/sidebar';
 import SidebarMenu from './SidebarMenu.vue';
 
-const leftDrawerOpen = ref(false);
+// Connect to sidebar store
+const sidebarStore = useSidebarStore();
+const { isMini, isOpen } = storeToRefs(sidebarStore);
+
+// Initialize store on mount (load from localStorage)
+onMounted(() => {
+  sidebarStore.initialize();
+});
 </script>
 
 <template>
-  <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="sidebar">
+  <q-drawer
+    v-model="isOpen"
+    :mini="isMini"
+    show-if-above
+    bordered
+    class="sidebar"
+  >
     <SidebarMenu />
   </q-drawer>
 </template>

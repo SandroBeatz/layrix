@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ThemeToggle } from '@features/theme/toggle'
+import { ThemeToggle } from '@features/theme/toggle';
+import { ToggleMiniButton } from 'src/features/sidebar/toggle-mini';
 </script>
 
 <template>
   <q-header bordered class="header">
     <q-toolbar>
-      <q-btn flat dense round icon="menu" aria-label="Menu" />
+      <ToggleMiniButton />
 
       <q-toolbar-title> Quasar App </q-toolbar-title>
 
