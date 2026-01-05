@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ThemeToggle } from '@features/theme/toggle';
-import { ToggleMiniButton } from 'src/features/sidebar/toggle-mini';
+import { ToggleMiniButton } from '@features/sidebar/toggle-mini';
+import HeaderUserButton from './HeaderUserButton.vue';
 </script>
 
 <template>
@@ -11,8 +12,9 @@ import { ToggleMiniButton } from 'src/features/sidebar/toggle-mini';
       <q-toolbar-title> Quasar App </q-toolbar-title>
 
       <div class="header-actions">
-        <ThemeToggle />
         <div class="version-info">Quasar v{{ $q.version }}</div>
+        <ThemeToggle />
+        <HeaderUserButton />
       </div>
     </q-toolbar>
   </q-header>
