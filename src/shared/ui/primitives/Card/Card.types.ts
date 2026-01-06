@@ -6,4 +6,5 @@ export interface CardProps extends QCardProps {
   variant?: CardVariant;
   dense?: boolean;
   title?: string | number | null;
+  caption?: string | number | null;
 }

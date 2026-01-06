@@ -9,11 +9,15 @@ const props = withDefaults(defineProps<CardProps>(), {
 </script>
 
 <template>
-  <QCard v-bind="props" class="bg-card">
+  <QCard v-bind="props" class="bg-card card-radius">
     <component :is="dense ? 'div' : QCardSection">
       <div v-if="!$slots['header']" class="flex wrap justify-between">
         <div class="">
-          <h5 v-if="title" class="text-h6 q-ma-none text-weight-bold">{{ title }}</h5>
+          <div class="column">
+            <h5 v-if="title" class="text-h6 q-ma-none text-weight-bold">{{ title }}</h5>
+            <span v-if="caption" class="text-caption text-muted-foreground">{{ caption }}</span>
+          </div>
+
           <slot name="header-left"></slot>
         </div>
         <div class="">
@@ -27,4 +31,8 @@ const props = withDefaults(defineProps<CardProps>(), {
   </QCard>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.card-radius {
+  border-radius: calc(var(--border-radius) + 4px);
+}
+</style>

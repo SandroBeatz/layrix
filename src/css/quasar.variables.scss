@@ -39,8 +39,8 @@ $breakpoint-lg: 1919px;      // Large max-width
 // ===========================================
 
 // Border Radius
-$generic-border-radius: 16px;         // Standard radius for cards, buttons, inputs
-$button-border-radius: 8px;          // Button-specific radius
+$generic-border-radius: var(--border-radius);         // Standard radius for cards, buttons, inputs
+$button-border-radius: $generic-border-radius;          // Button-specific radius
 $button-rounded-border-radius: 56px; // Fully rounded buttons
 
 // Separator Colors (borders)
@@ -199,3 +199,22 @@ $toolbar-title-font-weight: normal;  // Toolbar title weight
 //
 // // Taller toolbar
 // // $toolbar-min-height: 64px;
+
+.q-field {
+  &__control {
+    height: var(--input-height);
+  }
+  &__marginal {
+    height: var(--input-height);
+  }
+}
+
+body.body--dark .q-field__native:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-card) inset;
+  -webkit-text-fill-color: var(--color-card-foreground);
+}
+
+body.body--light .q-field__native:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-card) inset;
+  -webkit-text-fill-color: var(--color-card-foreground);
+}

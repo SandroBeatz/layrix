@@ -13,6 +13,7 @@
 export * from './primitives/Button';
 export * from './primitives/Card';
 export * from './primitives/ColorSwatch';
+export * from './primitives/Input';
 
 // Export layout components
 export * from './layout/PageContainer';
