@@ -8,7 +8,7 @@ const props = withDefaults(
   }>(),
   {
     isSubmenu: false,
-  }
+  },
 );
 
 const handleClick = () => {
@@ -34,7 +34,8 @@ const handleClick = () => {
       <q-icon :name="item.icon" />
     </q-item-section>
 
-    <q-item-section>
+    <q-item-section class="relative-position">
+      <div v-if="isSubmenu" class="submenu-indicator"></div>
       {{ item.label }}
     </q-item-section>
 
@@ -52,6 +53,17 @@ const handleClick = () => {
 
   &--submenu {
     padding-left: 56px; // Отступ для submenu items
+
+    .submenu-indicator {
+      position: absolute;
+      left: -26px;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 7px;
+      width: 7px;
+      border: 1px solid var(--color-muted-foreground);
+      border-radius: 6px;
+    }
   }
 }
 </style>

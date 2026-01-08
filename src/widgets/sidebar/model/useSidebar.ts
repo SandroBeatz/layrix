@@ -2,8 +2,10 @@ import { ref, computed } from 'vue';
 import type { SidebarMenuGroup } from './types';
 import {
   tabHome,
+  tabFileText,
   tabComponents,
-  tabLayout,
+  tabForms,
+  tabIcons,
 } from 'quasar-extras-svg-icons/tabler-icons-v2';
 
 /**
@@ -12,17 +14,48 @@ import {
 export function useSidebar() {
   const menuGroups = ref<SidebarMenuGroup[]>([
     {
-      title: 'Dashboard',
+      title: 'Main',
       items: [
         {
           label: 'Dashboard',
-          to: '/',
           icon: tabHome,
+          submenu: [
+            {
+              label: 'Analytics',
+              disable: true, // Placeholder - no route yet
+            },
+            {
+              label: 'E-commerce',
+              disable: true, // Placeholder - no route yet
+            },
+            {
+              label: 'CRM',
+              disable: true, // Placeholder - no route yet
+            },
+          ],
+        },
+        {
+          label: 'Pages',
+          icon: tabFileText,
+          submenu: [
+            {
+              label: 'Profile',
+              disable: true, // Placeholder - no route yet
+            },
+            {
+              label: 'Profile Settings',
+              disable: true, // Placeholder - no route yet
+            },
+            {
+              label: 'Team',
+              disable: true, // Placeholder - no route yet
+            },
+          ],
         },
       ],
     },
     {
-      title: 'UX/UI',
+      title: 'Components',
       items: [
         {
           label: 'UI Elements',
@@ -32,16 +65,35 @@ export function useSidebar() {
               label: 'Buttons',
               to: '/buttons',
             },
+          ],
+        },
+        {
+          label: 'Forms',
+          icon: tabForms,
+          submenu: [
             {
-              label: 'Cards',
-              to: '/cards', // TODO: создать позже
+              label: 'Forms Layouts',
+              disable: true, // Placeholder - no route yet
+            },
+            {
+              label: 'Form Elements',
+              submenu: [
+                {
+                  label: 'Inputs',
+                  to: '/inputs',
+                },
+              ],
+            },
+            {
+              label: 'Validation',
+              disable: true, // Placeholder - no route yet
             },
           ],
         },
         {
-          label: 'Appearance',
-          to: '/theme',
-          icon: tabLayout,
+          label: 'Icons',
+          icon: tabIcons,
+          disable: true, // Placeholder - no route, no submenu
         },
       ],
     },

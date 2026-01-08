@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useSidebar } from '../model/useSidebar';
-import SidebarMenuItem from './SidebarMenuItem.vue';
-import SidebarMenuItemCollapse from './SidebarMenuItemCollapse.vue';
+import SidebarMenuItemRecursive from './SidebarMenuItemRecursive.vue';
 import SidebarMenuLogoItem from './SidebarMenuLogoItem.vue';
 
 const { menuGroups } = useSidebar();
@@ -17,14 +16,13 @@ const { menuGroups } = useSidebar();
         {{ group.title }}
       </q-item-label>
 
-      <!-- Menu Items -->
-      <template v-for="(item, itemIndex) in group.items" :key="itemIndex">
-        <!-- Item with submenu -->
-        <SidebarMenuItemCollapse v-if="item.submenu" :item="item" />
-
-        <!-- Regular item -->
-        <SidebarMenuItem v-else :item="item" />
-      </template>
+      <!-- Menu Items - using recursive component -->
+      <SidebarMenuItemRecursive
+        v-for="(item, itemIndex) in group.items"
+        :key="itemIndex"
+        :item="item"
+        :depth="0"
+      />
     </template>
   </q-list>
 </template>
