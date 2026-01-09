@@ -38,7 +38,7 @@ const props = withDefaults(defineProps<InputProps>(), {
   size: 'md',
 });
 
-// Compute size class for styling
+// Compute CSS class name based on the size prop for applying size-specific styling
 const sizeClass = computed(() => {
   return `input-size-${props.size}`;
 });
@@ -129,7 +129,7 @@ const handleClear = () => {
 }
 
 // Custom input size variants
-// Override Quasar defaults with Layrix design system sizes
+// Defines three size options with appropriate dimensions and typography
 .input-size-sm {
   :deep(.q-field__control) {
     height: 36px;
