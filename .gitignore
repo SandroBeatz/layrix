@@ -2,6 +2,7 @@
 .thumbs.db
 node_modules
 private-spec
+package-lock.json
 
 # Quasar core related directories
 .quasar

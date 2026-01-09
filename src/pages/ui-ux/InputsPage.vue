@@ -9,6 +9,11 @@ const passwordValue = ref('');
 const searchValue = ref('');
 const numberValue = ref('');
 const phoneValue = ref('');
+
+// Size variant examples
+const smallValue = ref('');
+const mediumValue = ref('');
+const largeValue = ref('');
 </script>
 
 <template>
@@ -59,6 +64,33 @@ const phoneValue = ref('');
               <span class="text-caption text-muted-foreground">+996</span>
             </template>
           </Input>
+        </div>
+      </Card>
+
+      <!-- Size Variants Section -->
+      <Card title="Size Variants" caption="Small, Medium, and Large input sizes">
+        <div class="column q-gutter-md" style="max-width: 600px">
+          <Input
+            v-model="smallValue"
+            size="sm"
+            label="Small Input"
+            placeholder="Small size input..."
+            :icon="tabMail"
+          />
+          <Input
+            v-model="mediumValue"
+            size="md"
+            label="Medium Input (Default)"
+            placeholder="Medium size input..."
+            :icon="tabMail"
+          />
+          <Input
+            v-model="largeValue"
+            size="lg"
+            label="Large Input"
+            placeholder="Large size input..."
+            :icon="tabMail"
+          />
         </div>
       </Card>
     </div>

@@ -6,6 +6,11 @@
 import { type QInputProps } from 'quasar';
 
 /**
+ * Input size variants
+ */
+export type InputSize = 'sm' | 'md' | 'lg';
+
+/**
  * Input component props
  */
 export interface InputProps extends Omit<
@@ -15,4 +20,9 @@ export interface InputProps extends Omit<
   placeholder?: string | undefined;
   icon?: string | undefined;
   iconRight?: string | undefined;
+  /**
+   * Input size variant
+   * @default 'md'
+   */
+  size?: InputSize;
 }
