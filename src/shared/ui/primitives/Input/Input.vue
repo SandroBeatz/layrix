@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { QInput } from 'quasar';
 import type { InputProps } from './Input.types';
 
@@ -27,9 +28,20 @@ import type { InputProps } from './Input.types';
  * @example
  * // Clearable search input
  * <Input v-model="search" type="search" placeholder="Search..." clearable />
+ *
+ * @example
+ * // Input with size variant
+ * <Input v-model="value" size="lg" label="Large Input" />
  */
 
-defineProps<InputProps>();
+const props = withDefaults(defineProps<InputProps>(), {
+  size: 'md',
+});
+
+// Compute CSS class name based on the size prop for applying size-specific styling
+const sizeClass = computed(() => {
+  return `input-size-${props.size}`;
+});
 
 const emit = defineEmits<{
   'update:modelValue': [value: string | number];
@@ -64,6 +76,7 @@ const handleClear = () => {
     <span v-if="label">{{ label }}</span>
     <QInput
       class="input"
+      :class="sizeClass"
       outlined
       hide-bottom-space
       :name="name"
@@ -113,5 +126,67 @@ const handleClear = () => {
   flex: 1;
   background: var(--color-muted);
   padding: 4px;
+}
+
+// Custom input size variants
+// Defines three size options with appropriate dimensions and typography
+.input-size-sm {
+  :deep(.q-field__control) {
+    height: 36px;
+    min-height: 36px;
+  }
+
+  :deep(.q-field__marginal) {
+    height: 36px;
+  }
+
+  :deep(.q-field__native) {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  :deep(.q-field__label) {
+    font-size: 13px;
+  }
+}
+
+.input-size-md {
+  :deep(.q-field__control) {
+    height: 46px;
+    min-height: 46px;
+  }
+
+  :deep(.q-field__marginal) {
+    height: 46px;
+  }
+
+  :deep(.q-field__native) {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+  :deep(.q-field__label) {
+    font-size: 14px;
+  }
+}
+
+.input-size-lg {
+  :deep(.q-field__control) {
+    height: 56px;
+    min-height: 56px;
+  }
+
+  :deep(.q-field__marginal) {
+    height: 56px;
+  }
+
+  :deep(.q-field__native) {
+    font-size: 16px;
+    padding: 10px 16px;
+  }
+
+  :deep(.q-field__label) {
+    font-size: 16px;
+  }
 }
 </style>
