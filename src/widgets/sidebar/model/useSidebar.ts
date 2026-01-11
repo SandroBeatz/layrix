@@ -8,9 +8,7 @@ import {
   tabIcons,
 } from 'quasar-extras-svg-icons/tabler-icons-v2';
 
-/**
- * Composable для управления sidebar меню
- */
+
 export function useSidebar() {
   const menuGroups = ref<SidebarMenuGroup[]>([
     {

@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Layer boundaries are law
 - AI must understand the structure
 
-**Current State:** This is an early-stage project with default Quasar structure (`src/components/`, `src/layouts/`, `src/pages/`, etc.). New code MUST follow FSD structure. Legacy files may exist but should not be used as templates.
+**Current State:** This project has migrated to FSD structure. The FSD layers (`app/`, `pages/`, `widgets/`, `features/`, `entities/`, `shared/`) are active and contain working code. Follow this structure for all new code.
 
 ## Development Commands
 
@@ -68,7 +68,7 @@ shared   → can import: ONLY external libraries
 
 ### Quasar Integration
 
-**CRITICAL RULE:** Quasar is imported ONLY in `shared/ui/quasar/`
+**CRITICAL RULE:** Quasar is imported ONLY in `shared/ui/` components (currently in primitives like Button, Card, Input)
 
 All Quasar components must be wrapped in `shared/ui/` and exported through `shared/ui/index.ts`.
 
@@ -77,7 +77,7 @@ All Quasar components must be wrapped in `shared/ui/` and exported through `shar
 import { QBtn, QTable } from 'quasar'
 
 // ✅ CORRECT
-import { Button, DataTable } from '@/shared/ui'
+import { Button, Card } from '@shared/ui'
 ```
 
 ## Slice Structure
@@ -113,6 +113,8 @@ Every slice (feature, entity, widget) follows this structure:
 
 ### app/
 - **Purpose:** Application initialization, global providers, layouts
+- **Structure:** `app/providers/[provider-name]/` for each provider (router, i18n, axios, store)
+- **Location:** Layouts are in `app/layouts/` (e.g., `AdminLayout.vue`)
 - **Allowed:** Quasar boot files, router, store, i18n, layouts, global styles
 - **Forbidden:** Business logic, API calls, feature components
 
@@ -129,11 +131,13 @@ Every slice (feature, entity, widget) follows this structure:
 ### features/
 - **Purpose:** User actions and use cases
 - **Structure:** Each feature represents ONE action (create, delete, edit, filter, etc.)
+- **Organization:** `features/[domain]/[action]/` (e.g., `features/sidebar/toggle-mini/`, `features/theme/toggle/`)
 - **Allowed:** Entity store/API calls, local state, UI for the action
 - **Forbidden:** Importing other features, importing widgets/pages, complex displays (use widgets)
 
 ### entities/
 - **Purpose:** Business entities and domain models
+- **Organization:** `entities/[name]/` (e.g., `entities/sidebar/`)
 - **Contains:** Types, API methods, Pinia stores, small UI fragments (avatar, badge)
 - **Forbidden:** Forms, dialogs, importing features, use case logic
 
@@ -145,6 +149,10 @@ Every slice (feature, entity, widget) follows this structure:
   - `lib/` - Utilities (date, validation, storage)
   - `types/` - Common types
   - `ui/` - UI Kit (Quasar wrappers, composables)
+    - `ui/primitives/` - Basic components (Button, Card, Input)
+    - `ui/layout/` - Layout components (PageContainer)
+    - `ui/composables/` - Shared composables
+    - `ui/quasar/` - Direct Quasar imports (currently unused, primitives import directly)
 - **Forbidden:** Importing business layers, business logic
 
 ## TypeScript Conventions
@@ -157,7 +165,7 @@ Every slice (feature, entity, widget) follows this structure:
 
 **Type Imports:**
 - REQUIRED: Use `import type` for type-only imports (enforced by ESLint)
-- Example: `import type { User } from '@/entities/user'`
+- Example: `import type { User } from '@entities/user'`
 
 **Component Props:**
 - All props must be typed via interface
@@ -169,9 +177,8 @@ Every slice (feature, entity, widget) follows this structure:
 
 ## Path Aliases
 
-**FSD Layer Aliases (to be created):**
+**FSD Layer Aliases (ACTIVE):**
 ```typescript
-@/*           → ./src/*
 @app/*        → ./src/app/*
 @pages/*      → ./src/pages/*
 @widgets/*    → ./src/widgets/*
@@ -180,36 +187,39 @@ Every slice (feature, entity, widget) follows this structure:
 @shared/*     → ./src/shared/*
 ```
 
-**Current Aliases (default Quasar):**
+**Note:** Also use `@shared` (without wildcard) to import from `shared/ui/index.ts`
+
+**Legacy Aliases (available but prefer FSD aliases):**
 ```typescript
 src/*         → ./src/*
-components/*  → ./src/components/*
-layouts/*     → ./src/layouts/*
+components/*  → ./src/components/* (deprecated)
+layouts/*     → ./src/layouts/* (deprecated, use @app/layouts)
 pages/*       → ./src/pages/*
 assets/*      → ./src/assets/*
-boot/*        → ./src/boot/*
-stores/*      → ./src/stores/*
+boot/*        → ./src/boot/* (deprecated, use @app/providers)
+stores/*      → ./src/stores/* (deprecated)
 ```
 
-Note: When migrating to FSD, update path aliases in `.quasar/tsconfig.json` and `quasar.config.ts`.
+Path aliases are configured in:
+- `.quasar/tsconfig.json` (TypeScript)
+- `quasar.config.ts` (Vite/build)
 
 ## Common Patterns
 
 ### Creating a New Feature
 
 ```
-features/[entity]/[action]/
+features/[domain]/[action]/
 ├── ui/
-│   └── [Action][Entity]Dialog.vue
+│   └── [Action][Entity]Component.vue
 ├── model/
 │   └── use[Action][Entity].ts
 ├── types.ts (if needed)
 └── index.ts
 ```
 
-Example: `features/user/create/`
-- `ui/CreateUserDialog.vue` - Form UI
-- `model/useCreateUser.ts` - Logic (validation, API call, store update)
+Example: `features/sidebar/toggle-mini/`
+- `ui/ToggleMiniButton.vue` - Button UI
 - `index.ts` - Public exports
 
 ### Creating a New Entity
@@ -232,7 +242,7 @@ entities/[name]/
 
 ### Wrapping a Quasar Component
 
-1. Create in `shared/ui/[category]/[Name]/`
+1. Create in `shared/ui/primitives/[Name]/`
 2. Define OUR props interface in `[Name].types.ts`
 3. Map our props to Quasar props inside component
 4. Export from `shared/ui/index.ts`
@@ -251,11 +261,11 @@ import type { ButtonProps } from './Button.types'
 ### MUST (Required)
 
 1. Every new file must be in the correct layer
-2. Features = actions (verbs), not components
+2. Features = actions (verbs), organized by domain: `features/[domain]/[action]/`
 3. UI separated from logic (ui/ vs model/)
 4. Pages contain no business logic
 5. Entities own all data operations
-6. Quasar only in `shared/ui/quasar/`
+6. Quasar only in `shared/ui/` components
 7. Public API through `index.ts`
 8. One responsibility per file
 
@@ -299,16 +309,16 @@ import type { ButtonProps } from './Button.types'
   children: [{
     path: '',
     name: 'new-page',
-    component: () => import('@/pages/new-page/index.vue')
+    component: () => import('@pages/new-page/NewPage.vue')
   }]
 }
 ```
 
 ```vue
-<!-- pages/new-page/index.vue -->
+<!-- pages/new-page/NewPage.vue -->
 <script setup lang="ts">
-import { PageContainer } from '@/shared/ui'
-import { SomeWidget } from '@/widgets/some-widget'
+import { PageContainer } from '@shared/ui'
+import { SomeWidget } from '@widgets/some-widget'
 </script>
 
 <template>
@@ -325,11 +335,12 @@ Before committing changes:
 - [ ] File is in correct layer
 - [ ] Naming follows conventions
 - [ ] Imports follow hierarchy (no upward/horizontal imports)
-- [ ] No direct Quasar imports (except `shared/ui/quasar/`)
+- [ ] No direct Quasar imports (except `shared/ui/` components)
 - [ ] Exports through `index.ts`
 - [ ] UI separated from logic
 - [ ] Types are defined (no `any`)
 - [ ] Component uses shared/ui components
+- [ ] Using `import type` for type-only imports
 
 ## Code Quality
 
@@ -338,34 +349,39 @@ Before committing changes:
 - Vue 3 essential rules + TypeScript recommended
 - Quasar-specific rules enabled
 - **Enforced:** `consistent-type-imports` - must use `import type` for types
-- Auto-fix on save enabled in VSCode
+- **Special:** Multi-word component names disabled for `shared/ui/**/*.vue`
 
 **Prettier:**
-- Runs on save in VSCode
 - Format command: `npm run format`
-- Skip formatting in ESLint (avoids conflicts)
+- Integrated with ESLint via `skip-formatting` config
 
 **Type Checking:**
-- `vue-tsc` runs in dev mode via Vite plugin
-- ESLint also type-checks in dev mode
+- `vue-tsc` available
+- ESLint type-checks via `@vue/eslint-config-typescript`
 - Both run automatically during development
 
 ## Quasar Configuration
 
-**Boot Files:** `i18n`, `axios` (in `src/boot/`)
+**Boot Files:** Located in `app/providers/` (i18n, axios)
 
 **Router Mode:** Hash mode (can be changed to history in `quasar.config.ts`)
 
-**Auto-import:** Quasar components are auto-imported by default. However, per architecture rules, only `shared/ui/quasar/` should import Quasar components directly.
+**Auto-import:** Quasar components are auto-imported by default. However, per architecture rules, only `shared/ui/` should import Quasar components directly.
 
 **Dev Server:** Opens browser automatically on `quasar dev`
 
-## Special Notes
+## Current Implementation Status
 
-- This is an early-stage project - FSD structure doesn't exist yet, only default Quasar structure
-- When creating new code, strictly follow the FSD layer structure (create directories as needed)
-- **Do NOT use existing `src/components/`, `src/layouts/` as templates** - they follow old Quasar structure
-- All architectural decisions are documented in `spec/` directory
-- Reference `spec/layrix-architecture-spec-en.md` for detailed architectural rules
-- Reference `spec/layrix-dashboard-product-spec-en.md` for product context
-- `private-spec/` contains private documentation (gitignored)
+**Implemented Layers:**
+- ✅ `app/` - Layouts (AdminLayout), providers (router, i18n, axios, store)
+- ✅ `pages/` - Dashboard, UI/UX demo pages (theme, buttons, inputs)
+- ✅ `widgets/` - Header, Sidebar, ThemePalette
+- ✅ `features/` - Sidebar toggle-mini, Theme toggle
+- ✅ `entities/` - Sidebar
+- ✅ `shared/ui/` - Primitives (Button, Card, Input, ColorSwatch), Layout (PageContainer)
+
+**Existing Routes:**
+- `/` - Dashboard page
+- `/theme` - Theme demo page
+- `/buttons` - Buttons demo page
+- `/inputs` - Inputs demo page
