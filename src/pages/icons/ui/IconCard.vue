@@ -44,7 +44,7 @@ const copyToClipboard = async () => {
   >
     <div class="icon-card__content">
       <div class="icon-card__icon-wrapper">
-        <QIcon :name="`img:${iconSvg}`" size="32px" />
+        <QIcon :name="iconSvg" size="32px" />
       </div>
       <div class="icon-card__name text-caption text-center">
         {{ iconName }}

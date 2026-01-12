@@ -9,42 +9,38 @@ export interface IconData {
 // Generate icon data with keywords
 export const getIconsData = (): IconData[] => {
   const icons: IconData[] = [];
-  
+
   // Get all icon names from the imported module
   const iconEntries = Object.entries(TablerIcons);
-  
+
   for (const [key, svg] of iconEntries) {
     // Skip non-icon exports (like default)
     if (!key.startsWith('tab')) continue;
-    
+
     // Remove 'tab' prefix and convert camelCase to kebab-case
     const name = key
-      .replace(/^tab/, '')
-      .replace(/([A-Z])/g, '-$1')
-      .toLowerCase()
-      .replace(/^-/, '');
-    
+
     // Generate keywords from the icon name
     const keywords = generateKeywords(name);
-    
+
     icons.push({
-      name: `icon-${name}`,
+      name: `${name}`,
       svg: String(svg),
       keywords,
     });
   }
-  
+
   return icons.sort((a, b) => a.name.localeCompare(b.name));
 };
 
 // Generate keywords from icon name for better searchability
 const generateKeywords = (iconName: string): string[] => {
   const keywords: string[] = [];
-  
+
   // Split name by hyphens and add individual words
   const words = iconName.split('-');
   keywords.push(...words);
-  
+
   // Add semantic keywords based on common icon patterns
   const keywordMap: Record<string, string[]> = {
     'home': ['house', 'main', 'start'],
@@ -96,19 +92,19 @@ const generateKeywords = (iconName: string): string[] => {
     'shield': ['security', 'protection', 'guard'],
     'key': ['password', 'access', 'unlock'],
   };
-  
+
   // Add semantic keywords if the icon name contains certain words
   for (const [key, semanticKeywords] of Object.entries(keywordMap)) {
     if (iconName.includes(key)) {
       keywords.push(...semanticKeywords);
     }
   }
-  
+
   // Add state keywords
   if (iconName.includes('off')) keywords.push('disabled', 'inactive');
   if (iconName.includes('filled')) keywords.push('solid', 'full');
   if (iconName.includes('outline')) keywords.push('line', 'stroke');
-  
+
   // Remove duplicates and return unique keywords
   return [...new Set(keywords)];
 };
