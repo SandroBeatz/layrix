@@ -15,6 +15,7 @@ export const getIconsData = (): IconData[] => {
   
   for (const [key, svg] of iconEntries) {
     // Skip non-icon exports (like default)
+    // Tabler icons from quasar-extras-svg-icons use 'tab' prefix for all icon names
     if (!key.startsWith('tab')) continue;
     
     // Remove 'tab' prefix and convert camelCase to kebab-case
@@ -27,6 +28,8 @@ export const getIconsData = (): IconData[] => {
     // Generate keywords from the icon name
     const keywords = generateKeywords(name);
     
+    // Add 'icon-' prefix to match the expected format for clipboard copy
+    // This format is commonly used in icon libraries (e.g., 'icon-home', 'icon-search')
     icons.push({
       name: `icon-${name}`,
       svg: String(svg),

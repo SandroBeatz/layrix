@@ -19,7 +19,8 @@ const copyToClipboard = async () => {
       timeout: 2000,
       icon: 'check',
     });
-  } catch {
+  } catch (error) {
+    console.error('Clipboard copy failed:', error);
     $q.notify({
       message: 'Failed to copy to clipboard',
       color: 'negative',
