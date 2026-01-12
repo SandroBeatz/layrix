@@ -28,8 +28,9 @@ export const getIconsData = (): IconData[] => {
     // Generate keywords from the icon name
     const keywords = generateKeywords(name);
     
-    // Add 'icon-' prefix to match the expected format for clipboard copy
-    // This format is commonly used in icon libraries (e.g., 'icon-home', 'icon-search')
+    // Add 'icon-' prefix as per requirements (e.g., 'icon-home' instead of 'tabHome')
+    // This provides a user-friendly, framework-agnostic identifier
+    // Note: To use in code, import from 'quasar-extras-svg-icons/tabler-icons-v2' with 'tab' prefix (e.g., tabHome)
     icons.push({
       name: `icon-${name}`,
       svg: String(svg),
