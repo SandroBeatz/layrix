@@ -103,7 +103,7 @@ const handleClear = () => {
       <!-- Icon slot -->
       <template v-if="$slots.prepend || icon" #prepend>
         <q-icon v-if="icon" :name="icon" />
-<!--        <div class="left-marginal"></div>-->
+        <!--        <div class="left-marginal"></div>-->
         <slot name="prepend" />
       </template>
 
@@ -142,7 +142,7 @@ const handleClear = () => {
 
   :deep(.q-field__native) {
     font-size: 13px;
-    padding: 6px 12px;
+    padding: 6px 0;
   }
 
   :deep(.q-field__label) {
@@ -162,7 +162,7 @@ const handleClear = () => {
 
   :deep(.q-field__native) {
     font-size: 14px;
-    padding: 8px 14px;
+    padding: 8px 0;
   }
 
   :deep(.q-field__label) {
@@ -182,7 +182,7 @@ const handleClear = () => {
 
   :deep(.q-field__native) {
     font-size: 16px;
-    padding: 10px 16px;
+    padding: 10px 0;
   }
 
   :deep(.q-field__label) {

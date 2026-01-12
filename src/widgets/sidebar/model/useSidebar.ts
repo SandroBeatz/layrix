@@ -91,7 +91,7 @@ export function useSidebar() {
         {
           label: 'Icons',
           icon: tabIcons,
-          disable: true, // Placeholder - no route, no submenu
+          to: '/icons'
         },
       ],
     },
