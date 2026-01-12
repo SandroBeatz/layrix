@@ -29,6 +29,8 @@ export interface SidebarMenuItem {
 
   /** Вложенное меню (submenu) */
   submenu?: SidebarMenuItem[];
+
+  expandOn?: string[];
 }
 
 export interface SidebarMenuGroup {

@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { inject, ref } from 'vue';
 import type { SidebarMenuItem as SidebarMenuItemType } from '../model/types';
-import SidebarMenuItem from './SidebarMenuItem.vue';
+import { SidebarMenuItemRecursive } from '@widgets/sidebar';
 
-defineProps<{
+const props = defineProps<{
   item: SidebarMenuItemType;
 }>();
 
-const expanded = ref(false);
+const isExpandedItem = inject<(expandOn?: string[]) => boolean>('isExpandedItem');
+const expanded = ref(isExpandedItem?.(props.item.expandOn) ?? false);
 </script>
 
 <template>
@@ -17,21 +18,16 @@ const expanded = ref(false);
     :label="item.label"
     :caption="item.caption"
     :disable="item.disable"
-    class="sidebar-item-collapse"
+    header-class="sidebar-item sidebar-item_collapse"
   >
     <q-list>
-      <SidebarMenuItem
+      <SidebarMenuItemRecursive
         v-for="(subitem, index) in item.submenu"
         :key="index"
         :item="subitem"
-        is-submenu
       />
     </q-list>
   </q-expansion-item>
 </template>
 
-<style scoped lang="scss">
-:global(.sidebar-item-collapse .q-item__section--avatar) {
-  min-width: 40px;
-}
-</style>
+<style scoped lang="scss"></style>

@@ -4,6 +4,8 @@ import { onMounted } from 'vue';
 import { useSidebarStore } from '@entities/sidebar';
 import SidebarMenu from './SidebarMenu.vue';
 
+const MINI_WIDTH = 64;
+
 // Connect to sidebar store
 const sidebarStore = useSidebarStore();
 const { isMini, isOpen } = storeToRefs(sidebarStore);
@@ -18,6 +20,7 @@ onMounted(() => {
   <q-drawer
     v-model="isOpen"
     :mini="isMini"
+    :mini-width="MINI_WIDTH"
     show-if-above
     bordered
     class="sidebar"

@@ -4,7 +4,7 @@ import { PageContainer } from '@shared';
 </script>
 
 <template>
-  <PageContainer title="Dashboard" subtitle="Welcome to your dashboard">
+  <PageContainer title="CRM" subtitle="CRM dashboard page">
 
   </PageContainer>
 </template>
