@@ -7,9 +7,12 @@ import {
   tabForms,
   tabIcons,
 } from 'quasar-extras-svg-icons/tabler-icons-v2';
+import { useRoute } from 'vue-router';
 
 
 export function useSidebar() {
+  const route = useRoute()
+
   const menuGroups = ref<SidebarMenuGroup[]>([
     {
       title: 'Main',
@@ -17,18 +20,19 @@ export function useSidebar() {
         {
           label: 'Dashboard',
           icon: tabHome,
+          expandOn: ['/analytics', '/e-commerce', '/crm'],
           submenu: [
             {
               label: 'Analytics',
-              disable: true, // Placeholder - no route yet
+              to: '/analytics',
             },
             {
               label: 'E-commerce',
-              disable: true, // Placeholder - no route yet
+              to: '/e-commerce',
             },
             {
               label: 'CRM',
-              disable: true, // Placeholder - no route yet
+              to: '/crm',
             },
           ],
         },
@@ -58,6 +62,7 @@ export function useSidebar() {
         {
           label: 'UI Elements',
           icon: tabComponents,
+          expandOn: ['/buttons'],
           submenu: [
             {
               label: 'Buttons',
@@ -68,6 +73,7 @@ export function useSidebar() {
         {
           label: 'Forms',
           icon: tabForms,
+          expandOn: ['/inputs'],
           submenu: [
             {
               label: 'Forms Layouts',
@@ -75,6 +81,7 @@ export function useSidebar() {
             },
             {
               label: 'Form Elements',
+              expandOn: ['/inputs'],
               submenu: [
                 {
                   label: 'Inputs',
@@ -91,13 +98,19 @@ export function useSidebar() {
         {
           label: 'Icons',
           icon: tabIcons,
-          to: '/icons'
+          to: '/icons',
         },
       ],
     },
   ]);
 
+  const isExpandedItem = (expandOn?: string[]) => {
+    if (!expandOn) return false;
+    return expandOn.some((path) => route.path.startsWith(path));
+  };
+
   return {
     menuGroups: computed(() => menuGroups.value),
+    isExpandedItem,
   };
 }

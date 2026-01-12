@@ -12,17 +12,17 @@ const searchQuery = ref('');
 // Filter icons based on search query (search by name and keywords)
 const filteredIcons = computed(() => {
   const query = searchQuery.value.toLowerCase().trim();
-  
+
   if (!query) {
     return allIcons;
   }
-  
+
   return allIcons.filter((icon) => {
     // Search in icon name
     if (icon.name.toLowerCase().includes(query)) {
       return true;
     }
-    
+
     // Search in keywords
     return icon.keywords.some((keyword) => keyword.toLowerCase().includes(query));
   });
@@ -34,8 +34,8 @@ const filteredCount = computed(() => filteredIcons.value.length);
 </script>
 
 <template>
-  <PageContainer 
-    title="Icons" 
+  <PageContainer
+    title="Icons"
     :subtitle="`Browse ${totalCount} Tabler icons. Click any icon to copy its name.`"
   >
     <div class="icons-page column q-gutter-y-md">
@@ -47,7 +47,6 @@ const filteredCount = computed(() => filteredIcons.value.length);
           placeholder="Search icons by name or keyword..."
           icon="search"
           clearable
-          size="lg"
         />
         <div v-if="searchQuery" class="text-caption text-muted-foreground q-mt-sm">
           Found {{ filteredCount }} icon{{ filteredCount !== 1 ? 's' : '' }}

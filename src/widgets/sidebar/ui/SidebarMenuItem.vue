@@ -45,25 +45,4 @@ const handleClick = () => {
   </q-item>
 </template>
 
-<style scoped lang="scss">
-.sidebar-item {
-  &__avatar {
-    min-width: 40px;
-  }
-
-  &--submenu {
-    padding-left: 56px; // Отступ для submenu items
-
-    .submenu-indicator {
-      position: absolute;
-      left: -26px;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 7px;
-      width: 7px;
-      border: 1px solid var(--color-muted-foreground);
-      border-radius: 6px;
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>
