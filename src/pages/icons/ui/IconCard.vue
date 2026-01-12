@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { QCard, QIcon, QTooltip, useQuasar } from 'quasar';
 
 interface IconCardProps {
@@ -9,7 +8,6 @@ interface IconCardProps {
 
 const props = defineProps<IconCardProps>();
 const $q = useQuasar();
-const isHovered = ref(false);
 
 const copyToClipboard = async () => {
   try {
@@ -39,8 +37,6 @@ const copyToClipboard = async () => {
     bordered
     class="icon-card cursor-pointer bg-card"
     @click="copyToClipboard"
-    @mouseenter="isHovered = true"
-    @mouseleave="isHovered = false"
   >
     <div class="icon-card__content">
       <div class="icon-card__icon-wrapper">
