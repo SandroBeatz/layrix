@@ -10,3 +10,4 @@
 
 export { useTheme } from './theme'
 export * from './clipboard'
+export * from './device'

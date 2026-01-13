@@ -6,6 +6,7 @@ import {
   tabLayoutSidebarLeftCollapseFilled,
   tabLayoutSidebarLeftExpandFilled,
 } from 'quasar-extras-svg-icons/tabler-icons-v2';
+import { useScreen } from '@shared/lib';
 
 /**
  * Sidebar Toggle Mini Button
@@ -14,6 +15,8 @@ import {
  * @example
  * <ToggleMiniButton />
  */
+
+const { isMobileBreakpoint } = useScreen();
 
 const sidebarStore = useSidebarStore();
 
@@ -38,6 +41,7 @@ function handleToggle() {
 
 <template>
   <Button
+    v-if="!isMobileBreakpoint"
     icon-only
     variant="regular"
     appearance="flat"

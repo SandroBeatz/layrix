@@ -2,6 +2,7 @@
 import { useSidebarStore } from 'src/entities/sidebar';
 import { Button } from '@shared/ui';
 import { tabMenu2 } from 'quasar-extras-svg-icons/tabler-icons-v2';
+import { useScreen } from '@shared/lib';
 
 /**
  * Sidebar Toggle Sidebar Button
@@ -9,6 +10,8 @@ import { tabMenu2 } from 'quasar-extras-svg-icons/tabler-icons-v2';
  * @example
  * <ToggleSidebarButton />
  */
+
+const { isMobileBreakpoint } = useScreen();
 
 const sidebarStore = useSidebarStore();
 
@@ -18,7 +21,14 @@ function handleToggle() {
 </script>
 
 <template>
-  <Button icon-only variant="regular" appearance="flat" :icon="tabMenu2" @click="handleToggle" />
+  <Button
+    v-if="isMobileBreakpoint"
+    icon-only
+    variant="regular"
+    appearance="flat"
+    :icon="tabMenu2"
+    @click="handleToggle"
+  />
 </template>
 
 <style scoped lang="scss"></style>
