@@ -10,6 +10,7 @@
 // export * from './quasar'
 
 // Export primitive components
+export * from './primitives/Badge';
 export * from './primitives/Button';
 export * from './primitives/Card';
 export * from './primitives/ColorSwatch';

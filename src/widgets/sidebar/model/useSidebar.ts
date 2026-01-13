@@ -62,8 +62,12 @@ export function useSidebar() {
         {
           label: 'UI Elements',
           icon: tabComponents,
-          expandOn: ['/buttons'],
+          expandOn: ['/buttons', '/badges'],
           submenu: [
+            {
+              label: 'Badges',
+              to: '/badges',
+            },
             {
               label: 'Buttons',
               to: '/buttons',

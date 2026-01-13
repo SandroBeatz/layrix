@@ -10,12 +10,12 @@ const props = withDefaults(defineProps<CardProps>(), {
 
 <template>
   <QCard v-bind="props" class="bg-card card-radius">
-    <component :is="dense ? 'div' : QCardSection">
+    <component :is="dense ? 'div' : QCardSection" class="q-pb-none">
       <div v-if="!$slots['header']" class="flex wrap justify-between">
         <div class="">
           <div class="column">
             <h5 v-if="title" class="text-h6 q-ma-none text-weight-bold">{{ title }}</h5>
-            <span v-if="caption" class="text-caption text-muted-foreground">{{ caption }}</span>
+            <span v-if="caption" class="text-caption q-ma-none text-muted-foreground">{{ caption }}</span>
           </div>
 
           <slot name="header-left"></slot>
