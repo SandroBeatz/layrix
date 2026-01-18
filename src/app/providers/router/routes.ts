@@ -26,6 +26,7 @@ const routes: RouteRecordRaw[] = [
       { path: 'buttons', name: 'buttons', component: () => import('@pages/ui-ux/ButtonsPage.vue') },
       { path: 'badges', name: 'badges', component: () => import('@pages/ui-ux/BadgesPage.vue') },
       { path: 'inputs', name: 'inputs', component: () => import('@pages/ui-ux/InputsPage.vue') },
+      { path: 'typography', name: 'typography', component: () => import('@pages/ui-ux/TypographyPage.vue') },
       { path: 'icons', name: 'icons', component: () => import('@pages/icons/IconsPage.vue') },
       {
         path: 'device-test',
