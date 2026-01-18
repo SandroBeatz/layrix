@@ -8,4 +8,5 @@
  * export { AnalyticsOverview } from './analytics-overview'
  */
 
-export { ThemePalette } from './theme-palette'
+export { ThemePalette } from './theme-palette';
+export { NavigationWidget } from './navigation';
