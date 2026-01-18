@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { PageContainerProps } from './PageContainer.types';
+import { Typography } from '../../primitives/Typography';
 
 /**
  * PageContainer Component
@@ -56,8 +57,12 @@ const containerStyle = computed(() => {
         <!-- Default header: title + subtitle on left, actions on right -->
         <div class="page-container__header-content">
           <div class="page-container__header-left">
-            <h1 v-if="title" class="page-container__title">{{ title }}</h1>
-            <p v-if="subtitle" class="page-container__subtitle">{{ subtitle }}</p>
+            <Typography v-if="title" as="h1" variant="h4" weight="semibold">
+              {{ title }}
+            </Typography>
+            <Typography v-if="subtitle" variant="caption-muted" class-name="q-mt-xs">
+              {{ subtitle }}
+            </Typography>
           </div>
           <div v-if="slots['header-right']" class="page-container__header-right">
             <slot name="header-right" />
@@ -107,20 +112,6 @@ const containerStyle = computed(() => {
 
 .page-container__header-right {
   flex-shrink: 0;
-}
-
-.page-container__title {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-.page-container__subtitle {
-  margin: 0.25rem 0 0;
-  font-size: 0.875rem;
-  line-height: 1.4;
-  color: var(--color-text-secondary);
 }
 
 .page-container__content {

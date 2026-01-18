@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { QCard, QCardSection } from 'quasar';
 import type { CardProps } from './Card.types';
+import { Typography } from '../Typography';
 
 const props = withDefaults(defineProps<CardProps>(), {
   bordered: true,
@@ -14,8 +15,12 @@ const props = withDefaults(defineProps<CardProps>(), {
       <div v-if="!$slots['header']" class="flex wrap justify-between">
         <div class="">
           <div class="column">
-            <h5 v-if="title" class="text-h6 q-ma-none text-weight-bold">{{ title }}</h5>
-            <span v-if="caption" class="text-caption q-ma-none text-muted-foreground">{{ caption }}</span>
+            <Typography v-if="title" as="h5" variant="h6" weight="bold">
+              {{ title }}
+            </Typography>
+            <Typography v-if="caption" variant="caption-muted">
+              {{ caption }}
+            </Typography>
           </div>
 
           <slot name="header-left"></slot>

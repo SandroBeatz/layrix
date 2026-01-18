@@ -2,6 +2,7 @@
 import { ThemeToggle } from '@features/theme/toggle';
 import HeaderUserButton from './HeaderUserButton.vue';
 import { ToggleSidebarButton, ToggleMiniButton } from '@features/sidebar';
+import { Typography } from '@shared/ui';
 </script>
 
 <template>
@@ -10,10 +11,12 @@ import { ToggleSidebarButton, ToggleMiniButton } from '@features/sidebar';
       <ToggleSidebarButton />
       <ToggleMiniButton />
 
-      <q-toolbar-title> Quasar App </q-toolbar-title>
+      <q-toolbar-title>
+        <Typography variant="h6" weight="medium">Quasar App</Typography>
+      </q-toolbar-title>
 
       <div class="header-actions">
-        <div class="version-info">Quasar v{{ $q.version }}</div>
+        <Typography variant="body-muted">Quasar v{{ $q.version }}</Typography>
         <ThemeToggle />
         <HeaderUserButton />
       </div>
@@ -31,10 +34,5 @@ import { ToggleSidebarButton, ToggleMiniButton } from '@features/sidebar';
   display: flex;
   align-items: center;
   gap: 12px;
-}
-
-.version-info {
-  font-size: 14px;
-  color: var(--color-muted-foreground);
 }
 </style>

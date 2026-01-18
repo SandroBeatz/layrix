@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { QIntersection } from 'quasar';
-import { PageContainer, Input } from '@shared/ui';
+import { PageContainer, Input, Typography } from '@shared/ui';
 import IconCard from './ui/IconCard.vue';
 import { getIconsData } from './lib/iconsData';
 
@@ -48,9 +48,9 @@ const filteredCount = computed(() => filteredIcons.value.length);
           icon="search"
           clearable
         />
-        <div v-if="searchQuery" class="text-caption text-muted-foreground q-mt-sm">
+        <Typography v-if="searchQuery" variant="caption-muted" class-name="q-mt-sm">
           Found {{ filteredCount }} icon{{ filteredCount !== 1 ? 's' : '' }}
-        </div>
+        </Typography>
       </div>
 
       <!-- Icons Grid -->
@@ -68,10 +68,10 @@ const filteredCount = computed(() => filteredIcons.value.length);
 
       <!-- No results message -->
       <div v-if="filteredCount === 0 && searchQuery" class="text-center q-py-xl">
-        <p class="text-h6 text-muted-foreground">No icons found</p>
-        <p class="text-body2 text-muted-foreground">
+        <Typography as="p" variant="h6" color="muted-foreground">No icons found</Typography>
+        <Typography as="p" variant="body-muted">
           Try searching with different keywords
-        </p>
+        </Typography>
       </div>
     </div>
   </PageContainer>

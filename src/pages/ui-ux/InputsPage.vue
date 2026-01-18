@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { PageContainer, Input, Card } from '@shared/ui';
+import { PageContainer, Input, Card, Typography } from '@shared/ui';
 import { tabMail, tabSearch, tabLock } from 'quasar-extras-svg-icons/tabler-icons-v2';
 
 const textValue = ref('');
@@ -61,7 +61,7 @@ const largeValue = ref('');
             hint="Mask: (###) ### - ###"
           >
             <template #prepend>
-              <span class="text-caption text-muted-foreground">+996</span>
+              <Typography variant="caption-muted">+996</Typography>
             </template>
           </Input>
         </div>

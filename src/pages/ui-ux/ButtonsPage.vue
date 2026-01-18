@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { PageContainer, Button, Card } from '@shared/ui';
+import { PageContainer, Button, Card, Typography } from '@shared/ui';
 
 const isLoading = ref(false);
 
@@ -35,7 +35,7 @@ const sizes = [
       <!-- Variants Section -->
       <Card title="Variants">
         <template #header-right>
-          <span class="text-caption text-muted-foreground">Different button color variants</span>
+          <Typography variant="caption-muted">Different button color variants</Typography>
         </template>
         <div class="row q-gutter-md items-center flex-wrap">
           <Button v-for="variant in variants" :key="variant.value" :variant="variant.value">
@@ -47,13 +47,11 @@ const sizes = [
       <!-- Appearance Section -->
       <Card title="Appearance">
         <template #header-right>
-          <span class="text-caption text-muted-foreground"
-            >Different button styles for each variant</span
-          >
+          <Typography variant="caption-muted">Different button styles for each variant</Typography>
         </template>
         <div class="column q-gutter-y-lg">
           <div v-for="variant in variants" :key="variant.value" class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">{{ variant.label }}</div>
+            <Typography variant="subtitle" weight="medium">{{ variant.label }}</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Button
                 v-for="appearance in appearances"
@@ -71,9 +69,7 @@ const sizes = [
       <!-- Sizes Section -->
       <Card title="Sizes">
         <template #header-right>
-          <span class="text-caption text-muted-foreground"
-            >Small, medium and large button sizes</span
-          >
+          <Typography variant="caption-muted">Small, medium and large button sizes</Typography>
         </template>
         <div class="row q-gutter-md items-center flex-wrap">
           <Button v-for="size in sizes" :key="size.value" :size="size.value">
@@ -85,14 +81,12 @@ const sizes = [
       <!-- With Icons Section -->
       <Card title="With Icons">
         <template #header-right>
-          <span class="text-caption text-muted-foreground"
-            >Buttons with icons and icon-only buttons</span
-          >
+          <Typography variant="caption-muted">Buttons with icons and icon-only buttons</Typography>
         </template>
         <div class="column q-gutter-lg">
           <!-- Icon + Label -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Icon + Label</div>
+            <Typography variant="subtitle" weight="medium">Icon + Label</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Button icon="add" label="Add Item" />
               <Button variant="secondary" icon="edit" label="Edit" />
@@ -105,7 +99,7 @@ const sizes = [
 
           <!-- Icon Only -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Icon Only</div>
+            <Typography variant="subtitle" weight="medium">Icon Only</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Button icon="add" icon-only />
               <Button variant="secondary" icon="edit" icon-only />
@@ -118,7 +112,7 @@ const sizes = [
 
           <!-- Icon Only - Different Sizes -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Icon Only - Sizes</div>
+            <Typography variant="subtitle" weight="medium">Icon Only - Sizes</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Button icon="content_copy" icon-only size="sm" />
               <Button icon="content_copy" icon-only size="md" />
@@ -128,7 +122,7 @@ const sizes = [
 
           <!-- Icon Only - Round Shape -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Icon Only - Round Shape</div>
+            <Typography variant="subtitle" weight="medium">Icon Only - Round Shape</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Button icon="add" icon-only shape="round" size="sm" />
               <Button icon="add" icon-only shape="round" size="md" />
@@ -141,14 +135,12 @@ const sizes = [
       <!-- States Section -->
       <Card title="States">
         <template #header-right>
-          <span class="text-caption text-muted-foreground"
-            >Normal, disabled and loading states</span
-          >
+          <Typography variant="caption-muted">Normal, disabled and loading states</Typography>
         </template>
         <div class="column q-gutter-y-lg">
           <!-- Normal State -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Normal</div>
+            <Typography variant="subtitle" weight="medium">Normal</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Button>Normal Button</Button>
               <Button variant="secondary">Secondary</Button>
@@ -158,7 +150,7 @@ const sizes = [
 
           <!-- Disabled State -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Disabled</div>
+            <Typography variant="subtitle" weight="medium">Disabled</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Button disabled>Disabled Button</Button>
               <Button variant="secondary" disabled>Secondary</Button>
@@ -168,7 +160,7 @@ const sizes = [
 
           <!-- Loading State -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Loading</div>
+            <Typography variant="subtitle" weight="medium">Loading</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Button :loading="true">Loading Button</Button>
               <Button variant="secondary" :loading="true">Secondary</Button>
@@ -178,7 +170,7 @@ const sizes = [
 
           <!-- Interactive Loading -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Interactive Loading</div>
+            <Typography variant="subtitle" weight="medium">Interactive Loading</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Button :loading="isLoading" @click="isLoading = !isLoading">
                 {{ isLoading ? 'Loading...' : 'Click to Load' }}
@@ -191,7 +183,7 @@ const sizes = [
       <!-- Full Width Section -->
       <Card title="Full Width">
         <template #header-right>
-          <span class="text-caption text-muted-foreground">Buttons that span the full width</span>
+          <Typography variant="caption-muted">Buttons that span the full width</Typography>
         </template>
         <div class="column q-gutter-y-md">
           <Button full-width>Full Width Button</Button>
