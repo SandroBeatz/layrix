@@ -5,11 +5,11 @@ import type { NamedColor } from 'quasar';
  */
 export interface TypographyProps {
   as?: keyof HTMLElementTagNameMap;
-  variant?: TypographyVariant | undefined;
+  variant?: TypographyVariant;
   content?: string | undefined;
   weight?: 'light' | 'regular' | 'medium' | 'semibold' | 'bold' | undefined;
   align?: 'left' | 'center' | 'right' | 'justify' | undefined;
-  color?: NamedColor | undefined;
+  color?: NamedColor | 'muted-foreground' | undefined;
   className?: string | undefined;
 }
 

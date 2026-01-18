@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<TypographyProps>(), {
 
 const variantClass = computed(() => {
   const isMuted = props.variant?.endsWith('-muted');
-  const baseVariant = isMuted ? props.variant.replace('-muted', '') : props.variant;
+  const baseVariant = isMuted ? props.variant?.replace('-muted', '') : props.variant;
 
   let classes = '';
   switch (baseVariant) {
