@@ -34,6 +34,8 @@ const handleSubmenuClick = (subitem: NavigationMenuItemType) => {
   
   if (subitem.to) {
     void router.push(subitem.to);
+  } else if (subitem.externalLink) {
+    window.open(subitem.externalLink, '_blank', 'noopener,noreferrer');
   } else if (subitem.action) {
     subitem.action();
   }
@@ -58,6 +60,7 @@ const handleSubmenuClick = (subitem: NavigationMenuItemType) => {
           :disable="subitem.disable"
           :to="subitem.to"
           class="nav-subitem-mobile"
+          @click="!subitem.to && handleSubmenuClick(subitem)"
         >
           <q-item-section>{{ subitem.label }}</q-item-section>
         </q-item>
