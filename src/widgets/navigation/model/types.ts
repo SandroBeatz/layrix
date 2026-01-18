@@ -9,10 +9,7 @@ export interface NavigationMenuItem {
   /** Internal route path */
   to?: string;
 
-  /** External link flag */
-  external?: boolean;
-
-  /** External link URL */
+  /** External link URL (opens in new tab) */
   externalLink?: string;
 
   /** Icon for menu item */

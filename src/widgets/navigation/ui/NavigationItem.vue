@@ -25,17 +25,17 @@ const handleItemClick = () => {
   } else if (props.item.to) {
     void router.push(props.item.to);
   } else if (props.item.externalLink) {
-    window.open(props.item.externalLink, '_blank');
+    window.open(props.item.externalLink, '_blank', 'noopener,noreferrer');
   }
 };
 
 const handleSubmenuClick = (subitem: NavigationMenuItemType) => {
+  menuOpen.value = false;
+  
   if (subitem.to) {
     void router.push(subitem.to);
-    menuOpen.value = false;
   } else if (subitem.action) {
     subitem.action();
-    menuOpen.value = false;
   }
 };
 </script>
