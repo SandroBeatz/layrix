@@ -42,6 +42,17 @@ const alertClasses = computed(() => {
 
 // Default icons for each variant if not specified
 const defaultIcon = computed(() => {
+  // If icon is explicitly set to empty string, null, or false, don't show an icon
+  if (props.icon === '' || props.icon === null || props.icon === false) {
+    return '';
+  }
+  
+  // If icon is provided, use it
+  if (props.icon) {
+    return props.icon;
+  }
+  
+  // Otherwise use variant-specific default icon
   const iconMap: Record<typeof props.variant, string> = {
     primary: 'info',
     secondary: 'info',
@@ -51,7 +62,7 @@ const defaultIcon = computed(() => {
     info: 'info',
     regular: 'info',
   };
-  return props.icon || iconMap[props.variant];
+  return iconMap[props.variant];
 });
 </script>
 
@@ -59,7 +70,7 @@ const defaultIcon = computed(() => {
   <QCard flat bordered :class="alertClasses">
     <div class="alert__container">
       <!-- Icon -->
-      <div v-if="icon !== undefined || defaultIcon" class="alert__icon">
+      <div v-if="defaultIcon" class="alert__icon">
         <QIcon :name="defaultIcon" size="24px" />
       </div>
 

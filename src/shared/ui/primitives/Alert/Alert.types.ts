@@ -49,8 +49,9 @@ export interface AlertProps {
   /**
    * Icon name to display
    * Use icon class names like 'info', 'warning', 'check_circle', etc.
+   * Set to empty string, null, or false to hide the icon
    */
-  icon?: string;
+  icon?: string | null | false;
 
   /**
    * Overline text (small text above title)
