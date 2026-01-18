@@ -25,7 +25,7 @@ const handleItemClick = () => {
   } else if (props.item.to) {
     void router.push(props.item.to);
   } else if (props.item.externalLink) {
-    window.open(props.item.externalLink, props.item.external ? '_blank' : '_self');
+    window.open(props.item.externalLink, '_blank');
   }
 };
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useNavigation } from '../model/useNavigation';
 import NavigationItem from './NavigationItem.vue';
 import { useQuasar } from 'quasar';
@@ -14,14 +14,14 @@ const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value;
 };
 
-const isMobile = () => $q.screen.lt.md;
+const isMobile = computed(() => $q.screen.lt.md);
 </script>
 
 <template>
   <nav class="navigation-widget">
     <!-- Mobile Menu Toggle Button -->
     <q-btn
-      v-if="isMobile()"
+      v-if="isMobile"
       flat
       dense
       round
@@ -31,7 +31,7 @@ const isMobile = () => $q.screen.lt.md;
     />
 
     <!-- Desktop Navigation -->
-    <div v-if="!isMobile()" class="navigation-desktop">
+    <div v-if="!isMobile" class="navigation-desktop">
       <template v-for="(group, groupIndex) in menuGroups" :key="groupIndex">
         <div class="navigation-group">
           <NavigationItem
