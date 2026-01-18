@@ -93,27 +93,11 @@ h1, h2, h3, h4, h5, h6, p, span, div {
 
 // Default text color
 .text-color-default {
-  color: var(--color-text) !important;
+  color: var(--color-text);
 }
 
 // Muted text color
 .text-color-muted {
-  color: var(--color-text-muted) !important;
-}
-
-// Ensure all typography variants have no margin
-.text-h1,
-.text-h2,
-.text-h3,
-.text-h4,
-.text-h5,
-.text-h6,
-.text-subtitle1,
-.text-subtitle2,
-.text-body1,
-.text-body2,
-.text-caption,
-.text-overline {
-  margin: 0 !important;
+  color: var(--color-text-muted);
 }
 </style>
