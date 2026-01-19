@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Dropdown, type DropdownContent } from '@shared/ui'
+import { Dropdown, type DropdownContent } from '@shared/ui';
 
 // User menu items
 const userMenuItems: DropdownContent[] = [
@@ -7,31 +7,31 @@ const userMenuItems: DropdownContent[] = [
     icon: 'person',
     label: 'Profile',
     caption: 'View and edit your profile',
-    onClick: () => console.log('Profile clicked')
+    onClick: () => console.log('Profile clicked'),
   },
   {
     icon: 'settings',
     label: 'Settings',
     caption: 'Manage your preferences',
-    onClick: () => console.log('Settings clicked')
+    onClick: () => console.log('Settings clicked'),
   },
   {
-    type: 'separator'
+    type: 'separator',
   },
   {
     icon: 'help',
     label: 'Help & Support',
-    onClick: () => console.log('Help clicked')
+    onClick: () => console.log('Help clicked'),
   },
   {
-    type: 'separator'
+    type: 'separator',
   },
   {
     icon: 'logout',
     label: 'Sign Out',
-    onClick: () => console.log('Sign Out clicked')
-  }
-]
+    onClick: () => console.log('Sign Out clicked'),
+  },
+];
 </script>
 
 <template>

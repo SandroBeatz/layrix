@@ -14,10 +14,10 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useScreen } from '@shared/lib/device'
-import DropdownListItems from './DropdownListItems.vue'
-import type { DropdownProps, DropdownEmits, DropdownItem } from './Dropdown.types'
+import { ref, watch } from 'vue';
+import { useScreen } from '@shared/lib/device';
+import DropdownListItems from './DropdownListItems.vue';
+import type { DropdownProps, DropdownEmits, DropdownItem } from './Dropdown.types';
 
 const props = withDefaults(defineProps<DropdownProps>(), {
   items: () => [],
@@ -25,61 +25,74 @@ const props = withDefaults(defineProps<DropdownProps>(), {
   cancelButtonText: 'Cancel',
   maxWidth: '280px',
   transitionShow: 'jump-down',
-  transitionHide: 'jump-up'
-})
+  transitionHide: 'jump-up',
+});
 
-const emit = defineEmits<DropdownEmits>()
+const emit = defineEmits<DropdownEmits>();
 
-const { isMobileBreakpoint } = useScreen()
-const isOpen = ref(false)
+const { isMobileBreakpoint } = useScreen();
 
-// Watch for modelValue changes
-const internalModel = computed({
-  get: () => props.modelValue != null ? props.modelValue : isOpen.value,
-  set: (value: boolean) => {
-    isOpen.value = value
-    emit('update:modelValue', value)
+// Internal state for dropdown open/close
+const isOpen = ref(props.modelValue ?? false);
+
+// Sync with external modelValue
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    if (newValue != null) {
+      isOpen.value = newValue;
+    }
   }
-})
+);
+
+// Emit changes to parent
+watch(isOpen, (newValue) => {
+  emit('update:modelValue', newValue);
+});
 
 // Handle item click
 function handleItemClick(item: DropdownItem) {
-  emit('item-click', item)
-  
+  emit('item-click', item);
+
   if (item.onClick) {
-    item.onClick()
+    item.onClick();
   }
 
   // Close dropdown if closeOnClick is true (default)
   if (item.closeOnClick !== false) {
-    internalModel.value = false
+    isOpen.value = false;
   }
 }
 
 // Handle cancel on mobile
 function handleCancel() {
-  internalModel.value = false
+  isOpen.value = false;
+}
+
+function handleOpen() {
+  isOpen.value = true;
 }
 </script>
 
 <template>
   <div class="dropdown">
     <!-- Trigger slot - wraps the trigger element -->
-    <div 
-      class="dropdown__trigger" 
+    <div
+      class="dropdown__trigger"
       tabindex="0"
       role="button"
-      @click="internalModel = true"
-      @keydown.enter="internalModel = true"
-      @keydown.space.prevent="internalModel = true"
+      @click.stop="handleOpen"
+      @keydown.enter="handleOpen"
+      @keydown.space.prevent="handleOpen"
     >
-      <slot name="trigger" />
+      <slot name="trigger" :trigger="handleOpen" />
     </div>
 
     <!-- Desktop: QMenu -->
     <q-menu
       v-if="!isMobileBreakpoint"
-      v-model="internalModel"
+      v-model="isOpen"
+      no-parent-event
       :transition-show="transitionShow"
       :transition-hide="transitionHide"
       class="dropdown__menu"
@@ -101,12 +114,7 @@ function handleCancel() {
     </q-menu>
 
     <!-- Mobile: QDialog (Bottom Sheet) -->
-    <q-dialog
-      v-else
-      v-model="internalModel"
-      position="bottom"
-      class="dropdown__dialog"
-    >
+    <q-dialog v-else v-model="isOpen" position="bottom" class="dropdown__dialog">
       <q-card class="dropdown__sheet">
         <!-- Before slot -->
         <q-card-section v-if="$slots.before" class="dropdown__before">
