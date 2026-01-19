@@ -65,7 +65,14 @@ function handleCancel() {
 <template>
   <div class="dropdown">
     <!-- Trigger slot - wraps the trigger element -->
-    <div class="dropdown__trigger" @click="internalModel = true">
+    <div 
+      class="dropdown__trigger" 
+      tabindex="0"
+      role="button"
+      @click="internalModel = true"
+      @keydown.enter="internalModel = true"
+      @keydown.space.prevent="internalModel = true"
+    >
       <slot name="trigger" />
     </div>
 

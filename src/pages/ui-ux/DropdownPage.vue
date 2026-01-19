@@ -346,7 +346,7 @@ const controlledItems: DropdownContent[] = [
         </template>
 
         <Typography variant="body">
-          On mobile devices (screen width &lt; 768px), all dropdowns automatically transform into bottom sheets.
+          On mobile devices (smaller screens), all dropdowns automatically transform into bottom sheets.
           Try resizing your browser window to see the responsive behavior in action!
         </Typography>
 
