@@ -1,35 +1,68 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { Dropdown, type DropdownContent } from '@shared/ui'
+
+// User menu items
+const userMenuItems: DropdownContent[] = [
+  {
+    icon: 'person',
+    label: 'Profile',
+    caption: 'View and edit your profile',
+    onClick: () => console.log('Profile clicked')
+  },
+  {
+    icon: 'settings',
+    label: 'Settings',
+    caption: 'Manage your preferences',
+    onClick: () => console.log('Settings clicked')
+  },
+  {
+    type: 'separator'
+  },
+  {
+    icon: 'help',
+    label: 'Help & Support',
+    onClick: () => console.log('Help clicked')
+  },
+  {
+    type: 'separator'
+  },
+  {
+    icon: 'logout',
+    label: 'Sign Out',
+    onClick: () => console.log('Sign Out clicked')
+  }
+]
+</script>
 
 <template>
-  <q-item clickable dense class="header-user-button">
-    <q-item-section avatar class="header-user-button__avatar">
-      <q-avatar>
-        <img src="https://cdn.quasar.dev/img/avatar4.jpg" />
-      </q-avatar>
-    </q-item-section>
+  <Dropdown :items="userMenuItems" :max-width="'280px'">
+    <template #trigger>
+      <q-item clickable dense class="header-user-button">
+        <q-item-section avatar class="header-user-button__avatar">
+          <q-avatar>
+            <img src="https://cdn.quasar.dev/img/avatar4.jpg" />
+          </q-avatar>
+        </q-item-section>
+      </q-item>
+    </template>
 
-    <!--
-    <q-item-section class="header-user-button__name">
-      <q-item-label class="text-weight-bold">John Doe</q-item-label>
-      <q-item-label caption>john2219@gmail.com</q-item-label>
-    </q-item-section>
-    -->
-
-    <q-menu transition-show="jump-down" transition-hide="jump-up">
-      <q-list style="min-width: 100px">
-        <q-item clickable>
-          <q-item-section>Having fun</q-item-section>
-        </q-item>
-        <q-item clickable>
-          <q-item-section>Crazy for transitions</q-item-section>
+    <template #before>
+      <div class="header-user-button__info">
+        <q-item>
+          <q-item-section avatar>
+            <q-avatar size="48px">
+              <img src="https://cdn.quasar.dev/img/avatar4.jpg" />
+            </q-avatar>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label class="text-weight-bold">John Doe</q-item-label>
+            <q-item-label caption>john.doe@example.com</q-item-label>
+          </q-item-section>
         </q-item>
         <q-separator />
-        <q-item clickable>
-          <q-item-section>Mind blown</q-item-section>
-        </q-item>
-      </q-list>
-    </q-menu>
-  </q-item>
+      </div>
+    </template>
+  </Dropdown>
 </template>
 
 <style scoped lang="scss">
