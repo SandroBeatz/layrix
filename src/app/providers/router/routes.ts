@@ -37,6 +37,7 @@ const routes: RouteRecordRaw[] = [
       { path: 'badges', name: 'badges', component: () => import('@pages/ui-ux/BadgesPage.vue') },
       { path: 'alerts', name: 'alerts', component: () => import('@pages/ui-ux/AlertsPage.vue') },
       { path: 'inputs', name: 'inputs', component: () => import('@pages/ui-ux/InputsPage.vue') },
+      { path: 'dropdown', name: 'dropdown', component: () => import('@pages/ui-ux/DropdownPage.vue') },
       { path: 'icons', name: 'icons', component: () => import('@pages/icons/IconsPage.vue') },
       {
         path: 'device-test',
