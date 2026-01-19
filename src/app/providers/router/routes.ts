@@ -25,6 +25,11 @@ const routes: RouteRecordRaw[] = [
       { path: 'theme', name: 'theme', component: () => import('@pages/ui-ux/ThemePage.vue') },
       { path: 'buttons', name: 'buttons', component: () => import('@pages/ui-ux/ButtonsPage.vue') },
       {
+        path: 'button-group',
+        name: 'button-group',
+        component: () => import('@pages/ui-ux/ButtonGroupPage.vue'),
+      },
+      {
         path: 'typography',
         name: 'typography',
         component: () => import('@pages/ui-ux/TypographyPage.vue'),
