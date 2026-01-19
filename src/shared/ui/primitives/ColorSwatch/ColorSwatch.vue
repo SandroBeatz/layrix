@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Button } from '@shared/ui'
+import { Button, Typography } from '@shared/ui'
 import { useClipboard } from '@shared/lib'
 import type { ColorSwatchProps } from './ColorSwatch.types'
 
@@ -57,7 +57,7 @@ const handleCopyText = () => {
     <div class="color-swatch__content">
       <!-- Background class row -->
       <div class="color-swatch__row">
-        <span class="color-swatch__text">{{ bgClassName }}</span>
+        <Typography as="span" variant="caption" class-name="color-swatch__text">{{ bgClassName }}</Typography>
         <Button
           icon-only
           icon="content_copy"
@@ -70,7 +70,7 @@ const handleCopyText = () => {
 
       <!-- Text class row -->
       <div class="color-swatch__row">
-        <span class="color-swatch__text">{{ textClassName }}</span>
+        <Typography as="span" variant="caption" class-name="color-swatch__text">{{ textClassName }}</Typography>
         <Button
           icon-only
           icon="content_copy"

@@ -1,23 +1,28 @@
+<script setup lang="ts">
+import { Typography, Button } from '@shared/ui';
+</script>
+
 <template>
   <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
     <div>
-      <div style="font-size: 30vh">404</div>
+      <Typography variant="h1" class-name="error-code">404</Typography>
 
-      <div class="text-h2" style="opacity: 0.4">Oops. Nothing here...</div>
+      <Typography variant="h2" class-name="error-message">
+        Oops. Nothing here...
+      </Typography>
 
-      <q-btn
-        class="q-mt-xl"
-        color="white"
-        text-color="blue"
-        unelevated
-        to="/"
-        label="Go Home"
-        no-caps
-      />
+      <Button class="q-mt-xl" to="/">Go Home</Button>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-//
-</script>
+<style scoped>
+.error-code {
+  font-size: 30vh;
+  line-height: 1;
+}
+
+.error-message {
+  opacity: 0.4;
+}
+</style>

@@ -45,22 +45,12 @@ const colors = [
 </script>
 
 <template>
-  <PageContainer
-    title="Typography"
-    subtitle="Text styles, variants, and typography components"
-  >
+  <PageContainer title="Typography" subtitle="Text styles, variants, and typography components">
     <div class="column q-gutter-y-lg">
       <!-- Headings Section -->
-      <Card title="Headings">
-        <template #header-right>
-          <span class="text-caption text-muted-foreground">All heading levels h1 - h6</span>
-        </template>
+      <Card title="Headings" caption="All heading levels h1 - h6">
         <div class="column q-gutter-y-md">
-          <div
-            v-for="variant in headingVariants"
-            :key="variant.value"
-            class="column q-gutter-y-xs"
-          >
+          <div v-for="variant in headingVariants" :key="variant.value" class="column q-gutter-y-xs">
             <Typography variant="caption" color="muted-foreground">
               {{ variant.label }}
             </Typography>
@@ -72,12 +62,7 @@ const colors = [
       </Card>
 
       <!-- Text Variants Section -->
-      <Card title="Text Variants">
-        <template #header-right>
-          <span class="text-caption text-muted-foreground"
-            >Subtitle, body, caption, and overline</span
-          >
-        </template>
+      <Card title="Text Variants" caption="Subtitle, body, caption, and overline">
         <div class="column q-gutter-y-md">
           <div v-for="variant in textVariants" :key="variant.value" class="column q-gutter-y-xs">
             <Typography variant="caption" color="muted-foreground">
@@ -91,12 +76,7 @@ const colors = [
       </Card>
 
       <!-- Muted Variants Section -->
-      <Card title="Muted Variants">
-        <template #header-right>
-          <span class="text-caption text-muted-foreground"
-            >Using --color-text-muted for secondary content</span
-          >
-        </template>
+      <Card title="Muted Variants" caption="Using --color-text-muted for secondary content">
         <div class="column q-gutter-y-md">
           <div class="column q-gutter-y-xs">
             <Typography variant="caption" color="muted-foreground">Normal vs Muted</Typography>
@@ -127,12 +107,7 @@ const colors = [
       </Card>
 
       <!-- Font Weights Section -->
-      <Card title="Font Weights">
-        <template #header-right>
-          <span class="text-caption text-muted-foreground"
-            >Light, regular, medium, semibold, and bold</span
-          >
-        </template>
+      <Card title="Font Weights" caption="Light, regular, medium, semibold, and bold">
         <div class="column q-gutter-y-md">
           <div v-for="weight in weights" :key="weight.value" class="column q-gutter-y-xs">
             <Typography variant="caption" color="muted-foreground">
@@ -146,12 +121,7 @@ const colors = [
       </Card>
 
       <!-- Text Alignment Section -->
-      <Card title="Text Alignment">
-        <template #header-right>
-          <span class="text-caption text-muted-foreground"
-            >Left, center, right, and justify</span
-          >
-        </template>
+      <Card title="Text Alignment" caption="Left, center, right, and justify">
         <div class="column q-gutter-y-md">
           <div v-for="alignment in alignments" :key="alignment.value" class="column q-gutter-y-xs">
             <Typography variant="caption" color="muted-foreground">
@@ -165,12 +135,7 @@ const colors = [
       </Card>
 
       <!-- Colors Section -->
-      <Card title="Text Colors">
-        <template #header-right>
-          <span class="text-caption text-muted-foreground"
-            >Using color prop for semantic colors</span
-          >
-        </template>
+      <Card title="Text Colors" caption="Using color prop for semantic colors">
         <div class="column q-gutter-y-md">
           <div class="column q-gutter-y-xs">
             <Typography variant="caption" color="muted-foreground">Default Colors</Typography>
@@ -185,7 +150,12 @@ const colors = [
           <div class="column q-gutter-y-xs">
             <Typography variant="caption" color="muted-foreground">Semantic Colors</Typography>
             <div class="column q-gutter-y-sm">
-              <Typography v-for="color in colors" :key="color.value" variant="body" :color="color.value">
+              <Typography
+                v-for="color in colors"
+                :key="color.value"
+                variant="body"
+                :color="color.value"
+              >
                 {{ color.label }} - The quick brown fox jumps over the lazy dog
               </Typography>
             </div>
@@ -194,14 +164,11 @@ const colors = [
       </Card>
 
       <!-- Blockquote Section -->
-      <Card title="Blockquote">
-        <template #header-right>
-          <span class="text-caption text-muted-foreground">Styled quotations</span>
-        </template>
+      <Card title="Blockquote" caption="Styled quotations">
         <div class="column q-gutter-y-md">
           <Typography variant="blockquote" as="blockquote">
-            "The only way to do great work is to love what you do. If you haven't found it yet,
-            keep looking. Don't settle." — Steve Jobs
+            "The only way to do great work is to love what you do. If you haven't found it yet, keep
+            looking. Don't settle." — Steve Jobs
           </Typography>
           <Typography variant="blockquote" as="blockquote">
             "Design is not just what it looks like and feels like. Design is how it works." — Steve
@@ -211,12 +178,7 @@ const colors = [
       </Card>
 
       <!-- Combined Examples Section -->
-      <Card title="Combined Examples">
-        <template #header-right>
-          <span class="text-caption text-muted-foreground"
-            >Combining variants, weights, and colors</span
-          >
-        </template>
+      <Card title="Combined Examples" caption="Combining variants, weights, and colors">
         <div class="column q-gutter-y-lg">
           <!-- Example 1: Article Header -->
           <div class="column q-gutter-y-sm">
@@ -242,7 +204,9 @@ const colors = [
                 <Typography variant="body">Multiple heading levels (h1-h6)</Typography>
               </li>
               <li>
-                <Typography variant="body">Text variants (subtitle, body, caption, overline)</Typography>
+                <Typography variant="body"
+                  >Text variants (subtitle, body, caption, overline)</Typography
+                >
               </li>
               <li>
                 <Typography variant="body">Muted variants for secondary content</Typography>
@@ -256,8 +220,12 @@ const colors = [
           <!-- Example 3: Status Messages -->
           <div class="column q-gutter-y-sm">
             <Typography variant="h6" as="h6" weight="medium">Status Messages</Typography>
-            <Typography variant="body" color="positive">✓ Operation completed successfully</Typography>
-            <Typography variant="body" color="warning">⚠ Warning: Please review your changes</Typography>
+            <Typography variant="body" color="positive"
+              >✓ Operation completed successfully</Typography
+            >
+            <Typography variant="body" color="warning"
+              >⚠ Warning: Please review your changes</Typography
+            >
             <Typography variant="body" color="negative">✗ Error: Something went wrong</Typography>
             <Typography variant="body" color="info">ℹ Information: Update available</Typography>
           </div>
@@ -265,10 +233,7 @@ const colors = [
       </Card>
 
       <!-- Usage Examples Section -->
-      <Card title="Usage Examples">
-        <template #header-right>
-          <span class="text-caption text-muted-foreground">Code examples</span>
-        </template>
+      <Card title="Usage Examples" caption="Code examples">
         <div class="column q-gutter-y-md">
           <div class="column q-gutter-y-xs">
             <Typography variant="caption" color="muted-foreground">Basic Usage</Typography>

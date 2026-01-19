@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PageContainer, Badge, Card, Button } from '@shared/ui';
+import { PageContainer, Badge, Card, Button, Typography } from '@shared/ui';
 
 // Badge variants for demo
 const variants = [
@@ -38,7 +38,7 @@ const appearances = [
       <Card title="Appearance Styles" caption="Fill, outline and ghost styles">
         <div class="column q-gutter-y-lg">
           <div v-for="variant in variants" :key="variant.value" class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">{{ variant.label }}</div>
+            <Typography variant="subtitle" weight="medium">{{ variant.label }}</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Badge
                 v-for="appearance in appearances"
@@ -57,7 +57,7 @@ const appearances = [
         <div class="column q-gutter-y-md">
           <!-- Fill Pills -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Fill Pills</div>
+            <Typography variant="subtitle" weight="medium">Fill Pills</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Badge
                 v-for="variant in variants"
@@ -70,7 +70,7 @@ const appearances = [
           </div>
           <!-- Outline Pills -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Outline Pills</div>
+            <Typography variant="subtitle" weight="medium">Outline Pills</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Badge
                 v-for="variant in variants"
@@ -84,7 +84,7 @@ const appearances = [
           </div>
           <!-- Ghost Pills -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Ghost Pills</div>
+            <Typography variant="subtitle" weight="medium">Ghost Pills</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Badge
                 v-for="variant in variants"
@@ -108,7 +108,7 @@ const appearances = [
             class="row items-center q-gutter-sm"
           >
             <Badge :variant="variant.value" dot />
-            <span>{{ variant.label }}</span>
+            <Typography as="span" variant="body">{{ variant.label }}</Typography>
           </div>
         </div>
       </Card>
@@ -118,7 +118,7 @@ const appearances = [
         <div class="column q-gutter-y-lg">
           <!-- Small Numbers -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Small Numbers</div>
+            <Typography variant="subtitle" weight="medium">Small Numbers</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Badge variant="primary" :label="3" />
               <Badge variant="secondary" :label="5" />
@@ -130,7 +130,7 @@ const appearances = [
           </div>
           <!-- Large Numbers -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Large Numbers</div>
+            <Typography variant="subtitle" weight="medium">Large Numbers</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Badge variant="primary" label="99+" />
               <Badge variant="info" :label="142" />
@@ -140,7 +140,7 @@ const appearances = [
           </div>
           <!-- Pills with Numbers -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Pill Style with Numbers</div>
+            <Typography variant="subtitle" weight="medium">Pill Style with Numbers</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Badge variant="primary" :label="3" pill />
               <Badge variant="negative" :label="99" pill />
@@ -156,7 +156,7 @@ const appearances = [
         <div class="column q-gutter-y-lg">
           <!-- Status Labels -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Status Labels</div>
+            <Typography variant="subtitle" weight="medium">Status Labels</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Badge variant="positive" label="Active" />
               <Badge variant="warning" label="Pending" />
@@ -167,7 +167,7 @@ const appearances = [
           </div>
           <!-- Tags/Categories -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Tags/Categories</div>
+            <Typography variant="subtitle" weight="medium">Tags/Categories</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Badge variant="primary" label="Design" appearance="ghost" />
               <Badge variant="secondary" label="Development" appearance="ghost" />
@@ -178,7 +178,7 @@ const appearances = [
           </div>
           <!-- Pill Status Labels -->
           <div class="column q-gutter-y-sm">
-            <div class="text-subtitle2 text-weight-medium">Pill Status Labels</div>
+            <Typography variant="subtitle" weight="medium">Pill Status Labels</Typography>
             <div class="row q-gutter-md items-center flex-wrap">
               <Badge variant="positive" label="Approved" pill />
               <Badge variant="negative" label="Rejected" pill />

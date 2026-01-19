@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ColorSwatch } from '@shared/ui'
+import { ColorSwatch, Typography } from '@shared/ui'
 import { colorGroups } from '../config/colorGroups'
 
 /**
@@ -18,7 +18,9 @@ import { colorGroups } from '../config/colorGroups'
       :key="group.title"
       class="theme-palette__group"
     >
-      <h3 class="theme-palette__title">{{ group.title }}</h3>
+      <Typography as="h3" variant="h5" weight="semibold" class-name="theme-palette__title">
+        {{ group.title }}
+      </Typography>
       <div class="row q-gutter-md">
         <div
           v-for="colorName in group.colors"
@@ -44,9 +46,6 @@ import { colorGroups } from '../config/colorGroups'
 
   &__title {
     margin: 0 0 16px 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--color-foreground);
   }
 }
 </style>
