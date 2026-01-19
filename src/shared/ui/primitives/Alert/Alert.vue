@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { QCard, QIcon } from 'quasar';
+import { QCard, QIcon, QBtn } from 'quasar';
 import type { AlertProps } from './Alert.types';
 import { Typography } from '../Typography';
+import {
+  tabInfoCircle,
+  tabCircleCheck,
+  tabCircleX,
+  tabAlertTriangle,
+  tabX,
+} from 'quasar-extras-svg-icons/tabler-icons-v2';
 
 /**
  * Alert Component
@@ -28,7 +35,16 @@ import { Typography } from '../Typography';
 const props = withDefaults(defineProps<AlertProps>(), {
   variant: 'primary',
   appearance: 'fill',
+  closable: false,
 });
+
+const emit = defineEmits<{
+  close: [];
+}>();
+
+const handleClose = () => {
+  emit('close');
+};
 
 // Generate CSS classes for the alert
 const alertClasses = computed(() => {
@@ -52,15 +68,16 @@ const defaultIcon = computed(() => {
     return props.icon;
   }
   
-  // Otherwise use variant-specific default icon
+  // Otherwise use variant-specific default Tabler icon
   const iconMap: Record<typeof props.variant, string> = {
-    primary: 'info',
-    secondary: 'info',
-    positive: 'check_circle',
-    negative: 'error',
-    warning: 'warning',
-    info: 'info',
-    regular: 'info',
+    primary: tabInfoCircle,
+    secondary: tabInfoCircle,
+    positive: tabCircleCheck,
+    negative: tabCircleX,
+    warning: tabAlertTriangle,
+    info: tabInfoCircle,
+    regular: tabInfoCircle,
+    default: tabInfoCircle,
   };
   return iconMap[props.variant];
 });
@@ -93,6 +110,19 @@ const defaultIcon = computed(() => {
 
         <!-- Default slot for custom content -->
         <slot v-if="!overline && !title && !message" />
+      </div>
+
+      <!-- Close button -->
+      <div v-if="closable" class="alert__close">
+        <QBtn
+          flat
+          round
+          dense
+          :icon="tabX"
+          size="sm"
+          @click="handleClose"
+          class="alert__close-btn"
+        />
       </div>
     </div>
 
@@ -133,6 +163,21 @@ const defaultIcon = computed(() => {
     gap: 4px;
   }
 
+  &__close {
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &__close-btn {
+    opacity: 0.8;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
   &__overline {
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -158,6 +203,9 @@ const defaultIcon = computed(() => {
 
   // Fill appearance styles
   &--fill {
+    // Add text shadow for better readability on colored backgrounds
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
     &.alert--primary {
       background-color: var(--color-primary);
       color: white;
@@ -225,6 +273,17 @@ const defaultIcon = computed(() => {
 
       .alert__icon {
         color: var(--color-background);
+      }
+    }
+
+    &.alert--default {
+      background-color: rgba(var(--color-foreground-rgb), 0.1);
+      color: var(--color-foreground);
+      border-color: rgba(var(--color-foreground-rgb), 0.2);
+      text-shadow: none;
+
+      .alert__icon {
+        color: var(--color-foreground);
       }
     }
   }
@@ -295,6 +354,15 @@ const defaultIcon = computed(() => {
         color: var(--color-foreground);
       }
     }
+
+    &.alert--default {
+      border-color: rgba(var(--color-foreground-rgb), 0.3);
+      color: var(--color-foreground);
+
+      .alert__icon {
+        color: var(--color-foreground);
+      }
+    }
   }
 
   // Ghost appearance styles
@@ -357,6 +425,15 @@ const defaultIcon = computed(() => {
 
     &.alert--regular {
       background-color: rgba(var(--color-foreground-rgb), 0.08);
+      color: var(--color-foreground);
+
+      .alert__icon {
+        color: var(--color-foreground);
+      }
+    }
+
+    &.alert--default {
+      background-color: rgba(var(--color-foreground-rgb), 0.05);
       color: var(--color-foreground);
 
       .alert__icon {
