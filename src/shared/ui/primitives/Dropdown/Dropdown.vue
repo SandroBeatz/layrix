@@ -16,14 +16,14 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useScreen } from '@shared/lib/device'
-import type { DropdownProps, DropdownEmits, DropdownItem, DropdownContent, DropdownSection, DropdownSeparator } from './Dropdown.types'
+import DropdownListItems from './DropdownListItems.vue'
+import type { DropdownProps, DropdownEmits, DropdownItem } from './Dropdown.types'
 
 const props = withDefaults(defineProps<DropdownProps>(), {
   items: () => [],
   showCancelButton: true,
   cancelButtonText: 'Cancel',
   maxWidth: '280px',
-  modelValue: false,
   transitionShow: 'jump-down',
   transitionHide: 'jump-up'
 })
@@ -31,29 +31,16 @@ const props = withDefaults(defineProps<DropdownProps>(), {
 const emit = defineEmits<DropdownEmits>()
 
 const { isMobileBreakpoint } = useScreen()
-const isOpen = ref(props.modelValue)
+const isOpen = ref(false)
 
 // Watch for modelValue changes
 const internalModel = computed({
-  get: () => props.modelValue !== undefined ? props.modelValue : isOpen.value,
+  get: () => props.modelValue != null ? props.modelValue : isOpen.value,
   set: (value: boolean) => {
     isOpen.value = value
     emit('update:modelValue', value)
   }
 })
-
-// Determine if item is a regular item, separator, or section
-function isItem(content: DropdownContent): content is DropdownItem {
-  return !('type' in content)
-}
-
-function isSeparator(content: DropdownContent): content is DropdownSeparator {
-  return 'type' in content && content.type === 'separator'
-}
-
-function isSection(content: DropdownContent): content is DropdownSection {
-  return 'type' in content && content.type === 'section'
-}
 
 // Handle item click
 function handleItemClick(item: DropdownItem) {
@@ -97,67 +84,7 @@ function handleCancel() {
         </div>
 
         <!-- Render items -->
-        <template v-for="(content, index) in items" :key="index">
-          <!-- Regular item -->
-          <q-item
-            v-if="isItem(content)"
-            clickable
-            :disable="content.disabled"
-            :class="content.class"
-            @click="handleItemClick(content)"
-          >
-            <q-item-section v-if="content.icon" avatar>
-              <q-icon :name="content.icon" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label>{{ content.label }}</q-item-label>
-              <q-item-label v-if="content.caption" caption>
-                {{ content.caption }}
-              </q-item-label>
-            </q-item-section>
-
-            <q-item-section v-if="content.endIcon || content.end" side>
-              <q-icon v-if="content.endIcon" :name="content.endIcon" />
-              <span v-else-if="content.end">{{ content.end }}</span>
-            </q-item-section>
-          </q-item>
-
-          <!-- Separator -->
-          <q-separator v-else-if="isSeparator(content)" />
-
-          <!-- Section -->
-          <template v-else-if="isSection(content)">
-            <q-item-label v-if="content.caption" header>
-              {{ content.caption }}
-            </q-item-label>
-
-            <q-item
-              v-for="(item, itemIndex) in content.items"
-              :key="`section-${index}-item-${itemIndex}`"
-              clickable
-              :disable="item.disabled"
-              :class="item.class"
-              @click="handleItemClick(item)"
-            >
-              <q-item-section v-if="item.icon" avatar>
-                <q-icon :name="item.icon" />
-              </q-item-section>
-
-              <q-item-section>
-                <q-item-label>{{ item.label }}</q-item-label>
-                <q-item-label v-if="item.caption" caption>
-                  {{ item.caption }}
-                </q-item-label>
-              </q-item-section>
-
-              <q-item-section v-if="item.endIcon || item.end" side>
-                <q-icon v-if="item.endIcon" :name="item.endIcon" />
-                <span v-else-if="item.end">{{ item.end }}</span>
-              </q-item-section>
-            </q-item>
-          </template>
-        </template>
+        <DropdownListItems :items="items" @item-click="handleItemClick" />
 
         <!-- After slot -->
         <div v-if="$slots.after" class="dropdown__after">
@@ -181,67 +108,7 @@ function handleCancel() {
 
         <!-- Items -->
         <q-list>
-          <template v-for="(content, index) in items" :key="index">
-            <!-- Regular item -->
-            <q-item
-              v-if="isItem(content)"
-              clickable
-              :disable="content.disabled"
-              :class="content.class"
-              @click="handleItemClick(content)"
-            >
-              <q-item-section v-if="content.icon" avatar>
-                <q-icon :name="content.icon" />
-              </q-item-section>
-
-              <q-item-section>
-                <q-item-label>{{ content.label }}</q-item-label>
-                <q-item-label v-if="content.caption" caption>
-                  {{ content.caption }}
-                </q-item-label>
-              </q-item-section>
-
-              <q-item-section v-if="content.endIcon || content.end" side>
-                <q-icon v-if="content.endIcon" :name="content.endIcon" />
-                <span v-else-if="content.end">{{ content.end }}</span>
-              </q-item-section>
-            </q-item>
-
-            <!-- Separator -->
-            <q-separator v-else-if="isSeparator(content)" />
-
-            <!-- Section -->
-            <template v-else-if="isSection(content)">
-              <q-item-label v-if="content.caption" header>
-                {{ content.caption }}
-              </q-item-label>
-
-              <q-item
-                v-for="(item, itemIndex) in content.items"
-                :key="`section-${index}-item-${itemIndex}`"
-                clickable
-                :disable="item.disabled"
-                :class="item.class"
-                @click="handleItemClick(item)"
-              >
-                <q-item-section v-if="item.icon" avatar>
-                  <q-icon :name="item.icon" />
-                </q-item-section>
-
-                <q-item-section>
-                  <q-item-label>{{ item.label }}</q-item-label>
-                  <q-item-label v-if="item.caption" caption>
-                    {{ item.caption }}
-                  </q-item-label>
-                </q-item-section>
-
-                <q-item-section v-if="item.endIcon || item.end" side>
-                  <q-icon v-if="item.endIcon" :name="item.endIcon" />
-                  <span v-else-if="item.end">{{ item.end }}</span>
-                </q-item-section>
-              </q-item>
-            </template>
-          </template>
+          <DropdownListItems :items="items" @item-click="handleItemClick" />
         </q-list>
 
         <!-- After slot -->
