@@ -16,6 +16,7 @@ export * from './primitives/Button';
 export * from './primitives/ButtonGroup';
 export * from './primitives/Card';
 export * from './primitives/ColorSwatch';
+export * from './primitives/Dropdown';
 export * from './primitives/Input';
 export * from './primitives/Typography';
 
