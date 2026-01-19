@@ -12,6 +12,7 @@
  * - warning: Warning status
  * - info: Informational status
  * - regular: Regular text color (foreground)
+ * - default: Light grey background with dark foreground
  */
 export type AlertVariant =
   | 'primary'
@@ -20,7 +21,8 @@ export type AlertVariant =
   | 'negative'
   | 'warning'
   | 'info'
-  | 'regular';
+  | 'regular'
+  | 'default';
 
 /**
  * Alert visual appearance
@@ -67,4 +69,10 @@ export interface AlertProps {
    * Message text (main content)
    */
   message?: string;
+
+  /**
+   * Show close button
+   * @default false
+   */
+  closable?: boolean;
 }

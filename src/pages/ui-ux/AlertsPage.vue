@@ -10,6 +10,7 @@ const variants = [
   { value: 'warning', label: 'Warning' },
   { value: 'info', label: 'Info' },
   { value: 'regular', label: 'Regular' },
+  { value: 'default', label: 'Default' },
 ] as const;
 
 const appearances = [
@@ -277,6 +278,43 @@ const appearances = [
             overline="Congratulations"
             title="Milestone Reached!"
             message="You've completed 100 tasks this month. Keep up the great work!"
+          />
+        </div>
+      </Card>
+
+      <!-- Closable Alerts Section -->
+      <Card title="Closable Alerts" caption="Alerts with optional close button">
+        <div class="column q-gutter-md">
+          <Alert
+            variant="info"
+            closable
+            title="Dismissible Information"
+            message="This alert can be closed by clicking the X button."
+            @close="() => {}"
+          />
+          <Alert
+            variant="positive"
+            appearance="outline"
+            closable
+            title="Success Message"
+            message="Your action was successful. You can dismiss this message."
+            @close="() => {}"
+          />
+          <Alert
+            variant="warning"
+            appearance="ghost"
+            closable
+            overline="Notice"
+            title="Temporary Notice"
+            message="This is a temporary notice that can be dismissed."
+            @close="() => {}"
+          />
+          <Alert
+            variant="default"
+            closable
+            title="Default Variant"
+            message="This is the new default variant with light grey background and dark foreground."
+            @close="() => {}"
           />
         </div>
       </Card>
