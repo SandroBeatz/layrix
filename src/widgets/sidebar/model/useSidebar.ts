@@ -6,6 +6,7 @@ import {
   tabComponents,
   tabForms,
   tabIcons,
+  tabBike,
 } from 'quasar-extras-svg-icons/tabler-icons-v2';
 import { useRoute } from 'vue-router';
 
@@ -115,6 +116,11 @@ export function useSidebar() {
           label: 'Icons',
           icon: tabIcons,
           to: '/icons',
+        },
+        {
+          label: 'Velocorner Widget',
+          icon: tabBike,
+          to: '/velocorner-widget',
         },
       ],
     },

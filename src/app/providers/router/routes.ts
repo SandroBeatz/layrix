@@ -43,6 +43,11 @@ const routes: RouteRecordRaw[] = [
         name: 'device-test',
         component: () => import('@pages/device-test/DeviceTestPage.vue'),
       },
+      {
+        path: 'velocorner-widget',
+        name: 'velocorner-widget',
+        component: () => import('@pages/velocorner-widget/VelocornerWidgetPage.vue'),
+      },
     ],
   },
 
