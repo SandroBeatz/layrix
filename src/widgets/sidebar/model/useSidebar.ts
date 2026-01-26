@@ -63,11 +63,15 @@ export function useSidebar() {
         {
           label: 'UI Elements',
           icon: tabComponents,
-          expandOn: ['/buttons', '/badges', '/typography', '/theme', '/alerts', '/dropdown'],
+          expandOn: ['/buttons', '/badges', '/typography', '/theme', '/alerts', '/avatars', '/dropdown'],
           submenu: [
             {
               label: 'Alerts',
               to: '/alerts',
+            },
+            {
+              label: 'Avatars',
+              to: '/avatars',
             },
             {
               label: 'Badges',
