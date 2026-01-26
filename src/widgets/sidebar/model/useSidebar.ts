@@ -78,6 +78,10 @@ export function useSidebar() {
               to: '/buttons',
             },
             {
+              label: 'Button Group',
+              to: '/button-group',
+            },
+            {
               label: 'Dropdown',
               to: '/dropdown',
             },
