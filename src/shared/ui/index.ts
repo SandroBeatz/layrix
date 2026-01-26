@@ -11,6 +11,8 @@
 
 // Export primitive components
 export * from './primitives/Alert';
+export * from './primitives/Avatar';
+export * from './primitives/AvatarGroup';
 export * from './primitives/Badge';
 export * from './primitives/Button';
 export * from './primitives/ButtonGroup';
