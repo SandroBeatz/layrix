@@ -1,0 +1,65 @@
+{
+  "name": "layrix",
+  "description": "Production-ready architectural framework for scalable dashboard applications on Quasar Framework with Feature-Sliced Design (FSD)",
+  "version": "0.0.1",
+  "type": "frontend",
+  "framework": "quasar",
+  "language": "typescript",
+  "architecture": "feature-sliced-design",
+  "repository": {
+    "type": "git",
+    "defaultBranch": "main",
+    "developBranch": "develop"
+  },
+  "tech": {
+    "runtime": "browser",
+    "framework": "quasar@2.16.0",
+    "ui": "vue@3.5.22",
+    "language": "typescript@5.9.2",
+    "stateManagement": "pinia@3.0.1",
+    "router": "vue-router@4",
+    "i18n": "vue-i18n@11",
+    "http": "axios",
+    "linting": "eslint@9 (flat config)",
+    "formatting": "prettier@3.3.3",
+    "buildTool": "vite (via quasar-cli)"
+  },
+  "layers": {
+    "app": "Application initialization, providers, layouts",
+    "pages": "Route components — widget composition only, no business logic",
+    "widgets": "Large self-contained UI blocks — feature composition",
+    "features": "User actions organized as domain/action",
+    "entities": "Business entities — stores, types, API methods",
+    "shared": "Reusable infrastructure — UI kit, utilities, API client"
+  },
+  "pathAliases": {
+    "@app": "src/app",
+    "@pages": "src/pages",
+    "@widgets": "src/widgets",
+    "@features": "src/features",
+    "@entities": "src/entities",
+    "@shared": "src/shared"
+  },
+  "commands": {
+    "dev": "quasar dev",
+    "build": "quasar build",
+    "lint": "npm run lint",
+    "format": "npm run format",
+    "typeCheck": "npx vue-tsc --noEmit"
+  },
+  "issueTracker": "beads (bd CLI)",
+  "agents": [
+    "fsd-reviewer",
+    "component-builder",
+    "feature-builder",
+    "architecture-auditor"
+  ],
+  "skills": [
+    "beads",
+    "new-component",
+    "new-feature",
+    "new-page",
+    "lint-check",
+    "fsd-check"
+  ]
+}

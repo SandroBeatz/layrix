@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(quasar dev:*)",
+      "Bash(quasar build:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run format:*)",
+      "Bash(npm test:*)",
+      "Bash(npx vue-tsc:*)",
+      "Bash(bd *:*)",
+      "WebFetch(domain:quasar.dev)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)"
+    ]
+  }
+}
