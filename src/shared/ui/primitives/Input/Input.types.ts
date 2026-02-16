@@ -3,12 +3,31 @@
  * Wrapper around Quasar QInput with opinionated design system
  */
 
-import type { QInputProps } from 'quasar';
-
 /**
  * Input size variants
  */
 export type InputSize = 'sm' | 'md' | 'lg';
+
+/**
+ * Supported input types
+ */
+export type InputType = 
+  | 'text'
+  | 'password'
+  | 'email'
+  | 'search'
+  | 'tel'
+  | 'file'
+  | 'number'
+  | 'url'
+  | 'time'
+  | 'date'
+  | 'datetime-local';
+
+/**
+ * Validation rule function
+ */
+export type ValidationRule = (val: string | number) => boolean | string;
 
 /**
  * Input component props
@@ -19,7 +38,7 @@ export interface InputProps {
   
   // Basic props
   placeholder?: string;
-  type?: string;
+  type?: InputType;
   name?: string;
   
   // Icons
@@ -67,7 +86,7 @@ export interface InputProps {
   error?: boolean;
   errorMessage?: string;
   hint?: string;
-  rules?: QInputProps['rules'];
+  rules?: ValidationRule[];
   lazyRules?: boolean | 'ondemand';
   reactiveRules?: boolean;
   

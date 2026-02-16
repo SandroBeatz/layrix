@@ -103,7 +103,7 @@ const handleClear = () => {
     hide-bottom-space
     :name="name"
     :dense="dense"
-    :type="computedType"
+    :type="textarea ? 'textarea' : computedType"
     :placeholder="placeholder"
     :disable="disable"
     :error="error"
@@ -117,7 +117,6 @@ const handleClear = () => {
     :hint="hint"
     :mask="mask"
     :fill-mask="fillMask"
-    :type="textarea ? 'textarea' : computedType"
     :autogrow="textarea && autogrow"
     :rows="textarea ? rows : undefined"
     @update:model-value="handleInput"

@@ -146,7 +146,7 @@ const emailErrorValue = ref('');
               v-model="textareaValue"
               textarea
               placeholder="Enter your message..."
-              rows="3"
+              :rows="3"
             />
           </FieldControl>
           <FieldControl label="Textarea with Autogrow">
@@ -162,7 +162,7 @@ const emailErrorValue = ref('');
               v-model="textareaFixedValue"
               textarea
               placeholder="5 rows fixed height"
-              rows="5"
+              :rows="5"
             />
           </FieldControl>
         </div>
@@ -255,24 +255,24 @@ const emailErrorValue = ref('');
           <FieldControl label="Input with Before Slot">
             <Input v-model="beforeAfterValue" placeholder="Enter amount...">
               <template #before>
-                <Typography variant="body-sm" class="q-mr-sm">Price:</Typography>
+                <Typography variant="body" class="q-mr-sm">Price:</Typography>
               </template>
             </Input>
           </FieldControl>
           <FieldControl label="Input with After Slot">
             <Input v-model="beforeAfterValue" placeholder="Enter amount...">
               <template #after>
-                <Typography variant="body-sm" class="q-ml-sm">USD</Typography>
+                <Typography variant="body" class="q-ml-sm">USD</Typography>
               </template>
             </Input>
           </FieldControl>
           <FieldControl label="Input with Both Slots">
             <Input v-model="customSlotValue" placeholder="0.00" :icon="tabUser">
               <template #before>
-                <Typography variant="body-sm" class="q-mr-sm">$</Typography>
+                <Typography variant="body" class="q-mr-sm">$</Typography>
               </template>
               <template #after>
-                <Typography variant="body-sm" class="q-ml-sm">.00</Typography>
+                <Typography variant="body" class="q-ml-sm">.00</Typography>
               </template>
             </Input>
           </FieldControl>
