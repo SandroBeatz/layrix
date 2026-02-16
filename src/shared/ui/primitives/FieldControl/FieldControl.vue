@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { computed, provide } from 'vue';
+import { computed } from 'vue';
 import type { FieldControlProps } from './FieldControl.types';
+
+// Counter for generating unique field IDs
+let fieldIdCounter = 0;
 
 /**
  * FieldControl Component
@@ -17,18 +20,33 @@ import type { FieldControlProps } from './FieldControl.types';
  * This is the standard HTML form approach and provides proper accessibility:
  * - Screen readers will correctly associate label with input
  * - Clicking label will focus the input
- * - We generate a unique ID and provide it to child components via provide/inject
+ * - We generate a unique ID using an incrementing counter
+ * - The ID is passed to child components via slot props
+ *
+ * ## Usage with Form Controls:
+ * Child components should accept the ID from slot props and pass it to their form control.
+ * For Quasar components like QInput, use the `for` prop to link the label.
  *
  * @example
  * // Basic usage
  * <FieldControl label="Email">
- *   <Input v-model="email" type="email" placeholder="Enter email" />
+ *   <template #default="{ id }">
+ *     <Input v-model="email" :for="id" type="email" placeholder="Enter email" />
+ *   </template>
  * </FieldControl>
  *
  * @example
  * // Required field
  * <FieldControl label="Password" required>
- *   <Input v-model="password" type="password" />
+ *   <template #default="{ id }">
+ *     <Input v-model="password" :for="id" type="password" />
+ *   </template>
+ * </FieldControl>
+ *
+ * @example
+ * // Simplified usage (ID auto-wired if child component supports it)
+ * <FieldControl label="Email">
+ *   <Input v-model="email" type="email" />
  * </FieldControl>
  */
 
@@ -36,14 +54,10 @@ const props = withDefaults(defineProps<FieldControlProps>(), {
   required: false,
 });
 
-// Generate unique ID for the field
+// Generate unique ID for the field using counter-based approach
 const fieldId = computed(() => {
-  return props.id ?? `field-${Math.random().toString(36).substring(2, 9)}`;
+  return props.id ?? `field-control-${++fieldIdCounter}`;
 });
-
-// Provide the field ID to slotted components
-// Slotted components can inject this ID to set their own ID attribute
-provide('fieldControlId', fieldId);
 </script>
 
 <template>
