@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { PageContainer, Input, Card, Typography } from '@shared/ui';
+import { PageContainer, Input, Card, Typography, FieldControl } from '@shared/ui';
 import { tabMail, tabSearch, tabLock } from 'quasar-extras-svg-icons/tabler-icons-v2';
 
 const textValue = ref('');
@@ -14,6 +14,11 @@ const phoneValue = ref('');
 const smallValue = ref('');
 const mediumValue = ref('');
 const largeValue = ref('');
+
+// FieldControl examples
+const fieldControlEmail = ref('');
+const fieldControlPassword = ref('');
+const fieldControlOptional = ref('');
 </script>
 
 <template>
@@ -91,6 +96,39 @@ const largeValue = ref('');
             placeholder="Large size input..."
             :icon="tabMail"
           />
+        </div>
+      </Card>
+
+      <!-- FieldControl Section -->
+      <Card
+        title="FieldControl Wrapper"
+        caption="Semantic label + field wrapper with required indicator"
+      >
+        <div class="column q-gutter-md" style="max-width: 600px">
+          <FieldControl label="Email Address" required>
+            <Input
+              v-model="fieldControlEmail"
+              type="email"
+              placeholder="email@example.com"
+              :icon="tabMail"
+            />
+          </FieldControl>
+
+          <FieldControl label="Password" required>
+            <Input
+              v-model="fieldControlPassword"
+              type="password"
+              placeholder="Enter your password"
+              :icon="tabLock"
+            />
+          </FieldControl>
+
+          <FieldControl label="Optional Field">
+            <Input
+              v-model="fieldControlOptional"
+              placeholder="This field is optional"
+            />
+          </FieldControl>
         </div>
       </Card>
     </div>
