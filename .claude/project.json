@@ -22,7 +22,8 @@
     "http": "axios",
     "linting": "eslint@9 (flat config)",
     "formatting": "prettier@3.3.3",
-    "buildTool": "vite (via quasar-cli)"
+    "buildTool": "vite (via quasar-cli)",
+    "icons": "tabler-icons-v2 (via quasar-extras-svg-icons)"
   },
   "layers": {
     "app": "Application initialization, providers, layouts",
@@ -47,19 +48,174 @@
     "format": "npm run format",
     "typeCheck": "npx vue-tsc --noEmit"
   },
-  "issueTracker": "beads (bd CLI)",
-  "agents": [
-    "fsd-reviewer",
-    "component-builder",
-    "feature-builder",
-    "architecture-auditor"
-  ],
-  "skills": [
-    "beads",
-    "new-component",
-    "new-feature",
-    "new-page",
-    "lint-check",
-    "fsd-check"
-  ]
+  "issueTracker": {
+    "name": "beads",
+    "cli": "bd",
+    "location": ".beads/",
+    "sync": "git",
+    "commands": {
+      "ready": "bd ready - Show issues ready to work",
+      "create": "bd create --title='...' --type=task|bug|feature --priority=0-4",
+      "list": "bd list --status=open|in_progress|closed",
+      "show": "bd show <id> - Detailed issue view",
+      "update": "bd update <id> --status=in_progress|open",
+      "close": "bd close <id1> <id2> ... - Close issues",
+      "dep": "bd dep add <issue> <depends-on> - Add dependency",
+      "blocked": "bd blocked - Show blocked issues",
+      "sync": "bd sync - Sync with git remote",
+      "stats": "bd stats - Project statistics"
+    }
+  },
+  "agents": {
+    "fsd-reviewer": {
+      "description": "Reviews code changes for Feature-Sliced Design compliance",
+      "purpose": "Checks layer boundaries, import direction, naming conventions, and Quasar isolation rules",
+      "usage": "Use proactively after code changes that touch FSD layers",
+      "model": "sonnet",
+      "tools": ["Read", "Grep", "Glob"],
+      "readOnly": true
+    },
+    "component-builder": {
+      "description": "Builds new shared/ui primitive components following the Quasar wrapping pattern",
+      "purpose": "Creates properly typed Vue components with props interfaces, barrel exports, and design system consistency",
+      "usage": "Use when creating new UI primitives in shared/ui/primitives/",
+      "model": "sonnet",
+      "tools": ["Read", "Write", "Edit", "Glob", "Grep"]
+    },
+    "feature-builder": {
+      "description": "Scaffolds and implements new feature slices following FSD conventions",
+      "purpose": "Creates feature directory structure with UI components, model composables, types, and barrel exports",
+      "usage": "Use when adding new user actions or feature slices in features/[domain]/[action]/",
+      "model": "sonnet",
+      "tools": ["Read", "Write", "Edit", "Glob", "Grep"]
+    },
+    "architecture-auditor": {
+      "description": "Audits the entire Layrix codebase for FSD architecture violations",
+      "purpose": "Comprehensive check: import rule breaches, Quasar isolation issues, structural inconsistencies",
+      "usage": "Use when you need a comprehensive health check of the project architecture",
+      "model": "sonnet",
+      "tools": ["Read", "Grep", "Glob", "Bash"],
+      "readOnly": true
+    }
+  },
+  "skills": {
+    "beads": {
+      "description": "Manage project issues and tasks using the beads (bd) issue tracker",
+      "usage": "/beads [command] [args]",
+      "userInvocable": true,
+      "examples": [
+        "/beads ready",
+        "/beads create --title='Fix bug' --type=bug --priority=1",
+        "/beads close beads-xxx"
+      ]
+    },
+    "new-component": {
+      "description": "Scaffold a new shared/ui primitive component with proper FSD structure",
+      "usage": "/new-component <ComponentName>",
+      "userInvocable": true,
+      "examples": [
+        "/new-component DataTable",
+        "/new-component ProgressBar"
+      ]
+    },
+    "new-feature": {
+      "description": "Scaffold a new feature slice with proper FSD structure",
+      "usage": "/new-feature <domain/action>",
+      "userInvocable": true,
+      "examples": [
+        "/new-feature user/create",
+        "/new-feature sidebar/toggle"
+      ]
+    },
+    "new-page": {
+      "description": "Scaffold a new page with route registration",
+      "usage": "/new-page <page-name>",
+      "userInvocable": true,
+      "examples": [
+        "/new-page settings",
+        "/new-page user-profile"
+      ]
+    },
+    "lint-check": {
+      "description": "Run code quality checks including ESLint and TypeScript type checking",
+      "usage": "/lint-check [--fix]",
+      "userInvocable": true,
+      "examples": [
+        "/lint-check",
+        "/lint-check --fix"
+      ]
+    },
+    "fsd-check": {
+      "description": "Quick FSD architecture compliance check",
+      "usage": "/fsd-check",
+      "userInvocable": true,
+      "examples": ["/fsd-check"]
+    },
+    "icons": {
+      "description": "Reference for using icons in the Layrix application",
+      "usage": "/icons [icon-name or description]",
+      "userInvocable": true,
+      "note": "All icons MUST come from quasar-extras-svg-icons/tabler-icons-v2",
+      "examples": [
+        "/icons home",
+        "/icons search"
+      ]
+    }
+  },
+  "criticalRules": {
+    "imports": "Top-to-bottom only. No upward or horizontal imports within same layer",
+    "quasarIsolation": "Quasar components ONLY in shared/ui/primitives/. All other layers use @shared/ui",
+    "barrelExports": "Every slice must export through index.ts. No deep imports",
+    "featuresAsActions": "Features organized as domain/action (e.g., sidebar/toggle-mini)",
+    "dumbPages": "Pages have no business logic, only widget composition",
+    "typeImports": "Use 'import type' for type-only imports (enforced by ESLint)",
+    "strictTypeScript": "No 'any'. exactOptionalPropertyTypes, noUncheckedIndexedAccess enabled"
+  },
+  "designSystem": {
+    "primitives": [
+      "Alert",
+      "Badge",
+      "Button",
+      "ButtonGroup",
+      "Card",
+      "ColorSwatch",
+      "Dropdown",
+      "Input",
+      "Typography"
+    ],
+    "layout": ["PageContainer"],
+    "composables": [
+      "useTheme",
+      "useScreen",
+      "usePlatform",
+      "useDevice",
+      "useClipboard"
+    ]
+  },
+  "currentImplementation": {
+    "widgets": ["HeaderWidget", "SidebarWidget", "ThemePalette"],
+    "features": [
+      "sidebar/toggle-mini",
+      "sidebar/toggle-sidebar",
+      "theme/toggle"
+    ],
+    "entities": ["sidebar"],
+    "pages": 14,
+    "routes": [
+      "/analytics",
+      "/e-commerce",
+      "/crm",
+      "/theme",
+      "/buttons",
+      "/button-group",
+      "/typography",
+      "/badges",
+      "/alerts",
+      "/inputs",
+      "/dropdown",
+      "/icons",
+      "/device-test",
+      "/velocorner-widget"
+    ]
+  }
 }
