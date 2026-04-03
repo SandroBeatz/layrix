@@ -7,6 +7,7 @@
 
 <script setup lang="ts">
 import type { DropdownContent, DropdownItem, DropdownSection, DropdownSeparator } from './Dropdown.types'
+import { Icon } from '../Icon'
 
 interface Props {
   items: DropdownContent[]
@@ -48,7 +49,7 @@ function handleItemClick(item: DropdownItem) {
       @click="handleItemClick(content)"
     >
       <q-item-section v-if="content.icon" avatar>
-        <q-icon :name="content.icon" />
+        <Icon :name="content.icon" />
       </q-item-section>
 
       <q-item-section>
@@ -59,7 +60,7 @@ function handleItemClick(item: DropdownItem) {
       </q-item-section>
 
       <q-item-section v-if="content.endIcon || content.end" side>
-        <q-icon v-if="content.endIcon" :name="content.endIcon" />
+        <Icon v-if="content.endIcon" :name="content.endIcon" />
         <span v-else-if="content.end">{{ content.end }}</span>
       </q-item-section>
     </q-item>
@@ -82,7 +83,7 @@ function handleItemClick(item: DropdownItem) {
         @click="handleItemClick(item)"
       >
         <q-item-section v-if="item.icon" avatar>
-          <q-icon :name="item.icon" />
+          <Icon :name="item.icon" />
         </q-item-section>
 
         <q-item-section>
@@ -93,7 +94,7 @@ function handleItemClick(item: DropdownItem) {
         </q-item-section>
 
         <q-item-section v-if="item.endIcon || item.end" side>
-          <q-icon v-if="item.endIcon" :name="item.endIcon" />
+          <Icon v-if="item.endIcon" :name="item.endIcon" />
           <span v-else-if="item.end">{{ item.end }}</span>
         </q-item-section>
       </q-item>

@@ -21,6 +21,7 @@ export * from './primitives/Card';
 export * from './primitives/ColorSwatch';
 export * from './primitives/Dropdown';
 export * from './primitives/FieldControl';
+export * from './primitives/Icon';
 export * from './primitives/Input';
 export * from './primitives/List';
 export * from './primitives/ListItem';
