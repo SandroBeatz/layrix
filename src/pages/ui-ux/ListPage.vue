@@ -23,7 +23,7 @@ import {
   tabPhoneCall,
 } from 'quasar-extras-svg-icons/tabler-icons-v2';
 import { ref } from 'vue';
-import { Avatar, Badge, Button, Card, List, ListItem, PageContainer, Typography } from '@shared/ui';
+import { Avatar, Badge, Button, Card, Icon, List, ListItem, PageContainer, Typography } from '@shared/ui';
 
 // ── Context menu items (image 2 style) ──────────────────────────────────────
 interface MenuItem {
@@ -269,14 +269,14 @@ const navItems = [
                 :class="item.variant === 'negative' ? 'text-negative' : ''"
               >
                 <template #prepend>
-                  <q-icon
+                  <Icon
                     :name="item.icon"
                     size="20px"
                     :class="item.variant === 'negative' ? 'text-negative' : 'text-muted-foreground'"
                   />
                 </template>
                 <template v-if="item.hasSubmenu" #append>
-                  <q-icon :name="tabChevronRight" size="16px" class="text-muted-foreground" />
+                  <Icon :name="tabChevronRight" size="16px" class="text-muted-foreground" />
                 </template>
               </ListItem>
             </List>
@@ -321,7 +321,7 @@ const navItems = [
                 Typing ...
               </span>
               <span v-else-if="contact.isMissedCall" class="text-negative row items-center q-gutter-x-xs">
-                <q-icon :name="tabPhone" size="14px" />
+                <Icon :name="tabPhone" size="14px" />
                 <span>Missed voice call</span>
               </span>
               <span v-else>{{ contact.message }}</span>
@@ -336,7 +336,7 @@ const navItems = [
                   variant="primary"
                   pill
                 />
-                <q-icon
+                <Icon
                   v-else-if="contact.isRead"
                   :name="tabCheck"
                   size="16px"
@@ -366,11 +366,11 @@ const navItems = [
                 class="row items-center justify-center bg-muted"
                 style="width: 36px; height: 36px; border-radius: 8px"
               >
-                <q-icon :name="item.icon" size="20px" class="text-primary" />
+                <Icon :name="item.icon" size="20px" class="text-primary" />
               </div>
             </template>
             <template #append>
-              <q-icon :name="tabChevronRight" size="18px" class="text-muted-foreground" />
+              <Icon :name="tabChevronRight" size="18px" class="text-muted-foreground" />
             </template>
           </ListItem>
           <!-- Logout — negative variant -->
@@ -381,11 +381,11 @@ const navItems = [
                 class="row items-center justify-center"
                 style="width: 36px; height: 36px; border-radius: 8px; background: rgba(var(--color-negative-rgb), 0.1)"
               >
-                <q-icon :name="tabLogout" size="20px" class="text-negative" />
+                <Icon :name="tabLogout" size="20px" class="text-negative" />
               </div>
             </template>
             <template #append>
-              <q-icon :name="tabChevronRight" size="18px" class="text-muted-foreground" />
+              <Icon :name="tabChevronRight" size="18px" class="text-muted-foreground" />
             </template>
           </ListItem>
         </List>
@@ -411,7 +411,7 @@ const navItems = [
                   background: rgba(var(--color-${item.variant}-rgb), 0.12);
                 `"
               >
-                <q-icon :name="item.icon" size="20px" :class="`text-${item.variant}`" />
+                <Icon :name="item.icon" size="20px" :class="`text-${item.variant}`" />
               </div>
             </template>
             <template #append>
@@ -439,10 +439,10 @@ const navItems = [
             <template #append>
               <div class="row q-gutter-xs">
                 <Button icon-only appearance="ghost" variant="regular" size="sm">
-                  <q-icon :name="tabShare" size="16px" />
+                  <Icon :name="tabShare" size="16px" />
                 </Button>
                 <Button icon-only appearance="ghost" variant="regular" size="sm">
-                  <q-icon :name="tabArchive" size="16px" />
+                  <Icon :name="tabArchive" size="16px" />
                 </Button>
               </div>
             </template>
@@ -465,7 +465,7 @@ const navItems = [
                 @click="activeItem = item.id"
               >
                 <template #prepend>
-                  <q-icon
+                  <Icon
                     :name="item.icon"
                     size="20px"
                     :class="activeItem === item.id ? 'text-primary' : 'text-muted-foreground'"
@@ -568,7 +568,7 @@ const navItems = [
             caption="Also not interactive"
           >
             <template #prepend>
-              <q-icon :name="tabShield" size="20px" />
+              <Icon :name="tabShield" size="20px" />
             </template>
           </ListItem>
         </List>

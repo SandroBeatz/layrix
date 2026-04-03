@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { QCard, QIcon, QTooltip, useQuasar } from 'quasar';
+import { QCard, QTooltip, useQuasar } from 'quasar';
+import { Icon } from '@shared/ui';
 
 interface IconCardProps {
   iconName: string;
@@ -41,7 +42,7 @@ const copyToClipboard = async () => {
   >
     <div class="icon-card__content">
       <div class="icon-card__icon-wrapper">
-        <QIcon :name="iconSvg" size="32px" />
+        <Icon :name="iconSvg" size="32px" />
       </div>
       <div class="icon-card__name text-caption text-center">
         {{ iconName }}

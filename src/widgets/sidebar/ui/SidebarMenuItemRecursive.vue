@@ -26,13 +26,13 @@ const isLeafItem = computed(() => !props.item.submenu || props.item.submenu.leng
   <div v-else-if="isMini" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
     <q-item clickable :class="['sidebar-item', `sidebar-item--depth-${depth}`]">
       <q-item-section v-if="item.icon && isTopLevel" avatar class="sidebar-item__avatar">
-        <q-icon :name="item.icon" />
+        <Icon :name="item.icon" />
       </q-item-section>
 
       <q-item-section>{{ item.label }}</q-item-section>
 
       <q-item-section v-if="!isTopLevel" side>
-        <q-icon name="chevron_right" size="xs" />
+        <Icon :name="tabChevronRight" size="xs" />
       </q-item-section>
 
       <q-menu

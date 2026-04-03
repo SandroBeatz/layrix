@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { QCard, QIcon, QBtn } from 'quasar';
+import { QCard, QBtn } from 'quasar';
 import type { AlertProps } from './Alert.types';
 import { Typography } from '../Typography';
+import { Icon } from '../Icon';
 import {
   tabInfoCircle,
   tabCircleCheck,
@@ -88,7 +89,7 @@ const defaultIcon = computed(() => {
     <div class="alert__container">
       <!-- Icon -->
       <div v-if="defaultIcon" class="alert__icon">
-        <QIcon :name="defaultIcon" size="24px" />
+        <Icon :name="defaultIcon" size="24px" />
       </div>
 
       <!-- Content -->

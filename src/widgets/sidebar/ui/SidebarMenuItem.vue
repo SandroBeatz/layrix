@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { SidebarMenuItem as SidebarMenuItemType } from '../model/types';
+import { Icon } from '@shared/ui';
 
 const props = withDefaults(
   defineProps<{
@@ -31,7 +32,7 @@ const handleClick = () => {
     @click="handleClick"
   >
     <q-item-section v-if="item.icon && !isSubmenu" avatar class="sidebar-item__avatar">
-      <q-icon :name="item.icon" />
+      <Icon :name="item.icon" />
     </q-item-section>
 
     <q-item-section class="relative-position">
