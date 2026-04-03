@@ -63,7 +63,7 @@ export function useSidebar() {
         {
           label: 'UI Elements',
           icon: tabComponents,
-          expandOn: ['/buttons', '/badges', '/typography', '/theme', '/alerts', '/dropdown', '/avatars', '/breadcrumbs'],
+          expandOn: ['/buttons', '/badges', '/typography', '/theme', '/alerts', '/dropdown', '/avatars', '/breadcrumbs', '/lists'],
           submenu: [
             {
               label: 'Alerts',
@@ -92,6 +92,10 @@ export function useSidebar() {
             {
               label: 'Dropdown',
               to: '/dropdown',
+            },
+            {
+              label: 'Lists',
+              to: '/lists',
             },
             {
               label: 'Theme',

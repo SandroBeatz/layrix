@@ -88,6 +88,7 @@ Skills are invocable via `/skill-name` in Claude Code.
 | `/fsd-check` | `/fsd-check` | Quick FSD compliance scan |
 | `/icons` | `/icons [icon-name]` | Reference for Tabler Icons usage |
 | `/input-usage` | `/input-usage [input-type]` | Complete guide for Input component usage |
+| `/list-usage` | `/list-usage [use-case]` | Complete guide for List and ListItem component usage |
 
 ## Architecture Overview
 

@@ -22,6 +22,8 @@ export * from './primitives/ColorSwatch';
 export * from './primitives/Dropdown';
 export * from './primitives/FieldControl';
 export * from './primitives/Input';
+export * from './primitives/List';
+export * from './primitives/ListItem';
 export * from './primitives/Typography';
 
 // Export layout components

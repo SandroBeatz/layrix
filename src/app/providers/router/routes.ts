@@ -44,6 +44,11 @@ const routes: RouteRecordRaw[] = [
         name: 'breadcrumbs',
         component: () => import('@pages/ui-ux/BreadcrumbsPage.vue'),
       },
+      {
+        path: 'lists',
+        name: 'lists',
+        component: () => import('@pages/ui-ux/ListPage.vue'),
+      },
       { path: 'icons', name: 'icons', component: () => import('@pages/icons/IconsPage.vue') },
       {
         path: 'device-test',
