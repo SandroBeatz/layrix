@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Layer boundaries are law
 - AI must understand the structure
 
-**Current State:** This project has migrated to FSD structure. The FSD layers (`app/`, `pages/`, `widgets/`, `features/`, `entities/`, `shared/`) are active and contain working code. Follow this structure for all new code.
+**Current State:** This project has fully migrated to FSD structure. The FSD layers (`app/`, `pages/`, `widgets/`, `features/`, `entities/`, `shared/`) are active and contain working code. Follow this structure for all new code.
 
 ## Development Commands
 
@@ -64,16 +64,16 @@ shared   → can import: ONLY external libraries
 **FORBIDDEN:**
 - Importing up the hierarchy
 - Horizontal imports between slices of the same layer (e.g., feature → feature)
-- Direct Quasar imports outside `shared/ui/quasar/`
+- Direct Quasar imports outside `shared/ui/` primitives
 
 ### Quasar Integration
 
-**CRITICAL RULE:** Quasar is imported ONLY in `shared/ui/` components (currently in primitives like Button, Card, Input)
+**CRITICAL RULE:** Quasar is imported ONLY in `shared/ui/primitives/` components
 
-All Quasar components must be wrapped in `shared/ui/` and exported through `shared/ui/index.ts`.
+All Quasar components must be wrapped in `shared/ui/primitives/` and exported through `shared/ui/index.ts`.
 
 ```typescript
-// ❌ FORBIDDEN everywhere except shared/ui
+// ❌ FORBIDDEN everywhere except shared/ui/primitives
 import { QBtn, QTable } from 'quasar'
 
 // ✅ CORRECT
@@ -146,13 +146,11 @@ Every slice (feature, entity, widget) follows this structure:
 - **Structure:**
   - `api/` - HTTP client, interceptors
   - `config/` - Environment variables, constants
-  - `lib/` - Utilities (date, validation, storage)
+  - `lib/` - Utilities (theme, clipboard, device detection)
   - `types/` - Common types
-  - `ui/` - UI Kit (Quasar wrappers, composables)
-    - `ui/primitives/` - Basic components (Button, Card, Input)
+  - `ui/` - UI Kit (Quasar wrappers, layout components)
+    - `ui/primitives/` - Basic components (Button, Card, Input, Alert, Badge, etc.)
     - `ui/layout/` - Layout components (PageContainer)
-    - `ui/composables/` - Shared composables
-    - `ui/quasar/` - Direct Quasar imports (currently unused, primitives import directly)
 - **Forbidden:** Importing business layers, business logic
 
 ## TypeScript Conventions
@@ -265,7 +263,7 @@ import type { ButtonProps } from './Button.types'
 3. UI separated from logic (ui/ vs model/)
 4. Pages contain no business logic
 5. Entities own all data operations
-6. Quasar only in `shared/ui/` components
+6. Quasar only in `shared/ui/primitives/` components
 7. Public API through `index.ts`
 8. One responsibility per file
 
@@ -275,7 +273,7 @@ import type { ButtonProps } from './Button.types'
 2. Logic in UI components (use model/)
 3. Direct API access from pages/widgets (use entities/features)
 4. Smart layouts (no business logic in app/layouts/)
-5. Direct Quasar imports outside shared/ui/
+5. Direct Quasar imports outside shared/ui/primitives/
 6. Data mutation outside model layer
 
 ## Common Tasks Reference
@@ -305,12 +303,8 @@ import type { ButtonProps } from './Button.types'
 // app/providers/router/routes.ts
 {
   path: '/new-page',
-  component: AdminLayout,
-  children: [{
-    path: '',
-    name: 'new-page',
-    component: () => import('@pages/new-page/NewPage.vue')
-  }]
+  name: 'new-page',
+  component: () => import('@pages/new-page/NewPage.vue')
 }
 ```
 
@@ -335,7 +329,7 @@ Before committing changes:
 - [ ] File is in correct layer
 - [ ] Naming follows conventions
 - [ ] Imports follow hierarchy (no upward/horizontal imports)
-- [ ] No direct Quasar imports (except `shared/ui/` components)
+- [ ] No direct Quasar imports (except `shared/ui/primitives/` components)
 - [ ] Exports through `index.ts`
 - [ ] UI separated from logic
 - [ ] Types are defined (no `any`)
@@ -364,24 +358,134 @@ Before committing changes:
 
 **Boot Files:** Located in `app/providers/` (i18n, axios)
 
-**Router Mode:** Hash mode (can be changed to history in `quasar.config.ts`)
+**Router Mode:** History mode (configured in `quasar.config.ts` line 70)
 
-**Auto-import:** Quasar components are auto-imported by default. However, per architecture rules, only `shared/ui/` should import Quasar components directly.
+**Auto-import:** Quasar components are auto-imported by default. However, per architecture rules, only `shared/ui/primitives/` should import Quasar components directly.
 
 **Dev Server:** Opens browser automatically on `quasar dev`
 
+---
+
 ## Current Implementation Status
 
-**Implemented Layers:**
-- ✅ `app/` - Layouts (AdminLayout), providers (router, i18n, axios, store)
-- ✅ `pages/` - Dashboard, UI/UX demo pages (theme, buttons, inputs)
-- ✅ `widgets/` - Header, Sidebar, ThemePalette
-- ✅ `features/` - Sidebar toggle-mini, Theme toggle
-- ✅ `entities/` - Sidebar
-- ✅ `shared/ui/` - Primitives (Button, Card, Input, ColorSwatch), Layout (PageContainer)
+### Layers
 
-**Existing Routes:**
-- `/` - Dashboard page
-- `/theme` - Theme demo page
-- `/buttons` - Buttons demo page
-- `/inputs` - Inputs demo page
+**✅ app/** - Application Layer
+- `layouts/AdminLayout.vue` - Main admin layout with Q-Layout (header + sidebar)
+- `providers/router/` - Vue Router 4 with history mode, 14 routes
+- `providers/store/` - Pinia store setup with plugin support
+- `providers/i18n/` - Vue I18n 11 with English translations
+- `providers/axios/` - HTTP client boot configuration
+
+**✅ pages/** - Pages Layer (14 routes)
+- **Dashboard:** AnalyticsPage, ECommercePage, CRMPage
+- **UI/UX Demo:** ThemePage, ButtonsPage, ButtonGroupPage, InputsPage, BadgesPage, AlertsPage, DropdownPage, TypographyPage
+- **Utilities:** IconsPage (searchable icon browser), DeviceTestPage (device detection demo), VelocornerWidgetPage (external widget integration)
+- **Error:** ErrorNotFound.vue (404 page)
+
+**✅ widgets/** - Widgets Layer
+- `header/` - HeaderWidget with HeaderUserButton (user menu dropdown)
+- `sidebar/` - SidebarWidget with recursive menu items, collapsible groups, logo section
+- `theme-palette/` - ThemePalette for color palette display with color groups config
+
+**✅ features/** - Features Layer
+- `sidebar/toggle-mini/` - ToggleMiniButton (collapse/expand sidebar, responsive)
+- `sidebar/toggle-sidebar/` - ToggleSidebarButton (mobile drawer toggle)
+- `theme/toggle/` - ThemeToggle (light/dark mode switch)
+
+**✅ entities/** - Entities Layer
+- `sidebar/` - useSidebarStore (Pinia) with:
+  - State: `isMini` (desktop collapse), `isOpen` (mobile drawer)
+  - Actions: `toggleMini()`, `setMini()`, `toggleOpen()`, `setOpen()`, `initialize()`
+  - Persistence: localStorage with `layrix-sidebar` key
+  - HMR support enabled
+
+**✅ shared/** - Shared Layer
+
+### UI Primitives (`shared/ui/primitives/`)
+
+| Component | Props | Description |
+|-----------|-------|-------------|
+| **Alert** | variant, appearance (fill/outline/soft/ghost), icon, showIcon, layout | Notification/alert box with icon support |
+| **Badge** | variant, appearance | Small label component |
+| **Button** | variant (primary/secondary/positive/negative/warning/info/regular), appearance (fill/outline/flat/ghost), shape, size, iconOnly, loading, disabled, fullWidth | Quasar QBtn wrapper with custom styling |
+| **ButtonGroup** | orientation (horizontal/vertical), spread, stretch, outline, flat, rounded | Quasar QBtnGroup wrapper |
+| **Card** | - | Container component |
+| **ColorSwatch** | colorName | Color display with copy-to-clipboard |
+| **Dropdown** | items, modelValue, maxWidth, transitions | Responsive dropdown (QMenu on desktop, QDialog bottom sheet on mobile) |
+| **Input** | variants | Form input wrapper |
+| **Typography** | as (h1-h6/p/span), variant, weight (light/normal/semibold/bold) | Text hierarchy component |
+
+### Layout Components (`shared/ui/layout/`)
+- **PageContainer** - Page wrapper with title/subtitle props
+
+### Composables/Utilities (`shared/lib/`)
+
+| Composable | Purpose |
+|------------|---------|
+| **useTheme()** | Theme management (light/dark), localStorage persistence, Quasar Dark plugin sync |
+| **useScreen()** | Screen/breakpoint detection (`isMobileBreakpoint` computed) |
+| **usePlatform()** | Platform type detection (`isPlatform()` function) |
+| **useDevice()** | Device capabilities and type detection |
+| **useClipboard()** | Copy to clipboard functionality |
+
+### Exported Types (`shared/lib/device/`)
+- `DeviceType`, `BreakpointName`, `OSType`, `BrowserType`
+- `DeviceInfo`, `ScreenInfo`, `PlatformInfo`
+- `UseDeviceReturn`, `UseScreenReturn`, `UsePlatformReturn`
+
+---
+
+## Routes Reference
+
+All routes are defined in `app/providers/router/routes.ts`:
+
+| Path | Name | Component | Description |
+|------|------|-----------|-------------|
+| `/` | - | Redirect | Redirects to `/analytics` |
+| `/analytics` | analytics | AnalyticsPage | Analytics dashboard |
+| `/e-commerce` | eCommerce | ECommercePage | E-commerce dashboard |
+| `/crm` | crm | CRMPage | CRM dashboard |
+| `/theme` | theme | ThemePage | Theme color palette showcase |
+| `/buttons` | buttons | ButtonsPage | Button variants demo |
+| `/button-group` | button-group | ButtonGroupPage | Button group demo |
+| `/typography` | typography | TypographyPage | Typography scales demo |
+| `/badges` | badges | BadgesPage | Badge variants demo |
+| `/alerts` | alerts | AlertsPage | Alert component demo |
+| `/inputs` | inputs | InputsPage | Input component demo |
+| `/dropdown` | dropdown | DropdownPage | Dropdown component demo |
+| `/icons` | icons | IconsPage | Searchable icon browser |
+| `/device-test` | device-test | DeviceTestPage | Device detection test |
+| `/velocorner-widget` | velocorner-widget | VelocornerWidgetPage | External widget integration |
+| `/*` | - | ErrorNotFound | 404 catch-all |
+
+---
+
+## Responsive Patterns
+
+The codebase uses Quasar's Screen plugin for responsive behavior:
+
+```typescript
+// shared/lib/device/useScreen.ts
+import { useScreen } from '@shared/lib'
+
+const { isMobileBreakpoint } = useScreen()
+
+// In components - conditionally render based on breakpoint
+<template v-if="!isMobileBreakpoint">
+  <DesktopContent />
+</template>
+```
+
+**Mobile/Desktop Branching Examples:**
+- `ToggleMiniButton` - Hidden on mobile breakpoints
+- `Dropdown` - QMenu on desktop, QDialog bottom sheet on mobile
+- `SidebarWidget` - Full drawer on mobile, mini mode on desktop
+
+---
+
+## Known Notes
+
+1. **`entities/index.ts`** - Currently empty placeholder; individual entities export through their own `index.ts`
+2. **`widgets/index.ts`** - Only exports ThemePalette; HeaderWidget and SidebarWidget used via direct imports in AdminLayout
+3. **Route imports** - Some use `pages/` alias, others use `@pages/`; both work but prefer `@pages/` for consistency
