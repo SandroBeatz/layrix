@@ -1,0 +1,113 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import { QBreadcrumbs, QBreadcrumbsEl } from 'quasar';
+import type { BreadcrumbsProps } from './Breadcrumbs.types';
+
+/**
+ * Breadcrumbs Component
+ * Opinionated wrapper around Quasar QBreadcrumbs
+ *
+ * @example
+ * // Regular variant breadcrumbs
+ * <Breadcrumbs :items="[
+ *   { label: 'Home', to: '/' },
+ *   { label: 'Products', to: '/products' },
+ *   { label: 'Details' }
+ * ]" />
+ *
+ * @example
+ * // Primary variant breadcrumbs
+ * <Breadcrumbs
+ *   variant="primary"
+ *   :items="[
+ *     { label: 'Dashboard', to: '/dashboard' },
+ *     { label: 'Users', to: '/users' },
+ *     { label: 'Profile' }
+ *   ]"
+ * />
+ *
+ * @example
+ * // Breadcrumbs with custom separator
+ * <Breadcrumbs
+ *   separator=">"
+ *   :items="breadcrumbItems"
+ * />
+ *
+ * @example
+ * // Breadcrumbs with icon separator
+ * <Breadcrumbs
+ *   separator="ti-chevron-right"
+ *   separator-icon
+ *   :items="breadcrumbItems"
+ * />
+ */
+
+const props = withDefaults(defineProps<BreadcrumbsProps>(), {
+  variant: 'regular',
+  separator: '/',
+  gutter: 'sm',
+  align: 'left',
+});
+
+// Active item should use text-muted color
+const qActiveColor = computed(() => {
+  return props.activeColor || 'text-muted';
+});
+</script>
+
+<template>
+  <QBreadcrumbs
+    color="foreground"
+    :active-color="qActiveColor"
+    :gutter="gutter"
+    :align="align"
+  >
+    <template #separator>
+      <span>{{ separator }}</span>
+    </template>
+
+    <QBreadcrumbsEl
+      v-for="(item, index) in items"
+      :key="index"
+      :label="item.label"
+      :icon="item.icon"
+      :to="item.to"
+      :href="item.href"
+      :target="item.target"
+      :disable="item.disable"
+      :tag="item.tag"
+      :exact="item.exact"
+      :exact-active-class="item.exactActiveClass"
+      :class="item.class"
+      :style="item.style"
+      :replace="item.replace"
+      :append="item.append"
+    />
+  </QBreadcrumbs>
+</template>
+
+<style scoped lang="scss">
+/**
+ * Custom styles for Breadcrumbs component
+ * Extend Quasar QBreadcrumbs with design system specific styles
+ */
+
+// Add hover effects for non-active breadcrumb links
+:deep(.q-breadcrumbs__el) {
+  // Non-active links (all except last) should have hover effect
+  &:not(.q-breadcrumbs__el--disable):not(:last-child) {
+    cursor: pointer;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+
+    &:hover {
+      color: var(--color-primary) !important;
+      text-decoration: underline;
+    }
+  }
+}
+
+// Ensure separators use foreground color
+:deep(.q-breadcrumbs__separator) {
+  color: var(--color-foreground);
+}
+</style>
