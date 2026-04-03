@@ -106,7 +106,7 @@ function itemProps(item: DropdownItem) {
 
           <template v-if="hasEndContent(item)" #append>
             <Icon v-if="item.endIcon !== undefined" :name="item.endIcon" size="16px" />
-            <Icon v-else-if="item.children && item.children.length > 0" :name="tabChevronRight" size="16px" class="text-muted" />
+            <Icon v-else-if="item.children && item.children.length > 0" :name="tabChevronRight" size="16px" />
             <span v-else-if="item.end" class="dropdown-items__shortcut">{{ item.end }}</span>
           </template>
 
@@ -141,7 +141,7 @@ function itemProps(item: DropdownItem) {
 
         <template v-if="hasEndContent(content)" #append>
           <Icon v-if="content.endIcon !== undefined" :name="content.endIcon" size="16px" />
-          <Icon v-else-if="content.children && content.children.length > 0" :name="tabChevronRight" size="16px" class="text-muted" />
+          <Icon v-else-if="content.children && content.children.length > 0" :name="tabChevronRight" size="16px" />
           <span v-else-if="content.end" class="dropdown-items__shortcut">{{ content.end }}</span>
         </template>
 
