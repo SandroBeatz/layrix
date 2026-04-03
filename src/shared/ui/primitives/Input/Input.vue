@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { QInput } from 'quasar';
+import { tabEye, tabEyeOff } from 'quasar-extras-svg-icons/tabler-icons-v2';
 import type { InputProps } from './Input.types';
 
 /**
@@ -9,18 +10,25 @@ import type { InputProps } from './Input.types';
  *
  * @example
  * // Basic text input
- * <Input v-model="name" label="Name" placeholder="Enter your name" />
+ * <Input v-model="name" placeholder="Enter your name" />
  *
  * @example
  * // Email input with icon
- * <Input v-model="email" type="email" label="Email" icon="ti-mail" />
+ * <Input v-model="email" type="email" :icon="tabMail" />
  *
  * @example
- * // Password input with error
+ * // Password input with toggle
+ * <Input v-model="password" type="password" toggle-password />
+ *
+ * @example
+ * // Textarea with autogrow
+ * <Input v-model="bio" textarea autogrow placeholder="Tell us about yourself..." />
+ *
+ * @example
+ * // Input with error
  * <Input
  *   v-model="password"
  *   type="password"
- *   label="Password"
  *   :error="hasError"
  *   error-message="Password is required"
  * />
@@ -31,12 +39,28 @@ import type { InputProps } from './Input.types';
  *
  * @example
  * // Input with size variant
- * <Input v-model="value" size="lg" label="Large Input" />
+ * <Input v-model="value" size="lg" placeholder="Large Input" />
  */
 
 const props = withDefaults(defineProps<InputProps>(), {
   size: 'md',
 });
+
+// Password visibility toggle
+const isPasswordVisible = ref(false);
+
+// Computed type for password toggle
+const computedType = computed(() => {
+  if (props.type === 'password' && props.togglePassword && isPasswordVisible.value) {
+    return 'text';
+  }
+  return props.type;
+});
+
+// Toggle password visibility
+const togglePasswordVisibility = () => {
+  isPasswordVisible.value = !isPasswordVisible.value;
+};
 
 // Compute CSS class name based on the size prop for applying size-specific styling
 const sizeClass = computed(() => {
@@ -72,121 +96,130 @@ const handleClear = () => {
 </script>
 
 <template>
-  <div class="">
-    <span v-if="label">{{ label }}</span>
-    <QInput
-      class="input"
-      :class="sizeClass"
-      outlined
-      hide-bottom-space
-      :name="name"
-      :dense="dense"
-      :type="type"
-      :placeholder="placeholder"
-      :disable="disable"
-      :error="error"
-      :error-message="errorMessage"
-      :clearable="clearable"
-      :readonly="readonly"
-      :rules="rules"
-      :lazy-rules="lazyRules"
-      :reactive-rules="reactiveRules"
-      :model-value="modelValue"
-      :hint="hint"
-      :mask="mask"
-      :fill-mask="fillMask"
-      @update:model-value="handleInput"
-      @blur="handleBlur"
-      @focus="handleFocus"
-      @clear="handleClear"
-    >
-      <!-- Icon slot -->
-      <template v-if="$slots.prepend || icon" #prepend>
-        <q-icon v-if="icon" :name="icon" />
-        <!--        <div class="left-marginal"></div>-->
-        <slot name="prepend" />
-      </template>
+  <QInput
+    class="input"
+    :class="sizeClass"
+    outlined
+    hide-bottom-space
+    :name="name"
+    :dense="dense"
+    :type="textarea ? 'textarea' : computedType"
+    :placeholder="placeholder"
+    :disable="disable"
+    :error="error"
+    :error-message="errorMessage"
+    :clearable="clearable"
+    :readonly="readonly"
+    :rules="rules"
+    :lazy-rules="lazyRules"
+    :reactive-rules="reactiveRules"
+    :model-value="modelValue"
+    :hint="hint"
+    :mask="mask"
+    :fill-mask="fillMask"
+    :autogrow="textarea && autogrow"
+    :rows="textarea ? rows : undefined"
+    @update:model-value="handleInput"
+    @blur="handleBlur"
+    @focus="handleFocus"
+    @clear="handleClear"
+  >
+    <!-- Before slot (outside the field border) -->
+    <template v-if="$slots.before" #before>
+      <slot name="before" />
+    </template>
 
-      <!-- Pass through default slot for custom content -->
-      <template v-if="$slots.default" #default>
-        <slot />
-      </template>
+    <!-- Prepend slot (inside the field border, left side) -->
+    <template v-if="$slots.prepend || icon" #prepend>
+      <q-icon v-if="icon" :name="icon" />
+      <slot name="prepend" />
+    </template>
 
-      <!-- Pass through append slot -->
-      <template v-if="$slots.append" #append>
-        <slot name="append" />
-      </template>
-    </QInput>
-  </div>
+    <!-- Pass through default slot for custom content -->
+    <template v-if="$slots.default" #default>
+      <slot />
+    </template>
+
+    <!-- Append slot (inside the field border, right side) -->
+    <template #append>
+      <!-- Password toggle icon -->
+      <q-icon
+        v-if="type === 'password' && togglePassword"
+        :name="isPasswordVisible ? tabEyeOff : tabEye"
+        class="cursor-pointer"
+        @click="togglePasswordVisibility"
+      />
+      <slot name="append" />
+    </template>
+
+    <!-- After slot (outside the field border) -->
+    <template v-if="$slots.after" #after>
+      <slot name="after" />
+    </template>
+  </QInput>
 </template>
 
 <style scoped lang="scss">
-.left-marginal {
-  display: flex;
-  flex: 1;
-  background: var(--color-muted);
-  padding: 4px;
-}
-
 // Custom input size variants
-// Defines three size options with appropriate dimensions and typography
+// Uses shared control tokens for consistency across form controls
 .input-size-sm {
   :deep(.q-field__control) {
-    height: 36px;
-    min-height: 36px;
+    height: var(--control-height-sm);
+    min-height: var(--control-height-sm);
   }
 
   :deep(.q-field__marginal) {
-    height: 36px;
+    height: var(--control-height-sm);
   }
 
   :deep(.q-field__native) {
-    font-size: 13px;
-    padding: 6px 0;
+    font-size: var(--control-font-size-sm);
+    padding: var(--control-padding-sm) 0;
   }
 
   :deep(.q-field__label) {
-    font-size: 13px;
+    font-size: var(--control-font-size-sm);
   }
 }
 
 .input-size-md {
   :deep(.q-field__control) {
-    height: 46px;
-    min-height: 46px;
+    height: var(--control-height-md);
+    min-height: var(--control-height-md);
   }
 
   :deep(.q-field__marginal) {
-    height: 46px;
+    height: var(--control-height-md);
   }
 
   :deep(.q-field__native) {
-    font-size: 14px;
-    padding: 8px 0;
+    font-size: var(--control-font-size-md);
+    padding: var(--control-padding-md) 0;
   }
 
   :deep(.q-field__label) {
-    font-size: 14px;
+    font-size: var(--control-font-size-md);
   }
 }
 
 .input-size-lg {
   :deep(.q-field__control) {
-    height: 56px;
-    min-height: 56px;
+    height: var(--control-height-lg);
+    min-height: var(--control-height-lg);
   }
 
   :deep(.q-field__marginal) {
-    height: 56px;
+    height: var(--control-height-lg);
   }
 
   :deep(.q-field__native) {
-    font-size: 16px;
-    padding: 10px 0;
+    font-size: var(--control-font-size-lg);
+    padding: var(--control-padding-lg) 0;
   }
 
   :deep(.q-field__label) {
-    font-size: 16px;
+    font-size: var(--control-font-size-lg);
   }
 }
 </style>
+

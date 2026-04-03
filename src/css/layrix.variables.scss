@@ -45,6 +45,30 @@
   --border-radius: 8px;
   --input-height: 46px;
 
+  // ===========================================
+  // SHARED FORM CONTROL TOKENS
+  // ===========================================
+  // Unified sizing tokens for Input, Button, and future form controls
+  // Ensures consistent sizing across all control components
+  
+  // Control Heights
+  --control-height-sm: 36px;
+  --control-height-md: 46px;
+  --control-height-lg: 56px;
+  
+  // Control Font Sizes
+  --control-font-size-sm: 13px;
+  --control-font-size-md: 14px;
+  --control-font-size-lg: 16px;
+  
+  // Control Padding (vertical)
+  --control-padding-sm: 6px;
+  --control-padding-md: 8px;
+  --control-padding-lg: 10px;
+  
+  // Control Border Radius
+  --control-border-radius: 8px;
+
   // Brand colors
   --color-primary: #985ffe;
   --color-primary-rgb: 152, 95, 254;

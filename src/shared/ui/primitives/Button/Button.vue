@@ -203,42 +203,27 @@ const ghostClass = computed(() => {
 }
 
 // Custom button size variants
-// Override Quasar defaults with Layrix design system sizes
+// Uses shared control tokens for consistency with other form controls
 .button-size-sm {
-  //padding: 5px 14px !important;
-  //min-height: 32px;
-  //font-size: 13px;
-  //line-height: 1.5;
-
   &.button-icon-only {
-    width: 32px;
-    height: 32px;
+    width: var(--control-height-sm);
+    height: var(--control-height-sm);
     padding: 0 !important;
   }
 }
 
 .button-size-md {
-  //padding: 7px 18px !important;
-  //min-height: 36px;
-  //font-size: 14px;
-  //line-height: 1.6;
-
   &.button-icon-only {
-    width: 36px;
-    height: 36px;
+    width: var(--control-height-md);
+    height: var(--control-height-md);
     padding: 0 !important;
   }
 }
 
 .button-size-lg {
-  //padding: 9px 24px !important;
-  //min-height: 44px;
-  //font-size: 15px;
-  //line-height: 1.6;
-
   &.button-icon-only {
-    width: 44px;
-    height: 44px;
+    width: var(--control-height-lg);
+    height: var(--control-height-lg);
     padding: 0 !important;
   }
 }
