@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import { QInput } from 'quasar';
 import { tabEye, tabEyeOff } from 'quasar-extras-svg-icons/tabler-icons-v2';
 import type { InputProps } from './Input.types';
+import { Icon } from '../Icon';
 
 /**
  * Input Component
@@ -131,7 +132,7 @@ const handleClear = () => {
 
     <!-- Prepend slot (inside the field border, left side) -->
     <template v-if="$slots.prepend || icon" #prepend>
-      <q-icon v-if="icon" :name="icon" />
+      <Icon v-if="icon" :name="icon" />
       <slot name="prepend" />
     </template>
 
@@ -143,7 +144,7 @@ const handleClear = () => {
     <!-- Append slot (inside the field border, right side) -->
     <template #append>
       <!-- Password toggle icon -->
-      <q-icon
+      <Icon
         v-if="type === 'password' && togglePassword"
         :name="isPasswordVisible ? tabEyeOff : tabEye"
         class="cursor-pointer"

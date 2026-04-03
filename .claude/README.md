@@ -56,7 +56,8 @@ This directory contains Claude Code configuration for the Layrix project: custom
 │   ├── new-feature/               # Scaffold feature slice
 │   ├── new-page/                  # Scaffold page + route
 │   ├── lint-check/                # Run ESLint + vue-tsc
-│   └── fsd-check/                 # Quick FSD compliance scan
+│   ├── fsd-check/                 # Quick FSD compliance scan
+│   └── icon-usage/                # Complete guide for Icon component usage
 ├── project.json                   # Project metadata
 ├── settings.local.json            # Personal permission overrides
 ├── README.md                      # This file
@@ -89,6 +90,7 @@ Skills are invocable via `/skill-name` in Claude Code.
 | `/icons` | `/icons [icon-name]` | Reference for Tabler Icons usage |
 | `/input-usage` | `/input-usage [input-type]` | Complete guide for Input component usage |
 | `/list-usage` | `/list-usage [use-case]` | Complete guide for List and ListItem component usage |
+| `/icon-usage` | `/icon-usage [use-case]` | Complete guide for Icon component usage |
 
 ## Architecture Overview
 
