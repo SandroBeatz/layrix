@@ -1,76 +1,35 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { PageContainer, Dropdown, Button, Card, Typography, type DropdownContent } from '@shared/ui'
+import {
+  tabHome, tabStar, tabSettings, tabUser, tabShield, tabBell,
+  tabPencil, tabCopy, tabShare, tabTrash, tabLayoutDashboard, tabLogout,
+  tabBook, tabLifebuoy, tabFolder, tabFolderOpen, tabFolderPlus,
+  tabBookmark, tabChevronRight, tabMail, tabBrandSlack,
+} from 'quasar-extras-svg-icons/tabler-icons-v2'
+import { PageContainer, Dropdown, Button, Card, Typography, Avatar, ListItem, type DropdownContent } from '@shared/ui'
 
 // Example 1: Basic Dropdown
 const basicItems: DropdownContent[] = [
-  {
-    icon: 'home',
-    label: 'Home',
-    onClick: () => console.log('Home clicked')
-  },
-  {
-    icon: 'favorite',
-    label: 'Favorites',
-    onClick: () => console.log('Favorites clicked')
-  },
-  {
-    icon: 'settings',
-    label: 'Settings',
-    onClick: () => console.log('Settings clicked')
-  }
+  { icon: tabHome,     label: 'Home',      onClick: () => console.log('Home clicked') },
+  { icon: tabStar,     label: 'Favorites', onClick: () => console.log('Favorites clicked') },
+  { icon: tabSettings, label: 'Settings',  onClick: () => console.log('Settings clicked') },
 ]
 
 // Example 2: Dropdown with captions
 const captionItems: DropdownContent[] = [
-  {
-    icon: 'person',
-    label: 'Profile',
-    caption: 'View and edit your profile',
-    onClick: () => console.log('Profile clicked')
-  },
-  {
-    icon: 'security',
-    label: 'Privacy',
-    caption: 'Manage your privacy settings',
-    onClick: () => console.log('Privacy clicked')
-  },
-  {
-    icon: 'notifications',
-    label: 'Notifications',
-    caption: 'Configure notification preferences',
-    onClick: () => console.log('Notifications clicked')
-  }
+  { icon: tabUser,   label: 'Profile',       caption: 'View and edit your profile',         onClick: () => console.log('Profile clicked') },
+  { icon: tabShield, label: 'Privacy',       caption: 'Manage your privacy settings',       onClick: () => console.log('Privacy clicked') },
+  { icon: tabBell,   label: 'Notifications', caption: 'Configure notification preferences', onClick: () => console.log('Notifications clicked') },
 ]
 
 // Example 3: Dropdown with separators
 const separatorItems: DropdownContent[] = [
-  {
-    icon: 'edit',
-    label: 'Edit',
-    onClick: () => console.log('Edit clicked')
-  },
-  {
-    icon: 'content_copy',
-    label: 'Duplicate',
-    onClick: () => console.log('Duplicate clicked')
-  },
-  {
-    type: 'separator'
-  },
-  {
-    icon: 'share',
-    label: 'Share',
-    onClick: () => console.log('Share clicked')
-  },
-  {
-    type: 'separator'
-  },
-  {
-    icon: 'delete',
-    label: 'Delete',
-    onClick: () => console.log('Delete clicked')
-  }
+  { icon: tabPencil, label: 'Edit',      onClick: () => console.log('Edit clicked') },
+  { icon: tabCopy,   label: 'Duplicate', onClick: () => console.log('Duplicate clicked') },
+  { type: 'separator' },
+  { icon: tabShare, label: 'Share',  onClick: () => console.log('Share clicked') },
+  { type: 'separator' },
+  { icon: tabTrash, label: 'Delete', onClick: () => console.log('Delete clicked') },
 ]
 
 // Example 4: Dropdown with sections
@@ -79,115 +38,78 @@ const sectionItems: DropdownContent[] = [
     type: 'section',
     caption: 'Account',
     items: [
-      {
-        icon: 'person',
-        label: 'Profile',
-        onClick: () => console.log('Profile clicked')
-      },
-      {
-        icon: 'settings',
-        label: 'Settings',
-        onClick: () => console.log('Settings clicked')
-      }
-    ]
+      { icon: tabUser,     label: 'Profile',  onClick: () => console.log('Profile clicked') },
+      { icon: tabSettings, label: 'Settings', onClick: () => console.log('Settings clicked') },
+    ],
   },
-  {
-    type: 'separator'
-  },
+  { type: 'separator' },
   {
     type: 'section',
     caption: 'Help',
     items: [
-      {
-        icon: 'help',
-        label: 'Documentation',
-        onClick: () => console.log('Documentation clicked')
-      },
-      {
-        icon: 'support',
-        label: 'Support',
-        onClick: () => console.log('Support clicked')
-      }
-    ]
+      { icon: tabBook,      label: 'Documentation', onClick: () => console.log('Docs clicked') },
+      { icon: tabLifebuoy,  label: 'Support',        onClick: () => console.log('Support clicked') },
+    ],
   },
-  {
-    type: 'separator'
-  },
-  {
-    icon: 'logout',
-    label: 'Sign Out',
-    onClick: () => console.log('Sign Out clicked')
-  }
+  { type: 'separator' },
+  { icon: tabLogout, label: 'Sign Out', onClick: () => console.log('Sign Out clicked') },
 ]
 
-// Example 5: Dropdown with end icons
+// Example 5: Dropdown with end icons / shortcuts
 const endIconItems: DropdownContent[] = [
+  { icon: tabFolder,   label: 'Projects',  endIcon: tabChevronRight, onClick: () => console.log('Projects clicked') },
+  { icon: tabBookmark, label: 'Bookmarks', endIcon: tabChevronRight, onClick: () => console.log('Bookmarks clicked') },
+  { icon: tabStar,     label: 'Favorites', end: '⌘F',               onClick: () => console.log('Favorites clicked') },
+]
+
+// Example 6: Dropdown with submenus
+const submenuItems: DropdownContent[] = [
   {
-    icon: 'folder',
+    icon: tabFolder,
     label: 'Projects',
-    endIcon: 'chevron_right',
-    onClick: () => console.log('Projects clicked')
+    children: [
+      { icon: tabFolderOpen, label: 'Open Project', onClick: () => console.log('Open Project') },
+      { icon: tabFolderPlus, label: 'New Project',  onClick: () => console.log('New Project') },
+      { type: 'separator' },
+      {
+        icon: tabFolder,
+        label: 'Recent',
+        children: [
+          { label: 'Layrix v2',        onClick: () => console.log('Layrix v2') },
+          { label: 'Design System',    onClick: () => console.log('Design System') },
+          { label: 'Marketing Site',   onClick: () => console.log('Marketing Site') },
+        ],
+      },
+    ],
   },
   {
-    icon: 'bookmark',
-    label: 'Bookmarks',
-    endIcon: 'chevron_right',
-    onClick: () => console.log('Bookmarks clicked')
+    icon: tabShare,
+    label: 'Share',
+    children: [
+      { icon: tabBrandSlack, label: 'Slack',       onClick: () => console.log('Slack') },
+      { icon: tabMail,       label: 'Email',       onClick: () => console.log('Email') },
+    ],
   },
-  {
-    icon: 'star',
-    label: 'Favorites',
-    end: '⌘F',
-    onClick: () => console.log('Favorites clicked')
-  }
+  { type: 'separator' },
+  { icon: tabTrash, label: 'Delete', onClick: () => console.log('Delete clicked') },
 ]
 
-// Example 6: Dropdown with before/after slots
+// Example 7: Dropdown with before/after slots
 const accountItems: DropdownContent[] = [
-  {
-    icon: 'dashboard',
-    label: 'Dashboard',
-    onClick: () => console.log('Dashboard clicked')
-  },
-  {
-    type: 'separator'
-  },
-  {
-    icon: 'person',
-    label: 'Profile',
-    onClick: () => console.log('Profile clicked')
-  },
-  {
-    icon: 'settings',
-    label: 'Settings',
-    onClick: () => console.log('Settings clicked')
-  },
-  {
-    type: 'separator'
-  },
-  {
-    icon: 'logout',
-    label: 'Sign Out',
-    onClick: () => console.log('Sign Out clicked')
-  }
+  { icon: tabLayoutDashboard, label: 'Dashboard', onClick: () => console.log('Dashboard clicked') },
+  { type: 'separator' },
+  { icon: tabUser,     label: 'Profile',  onClick: () => console.log('Profile clicked') },
+  { icon: tabSettings, label: 'Settings', onClick: () => console.log('Settings clicked') },
+  { type: 'separator' },
+  { icon: tabLogout, label: 'Sign Out', onClick: () => console.log('Sign Out clicked') },
 ]
 
-// Example 7: Controlled dropdown
+// Example 8: Controlled dropdown
 const controlledOpen = ref(false)
 const controlledItems: DropdownContent[] = [
-  {
-    label: 'Option 1',
-    onClick: () => console.log('Option 1 clicked')
-  },
-  {
-    label: 'Option 2',
-    onClick: () => console.log('Option 2 clicked')
-  },
-  {
-    label: 'Option 3 (stays open)',
-    closeOnClick: false,
-    onClick: () => console.log('Option 3 clicked - dropdown stays open')
-  }
+  { label: 'Option 1', onClick: () => console.log('Option 1 clicked') },
+  { label: 'Option 2', onClick: () => console.log('Option 2 clicked') },
+  { label: 'Option 3 (stays open)', closeOnClick: false, onClick: () => console.log('Option 3 clicked – stays open') },
 ]
 </script>
 
@@ -196,8 +118,8 @@ const controlledItems: DropdownContent[] = [
     <template #header>
       <Typography variant="h4" weight="bold">Dropdown Component</Typography>
       <Typography variant="body" class="q-mt-sm">
-        Universal dropdown component that adapts to device type. On desktop, it shows as a regular dropdown menu.
-        On mobile (resize your browser to test), it appears as a bottom sheet.
+        Universal dropdown that adapts to device type. On desktop it shows as a popup menu with submenu support.
+        On mobile (resize the browser to test) it appears as a bottom sheet with drill-down navigation.
       </Typography>
     </template>
 
@@ -248,7 +170,7 @@ const controlledItems: DropdownContent[] = [
       <Card>
         <template #header>
           <Typography variant="h6" weight="medium">Dropdown with Sections</Typography>
-          <Typography variant="caption">Organized sections with captions</Typography>
+          <Typography variant="caption">Organized sections with caption headers</Typography>
         </template>
 
         <Dropdown :items="sectionItems">
@@ -258,11 +180,11 @@ const controlledItems: DropdownContent[] = [
         </Dropdown>
       </Card>
 
-      <!-- Example 5: Dropdown with End Icons -->
+      <!-- Example 5: End Icons / Keyboard Shortcuts -->
       <Card>
         <template #header>
-          <Typography variant="h6" weight="medium">Dropdown with End Icons</Typography>
-          <Typography variant="caption">Items can have icons or text at the end</Typography>
+          <Typography variant="h6" weight="medium">End Icons &amp; Shortcuts</Typography>
+          <Typography variant="caption">Items can have icons or shortcut text at the end</Typography>
         </template>
 
         <Dropdown :items="endIconItems">
@@ -272,50 +194,62 @@ const controlledItems: DropdownContent[] = [
         </Dropdown>
       </Card>
 
-      <!-- Example 6: Dropdown with Before/After Slots -->
+      <!-- Example 6: Submenus -->
       <Card>
         <template #header>
-          <Typography variant="h6" weight="medium">Dropdown with Custom Content</Typography>
+          <Typography variant="h6" weight="medium">Submenus</Typography>
+          <Typography variant="caption">
+            Desktop: hover a ▶ item to open a nested menu.
+            Mobile: tap a ▶ item to drill into it; use the ← back button to return.
+          </Typography>
+        </template>
+
+        <Dropdown :items="submenuItems">
+          <template #trigger>
+            <Button variant="primary">Menu with Submenus</Button>
+          </template>
+        </Dropdown>
+      </Card>
+
+      <!-- Example 7: Custom Before/After Slots -->
+      <Card>
+        <template #header>
+          <Typography variant="h6" weight="medium">Custom Content Slots</Typography>
           <Typography variant="caption">Using before and after slots for custom content</Typography>
         </template>
 
-        <Dropdown :items="accountItems">
+        <Dropdown :items="accountItems" max-width="300px">
           <template #trigger>
-            <Button variant="primary">
-              <q-avatar size="24px" class="q-mr-sm">
-                <img src="https://cdn.quasar.dev/img/avatar4.jpg" />
-              </q-avatar>
+            <Button variant="secondary">
+              <Avatar
+                src="https://cdn.quasar.dev/img/avatar4.jpg"
+                size="sm"
+                class="q-mr-xs"
+              />
               John Doe
             </Button>
           </template>
 
           <template #before>
-            <q-item>
-              <q-item-section avatar>
-                <q-avatar size="48px">
-                  <img src="https://cdn.quasar.dev/img/avatar4.jpg" />
-                </q-avatar>
-              </q-item-section>
-              <q-item-section>
-                <q-item-label class="text-weight-bold">John Doe</q-item-label>
-                <q-item-label caption>john.doe@example.com</q-item-label>
-              </q-item-section>
-            </q-item>
-            <q-separator class="q-my-sm" />
+            <ListItem
+              label="John Doe"
+              caption="john.doe@example.com"
+            >
+              <template #prepend>
+                <Avatar src="https://cdn.quasar.dev/img/avatar4.jpg" size="md" />
+              </template>
+            </ListItem>
           </template>
 
           <template #after>
-            <q-separator class="q-my-sm" />
-            <div class="q-pa-md text-center">
-              <Typography variant="caption" class="text-grey-6">
-                Version 1.0.0
-              </Typography>
+            <div class="text-center q-py-sm">
+              <Typography variant="caption">Version 1.0.0</Typography>
             </div>
           </template>
         </Dropdown>
       </Card>
 
-      <!-- Example 7: Controlled Dropdown -->
+      <!-- Example 8: Controlled Dropdown -->
       <Card>
         <template #header>
           <Typography variant="h6" weight="medium">Controlled Dropdown</Typography>
@@ -339,25 +273,24 @@ const controlledItems: DropdownContent[] = [
         </div>
       </Card>
 
-      <!-- Mobile Bottom Sheet Info -->
-      <Card variant="default">
+      <!-- Mobile behaviour info -->
+      <Card>
         <template #header>
-          <Typography variant="h6" weight="medium">📱 Mobile Behavior</Typography>
+          <Typography variant="h6" weight="medium">📱 Mobile Behaviour</Typography>
         </template>
 
         <Typography variant="body">
-          On mobile devices (smaller screens), all dropdowns automatically transform into bottom sheets.
-          Try resizing your browser window to see the responsive behavior in action!
+          On mobile devices all dropdowns transform into bottom sheets.
+          Resize your browser window to see the responsive behaviour.
         </Typography>
 
-        <Typography variant="body" class="q-mt-md">
-          The bottom sheet includes:
-        </Typography>
+        <Typography variant="body" class="q-mt-md">The bottom sheet includes:</Typography>
         <ul>
           <li>Slide-up animation</li>
           <li>Drag-to-close gesture support</li>
+          <li>Drill-down navigation for submenus with animated slide transitions</li>
+          <li>Back button with current submenu title</li>
           <li>Optional Cancel button (enabled by default)</li>
-          <li>Full-width layout optimized for touch</li>
         </ul>
       </Card>
     </div>

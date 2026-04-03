@@ -1,26 +1,37 @@
 <!--
   Dropdown List Items Component
-  
-  Internal component for rendering dropdown items
-  Used by both desktop (QMenu) and mobile (QDialog) versions
+
+  Internal component for rendering dropdown items using List and ListItem.
+  Supports recursive submenus:
+  - Desktop: nested QMenu (opens on hover/click)
+  - Mobile: emits 'submenu-navigate' so the parent dialog can navigate levels
 -->
 
 <script setup lang="ts">
-import type { DropdownContent, DropdownItem, DropdownSection, DropdownSeparator } from './Dropdown.types'
+import { QMenu, QSeparator, QItemLabel } from 'quasar'
+import { List } from '../List'
+import { ListItem } from '../ListItem'
 import { Icon } from '../Icon'
+import type { DropdownContent, DropdownItem, DropdownSection, DropdownSeparator } from './Dropdown.types'
+import { tabChevronRight } from 'quasar-extras-svg-icons/tabler-icons-v2'
 
 interface Props {
   items: DropdownContent[]
+  /**
+   * Mobile mode — clicking an item with children emits 'submenu-navigate'
+   * instead of opening a nested QMenu.
+   * @default false
+   */
+  mobile?: boolean
 }
 
-interface Emits {
+const props = withDefaults(defineProps<Props>(), { mobile: false })
+
+const emit = defineEmits<{
   (e: 'item-click', item: DropdownItem): void
-}
+  (e: 'submenu-navigate', item: DropdownItem): void
+}>()
 
-defineProps<Props>()
-const emit = defineEmits<Emits>()
-
-// Determine if item is a regular item, separator, or section
 function isItem(content: DropdownContent): content is DropdownItem {
   return !('type' in content)
 }
@@ -34,70 +45,149 @@ function isSection(content: DropdownContent): content is DropdownSection {
 }
 
 function handleItemClick(item: DropdownItem) {
+  // Items with children are submenu triggers — handle separately per mode
+  if (item.children && item.children.length > 0) {
+    if (props.mobile) {
+      // Mobile: navigate into the submenu level
+      emit('submenu-navigate', item)
+    }
+    // Desktop: Quasar's QMenu (in the #menu slot) handles the click natively.
+    // We must NOT emit 'item-click' here or the parent dropdown would close,
+    // collapsing the nested QMenu before it can open.
+    return
+  }
   emit('item-click', item)
+}
+
+function hasEndContent(item: DropdownItem): boolean {
+  return item.endIcon !== undefined || item.end !== undefined || (item.children !== undefined && item.children.length > 0)
+}
+
+/**
+ * Build ListItem-compatible prop object, omitting any undefined values.
+ * Required because exactOptionalPropertyTypes: true prevents passing
+ * `prop: undefined` for optional `prop?: T` component props.
+ */
+function itemProps(item: DropdownItem) {
+  const result: {
+    label: string
+    clickable: true
+    caption?: string
+    disabled?: boolean
+  } = { label: item.label, clickable: true }
+  if (item.caption !== undefined) result.caption = item.caption
+  if (item.disabled !== undefined) result.disabled = item.disabled
+  return result
 }
 </script>
 
 <template>
-  <template v-for="(content, index) in items" :key="index">
-    <!-- Regular item -->
-    <q-item
-      v-if="isItem(content)"
-      clickable
-      :disable="content.disabled"
-      :class="content.class"
-      @click="handleItemClick(content)"
-    >
-      <q-item-section v-if="content.icon" avatar>
-        <Icon :name="content.icon" />
-      </q-item-section>
+  <List>
+    <template v-for="(content, index) in items" :key="index">
+      <!-- Separator -->
+      <QSeparator v-if="isSeparator(content)" class="dropdown-items__sep" />
 
-      <q-item-section>
-        <q-item-label>{{ content.label }}</q-item-label>
-        <q-item-label v-if="content.caption" caption>
+      <!-- Section with optional header -->
+      <template v-else-if="isSection(content)">
+        <QItemLabel v-if="content.caption" header class="dropdown-items__section-header">
           {{ content.caption }}
-        </q-item-label>
-      </q-item-section>
+        </QItemLabel>
 
-      <q-item-section v-if="content.endIcon || content.end" side>
-        <Icon v-if="content.endIcon" :name="content.endIcon" />
-        <span v-else-if="content.end">{{ content.end }}</span>
-      </q-item-section>
-    </q-item>
+        <ListItem
+          v-for="(item, itemIndex) in content.items"
+          :key="`s${index}-i${itemIndex}`"
+          v-bind="itemProps(item)"
+          :class="item.class"
+          @click="handleItemClick(item)"
+        >
+          <template v-if="item.icon" #prepend>
+            <Icon :name="item.icon" size="20px" />
+          </template>
 
-    <!-- Separator -->
-    <q-separator v-else-if="isSeparator(content)" />
+          <template v-if="hasEndContent(item)" #append>
+            <Icon v-if="item.endIcon !== undefined" :name="item.endIcon" size="16px" />
+            <Icon v-else-if="item.children && item.children.length > 0" :name="tabChevronRight" size="16px" class="text-muted" />
+            <span v-else-if="item.end" class="dropdown-items__shortcut">{{ item.end }}</span>
+          </template>
 
-    <!-- Section -->
-    <template v-else-if="isSection(content)">
-      <q-item-label v-if="content.caption" header>
-        {{ content.caption }}
-      </q-item-label>
+          <!-- Desktop: nested submenu via QMenu inside QItem -->
+          <template v-if="!mobile && item.children && item.children.length > 0" #menu>
+            <QMenu
+              anchor="top end"
+              self="top start"
+              :offset="[2, 0]"
+              transition-show="jump-right"
+              transition-hide="jump-left"
+            >
+              <DropdownListItems
+                :items="item.children"
+                @item-click="emit('item-click', $event)"
+              />
+            </QMenu>
+          </template>
+        </ListItem>
+      </template>
 
-      <q-item
-        v-for="(item, itemIndex) in content.items"
-        :key="`section-${index}-item-${itemIndex}`"
-        clickable
-        :disable="item.disabled"
-        :class="item.class"
-        @click="handleItemClick(item)"
+      <!-- Regular item (with optional submenu) -->
+      <ListItem
+        v-else-if="isItem(content)"
+        v-bind="itemProps(content)"
+        :class="content.class"
+        @click="handleItemClick(content)"
       >
-        <q-item-section v-if="item.icon" avatar>
-          <Icon :name="item.icon" />
-        </q-item-section>
+        <template v-if="content.icon" #prepend>
+          <Icon :name="content.icon" size="20px" />
+        </template>
 
-        <q-item-section>
-          <q-item-label>{{ item.label }}</q-item-label>
-          <q-item-label v-if="item.caption" caption>
-            {{ item.caption }}
-          </q-item-label>
-        </q-item-section>
+        <template v-if="hasEndContent(content)" #append>
+          <Icon v-if="content.endIcon !== undefined" :name="content.endIcon" size="16px" />
+          <Icon v-else-if="content.children && content.children.length > 0" :name="tabChevronRight" size="16px" class="text-muted" />
+          <span v-else-if="content.end" class="dropdown-items__shortcut">{{ content.end }}</span>
+        </template>
 
-        <q-item-section v-if="item.endIcon || item.end" side>
-          <Icon v-if="item.endIcon" :name="item.endIcon" />
-          <span v-else-if="item.end">{{ item.end }}</span>
-        </q-item-section>
-      </q-item>
+        <!-- Desktop: nested submenu via QMenu inside QItem -->
+        <template v-if="!mobile && content.children && content.children.length > 0" #menu>
+          <QMenu
+            anchor="top end"
+            self="top start"
+            :offset="[2, 0]"
+            transition-show="jump-right"
+            transition-hide="jump-left"
+          >
+            <DropdownListItems
+              :items="content.children"
+              @item-click="emit('item-click', $event)"
+            />
+          </QMenu>
+        </template>
+      </ListItem>
     </template>
-  </template>
+  </List>
 </template>
+
+<style scoped lang="scss">
+.dropdown-items {
+  &__sep {
+    background-color: var(--color-border);
+    opacity: 1;
+    margin: 4px 0;
+  }
+
+  &__section-header {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    padding-top: 12px;
+    padding-bottom: 4px;
+  }
+
+  &__shortcut {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    letter-spacing: 0;
+  }
+}
+</style>
