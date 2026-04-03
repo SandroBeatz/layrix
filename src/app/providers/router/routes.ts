@@ -39,6 +39,11 @@ const routes: RouteRecordRaw[] = [
       { path: 'avatars', name: 'avatars', component: () => import('@pages/ui-ux/AvatarsPage.vue') },
       { path: 'inputs', name: 'inputs', component: () => import('@pages/ui-ux/InputsPage.vue') },
       { path: 'dropdown', name: 'dropdown', component: () => import('@pages/ui-ux/DropdownPage.vue') },
+      {
+        path: 'breadcrumbs',
+        name: 'breadcrumbs',
+        component: () => import('@pages/ui-ux/BreadcrumbsPage.vue'),
+      },
       { path: 'icons', name: 'icons', component: () => import('@pages/icons/IconsPage.vue') },
       {
         path: 'device-test',
