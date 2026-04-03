@@ -21,9 +21,11 @@ export interface BreadcrumbItem {
   label: string;
 
   /**
-   * Icon name to display before the label
+   * Icon to display before the label
+   * Can be a Tabler icon object or string icon name
    */
-  icon?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  icon?: any;
 
   /**
    * Router link object or string path
@@ -104,10 +106,11 @@ export interface BreadcrumbsProps {
 
   /**
    * Separator between breadcrumb items
-   * Can be a string or icon name
+   * Can be a string, Tabler icon object, or icon name
    * @default '/'
    */
-  separator?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  separator?: any;
 
   /**
    * Use icon as separator

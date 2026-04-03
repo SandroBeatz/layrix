@@ -111,6 +111,20 @@ const variantClass = computed(() => {
  * Extend Quasar QBreadcrumbs with design system specific styles
  */
 
+// Add hover effects for non-active breadcrumb links
+:deep(.q-breadcrumbs__el) {
+  // Non-active links should have hover effect
+  &:not(.q-breadcrumbs__el--disable):not(:last-child) {
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--color-primary) !important;
+      text-decoration: underline;
+    }
+  }
+}
+
 // Variant-specific styling
 .breadcrumbs-variant--primary {
   // Links use primary color (set via color prop)

@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { PageContainer, Breadcrumbs, Card, Typography } from '@shared/ui';
 import type { BreadcrumbItem } from '@shared/ui';
+import {
+  tabHome,
+  tabSettings,
+  tabUser,
+  tabChevronRight,
+  tabArrowRight,
+} from 'quasar-extras-svg-icons/tabler-icons-v2';
 
 // Sample breadcrumb items
 const basicItems: BreadcrumbItem[] = [
@@ -17,9 +24,9 @@ const dashboardItems: BreadcrumbItem[] = [
 ];
 
 const iconItems: BreadcrumbItem[] = [
-  { label: 'Home', icon: 'ti-home', to: '/' },
-  { label: 'Settings', icon: 'ti-settings', to: '/settings' },
-  { label: 'Account', icon: 'ti-user' },
+  { label: 'Home', icon: tabHome, to: '/' },
+  { label: 'Settings', icon: tabSettings, to: '/settings' },
+  { label: 'Account', icon: tabUser },
 ];
 
 const externalItems: BreadcrumbItem[] = [
@@ -33,10 +40,7 @@ const externalItems: BreadcrumbItem[] = [
   <PageContainer title="Breadcrumbs" subtitle="Navigation breadcrumb component with variants">
     <div class="column q-gutter-y-lg">
       <!-- Variants Section -->
-      <Card title="Variants">
-        <template #header-right>
-          <Typography variant="caption-muted">Primary and Regular variants</Typography>
-        </template>
+      <Card title="Variants" caption="Primary and Regular variants">
         <div class="column q-gutter-y-md">
           <div class="column q-gutter-y-sm">
             <Typography variant="subtitle" weight="medium">Primary Variant</Typography>
@@ -57,10 +61,7 @@ const externalItems: BreadcrumbItem[] = [
       </Card>
 
       <!-- Separators Section -->
-      <Card title="Separators">
-        <template #header-right>
-          <Typography variant="caption-muted">Different separator styles</Typography>
-        </template>
+      <Card title="Separators" caption="Different separator styles">
         <div class="column q-gutter-y-md">
           <div class="column q-gutter-y-sm">
             <Typography variant="subtitle" weight="medium">Default Separator (/)</Typography>
@@ -74,16 +75,13 @@ const externalItems: BreadcrumbItem[] = [
 
           <div class="column q-gutter-y-sm">
             <Typography variant="subtitle" weight="medium">Icon Separator</Typography>
-            <Breadcrumbs separator="ti-chevron-right" separator-icon :items="dashboardItems" />
+            <Breadcrumbs :separator="tabChevronRight" separator-icon :items="dashboardItems" />
           </div>
         </div>
       </Card>
 
       <!-- Items with Icons Section -->
-      <Card title="Items with Icons">
-        <template #header-right>
-          <Typography variant="caption-muted">Breadcrumb items can include icons</Typography>
-        </template>
+      <Card title="Items with Icons" caption="Breadcrumb items can include icons">
         <div class="column q-gutter-y-md">
           <div class="column q-gutter-y-sm">
             <Typography variant="subtitle" weight="medium">Icons in Items</Typography>
@@ -92,16 +90,13 @@ const externalItems: BreadcrumbItem[] = [
 
           <div class="column q-gutter-y-sm">
             <Typography variant="subtitle" weight="medium">Icons + Icon Separator</Typography>
-            <Breadcrumbs separator="ti-arrow-right" separator-icon :items="iconItems" />
+            <Breadcrumbs :separator="tabArrowRight" separator-icon :items="iconItems" />
           </div>
         </div>
       </Card>
 
       <!-- Special Cases Section -->
-      <Card title="Special Cases">
-        <template #header-right>
-          <Typography variant="caption-muted">External links and other use cases</Typography>
-        </template>
+      <Card title="Special Cases" caption="External links and other use cases">
         <div class="column q-gutter-y-md">
           <div class="column q-gutter-y-sm">
             <Typography variant="subtitle" weight="medium">With External Link</Typography>
@@ -124,10 +119,7 @@ const externalItems: BreadcrumbItem[] = [
       </Card>
 
       <!-- Alignment Section -->
-      <Card title="Alignment">
-        <template #header-right>
-          <Typography variant="caption-muted">Different alignment options</Typography>
-        </template>
+      <Card title="Alignment" caption="Different alignment options">
         <div class="column q-gutter-y-md">
           <div class="column q-gutter-y-sm">
             <Typography variant="subtitle" weight="medium">Left Aligned (Default)</Typography>
