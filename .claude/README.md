@@ -47,6 +47,8 @@ Skills are invocable via `/skill-name` in Claude Code.
 | `/new-page` | `/new-page settings` | Scaffold page + route |
 | `/lint-check` | `/lint-check` | Run ESLint + TypeScript checks |
 | `/fsd-check` | `/fsd-check` | Quick FSD compliance scan |
+| `/icons` | `/icons [icon-name]` | Reference for Tabler Icons usage |
+| `/input-usage` | `/input-usage [input-type]` | Complete guide for Input component usage |
 
 ## Architecture Overview
 
