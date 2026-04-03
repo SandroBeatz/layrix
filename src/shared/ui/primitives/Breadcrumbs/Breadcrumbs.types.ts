@@ -106,17 +106,10 @@ export interface BreadcrumbsProps {
 
   /**
    * Separator between breadcrumb items
-   * Can be a string, Tabler icon object, or icon name
+   * Can be a string character or symbol
    * @default '/'
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  separator?: any;
-
-  /**
-   * Use icon as separator
-   * @default false
-   */
-  separatorIcon?: boolean;
+  separator?: string;
 
   /**
    * Active color for QBreadcrumbs

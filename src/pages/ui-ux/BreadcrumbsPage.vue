@@ -1,13 +1,7 @@
 <script setup lang="ts">
 import { PageContainer, Breadcrumbs, Card, Typography } from '@shared/ui';
 import type { BreadcrumbItem } from '@shared/ui';
-import {
-  tabHome,
-  tabSettings,
-  tabUser,
-  tabChevronRight,
-  tabArrowRight,
-} from 'quasar-extras-svg-icons/tabler-icons-v2';
+import { tabHome, tabSettings, tabUser } from 'quasar-extras-svg-icons/tabler-icons-v2';
 
 // Sample breadcrumb items
 const basicItems: BreadcrumbItem[] = [
@@ -74,8 +68,8 @@ const externalItems: BreadcrumbItem[] = [
           </div>
 
           <div class="column q-gutter-y-sm">
-            <Typography variant="subtitle" weight="medium">Icon Separator</Typography>
-            <Breadcrumbs :separator="tabChevronRight" separator-icon :items="dashboardItems" />
+            <Typography variant="subtitle" weight="medium">Chevron Separator (›)</Typography>
+            <Breadcrumbs separator="›" :items="dashboardItems" />
           </div>
         </div>
       </Card>
@@ -86,11 +80,6 @@ const externalItems: BreadcrumbItem[] = [
           <div class="column q-gutter-y-sm">
             <Typography variant="subtitle" weight="medium">Icons in Items</Typography>
             <Breadcrumbs :items="iconItems" />
-          </div>
-
-          <div class="column q-gutter-y-sm">
-            <Typography variant="subtitle" weight="medium">Icons + Icon Separator</Typography>
-            <Breadcrumbs :separator="tabArrowRight" separator-icon :items="iconItems" />
           </div>
         </div>
       </Card>

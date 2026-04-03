@@ -45,28 +45,19 @@ import type { BreadcrumbsProps } from './Breadcrumbs.types';
 const props = withDefaults(defineProps<BreadcrumbsProps>(), {
   variant: 'regular',
   separator: '/',
-  separatorIcon: false,
   gutter: 'sm',
   align: 'left',
 });
 
-// Map variant to text color for non-active items
+// Non-active items should use default text color (foreground)
+// Only on hover should they change to primary
 const qColor = computed(() => {
-  const colorMap: Record<typeof props.variant, string> = {
-    primary: 'primary',
-    regular: 'foreground',
-  };
-  return colorMap[props.variant];
+  return 'foreground';
 });
 
-// Active item should always use muted-foreground for both variants
+// Active item should use text-muted color
 const qActiveColor = computed(() => {
-  return props.activeColor || 'muted-foreground';
-});
-
-// Separator - use icon name if separator-icon is true
-const qSeparator = computed(() => {
-  return props.separator;
+  return props.activeColor || 'text-muted';
 });
 
 // Apply variant class for additional styling
@@ -77,13 +68,15 @@ const variantClass = computed(() => {
 
 <template>
   <QBreadcrumbs
-    :separator="qSeparator"
-    :separator-icon="separatorIcon"
     :active-color="qActiveColor"
     :gutter="gutter"
     :align="align"
     :class="variantClass"
   >
+    <template #separator>
+      <span>{{ separator }}</span>
+    </template>
+
     <QBreadcrumbsEl
       v-for="(item, index) in items"
       :key="index"
@@ -113,26 +106,39 @@ const variantClass = computed(() => {
 
 // Add hover effects for non-active breadcrumb links
 :deep(.q-breadcrumbs__el) {
-  // Non-active links should have hover effect
+  // All breadcrumb elements should be in foreground color by default
+  color: var(--color-foreground);
+
+  // Non-active links (all except last) should have hover effect
   &:not(.q-breadcrumbs__el--disable):not(:last-child) {
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
 
     &:hover {
       color: var(--color-primary) !important;
       text-decoration: underline;
     }
   }
+
+  // Last item (active) should be text-muted
+  &:last-child {
+    color: var(--color-text-muted) !important;
+  }
+}
+
+// Ensure separator icons render properly
+:deep(.q-breadcrumbs__separator) {
+  color: var(--color-foreground);
 }
 
 // Variant-specific styling
 .breadcrumbs-variant--primary {
-  // Links use primary color (set via color prop)
-  // Active items use muted-foreground (set via active-color prop)
+  // Links use foreground color by default, primary on hover
+  // Active items use text-muted
 }
 
 .breadcrumbs-variant--regular {
-  // Links use foreground color (set via color prop)
-  // Active items use muted-foreground (set via active-color prop)
+  // Links use foreground color by default, primary on hover
+  // Active items use text-muted
 }
 </style>
