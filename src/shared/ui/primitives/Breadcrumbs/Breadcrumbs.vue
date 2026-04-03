@@ -49,30 +49,14 @@ const props = withDefaults(defineProps<BreadcrumbsProps>(), {
   align: 'left',
 });
 
-// Non-active items should use default text color (foreground)
-// Only on hover should they change to primary
-const qColor = computed(() => {
-  return 'foreground';
-});
-
 // Active item should use text-muted color
 const qActiveColor = computed(() => {
   return props.activeColor || 'text-muted';
 });
-
-// Apply variant class for additional styling
-const variantClass = computed(() => {
-  return `breadcrumbs-variant--${props.variant}`;
-});
 </script>
 
 <template>
-  <QBreadcrumbs
-    :active-color="qActiveColor"
-    :gutter="gutter"
-    :align="align"
-    :class="variantClass"
-  >
+  <QBreadcrumbs :active-color="qActiveColor" :gutter="gutter" :align="align">
     <template #separator>
       <span>{{ separator }}</span>
     </template>
@@ -93,7 +77,6 @@ const variantClass = computed(() => {
       :style="item.style"
       :replace="item.replace"
       :append="item.append"
-      :color="qColor"
     />
   </QBreadcrumbs>
 </template>
@@ -129,16 +112,5 @@ const variantClass = computed(() => {
 // Ensure separator icons render properly
 :deep(.q-breadcrumbs__separator) {
   color: var(--color-foreground);
-}
-
-// Variant-specific styling
-.breadcrumbs-variant--primary {
-  // Links use foreground color by default, primary on hover
-  // Active items use text-muted
-}
-
-.breadcrumbs-variant--regular {
-  // Links use foreground color by default, primary on hover
-  // Active items use text-muted
 }
 </style>
