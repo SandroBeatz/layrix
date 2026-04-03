@@ -56,7 +56,12 @@ const qActiveColor = computed(() => {
 </script>
 
 <template>
-  <QBreadcrumbs :active-color="qActiveColor" :gutter="gutter" :align="align">
+  <QBreadcrumbs
+    color="foreground"
+    :active-color="qActiveColor"
+    :gutter="gutter"
+    :align="align"
+  >
     <template #separator>
       <span>{{ separator }}</span>
     </template>
@@ -89,9 +94,6 @@ const qActiveColor = computed(() => {
 
 // Add hover effects for non-active breadcrumb links
 :deep(.q-breadcrumbs__el) {
-  // All breadcrumb elements should be in foreground color by default
-  color: var(--color-foreground);
-
   // Non-active links (all except last) should have hover effect
   &:not(.q-breadcrumbs__el--disable):not(:last-child) {
     cursor: pointer;
@@ -102,14 +104,9 @@ const qActiveColor = computed(() => {
       text-decoration: underline;
     }
   }
-
-  // Last item (active) should be text-muted
-  &:last-child {
-    color: var(--color-text-muted) !important;
-  }
 }
 
-// Ensure separator icons render properly
+// Ensure separators use foreground color
 :deep(.q-breadcrumbs__separator) {
   color: var(--color-foreground);
 }
