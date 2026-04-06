@@ -8,10 +8,11 @@
 
 export interface DropdownItem {
   /**
-   * Icon to display before the label
-   * Can be any Quasar icon or custom icon
+   * Icon to display before the label.
+   * Use Tabler icons from 'quasar-extras-svg-icons/tabler-icons-v2'.
    */
-  icon?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  icon?: any
 
   /**
    * Main text of the item
@@ -24,12 +25,14 @@ export interface DropdownItem {
   caption?: string
 
   /**
-   * Icon to display after the label
+   * Icon to display after the label.
+   * Use Tabler icons from 'quasar-extras-svg-icons/tabler-icons-v2'.
    */
-  endIcon?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  endIcon?: any
 
   /**
-   * Custom content at the end of the item
+   * Custom text content at the end of the item (e.g. keyboard shortcut)
    */
   end?: string
 
@@ -53,6 +56,13 @@ export interface DropdownItem {
    * @default true
    */
   closeOnClick?: boolean
+
+  /**
+   * Nested submenu items.
+   * On desktop a nested QMenu opens on hover/click.
+   * On mobile the dialog navigates into the submenu level with a back button.
+   */
+  children?: DropdownContent[]
 }
 
 /**
