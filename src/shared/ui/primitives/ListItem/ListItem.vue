@@ -66,6 +66,8 @@ const slots = defineSlots<{
   caption?(): unknown;
   /** Fully replaces the content area */
   default?(): unknown;
+  /** Direct child of QItem — use for nested QMenu submenu support */
+  menu?(): unknown;
 }>();
 
 function handleClick(event: Event) {
@@ -124,6 +126,9 @@ function handleClick(event: Event) {
     <QItemSection v-if="hasAppend" side>
       <slot name="append" />
     </QItemSection>
+
+    <!-- Menu slot — direct child of QItem, used for nested QMenu submenu support -->
+    <slot name="menu" />
   </QItem>
 </template>
 
