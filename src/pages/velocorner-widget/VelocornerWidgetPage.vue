@@ -23,8 +23,16 @@ onUnmounted(() => {
     title="Velocorner Widget V3"
     subtitle="An example page for Velocorner Widget V3 integration"
   >
-    <velocorner-widget api-key="9cb20599-17c1-435c-82ee-4241d6f4b696"></velocorner-widget>
+    <div class="widget-container">
+      <velocorner-widget api-key="9cb20599-17c1-435c-82ee-4241d6f4b696"></velocorner-widget>
+    </div>
   </PageContainer>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.widget-container {
+  width: 100%;
+  max-width: 1190px;
+  margin: 0 auto;
+}
+</style>
